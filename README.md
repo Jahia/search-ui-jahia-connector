@@ -1,1 +1,1 @@
-# search-ui-jahia-connector
+# Search UI Jahia Connector

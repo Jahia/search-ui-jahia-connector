@@ -1,0 +1,11 @@
+/.classpath
+/.project
+/.settings
+/node_modules
+/node
+/dist
+.idea/
+*.iml
+*.ipr
+report.*
+yarn-error.log
