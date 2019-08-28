@@ -17,7 +17,7 @@ class JahiaSearchAPIConnector {
     }
 
     onSearch(state, queryConfig) {
-        console.log(state, queryConfig);
+        console.log("state",state,"query", queryConfig);
         const query = adaptRequest(state, queryConfig);
         return request(this.apiToken, this.baseURL, 'POST', query).then(json =>
             adaptResponse(json, state.resultsPerPage)
@@ -48,7 +48,6 @@ class JahiaSearchAPIConnector {
                 "search-ui-jahia-connector: Site Search does not support tags on autocompleteClick"
             );
         }
-        console.log(query, documentId);
         //Todo integrate with CXS
     }
 }
