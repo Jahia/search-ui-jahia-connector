@@ -90,8 +90,10 @@ const adaptedRequest = `query {
                 text: "test"}, 
                 nodeTypeCriteria:{
                     nodeType:"jnt:page"
-                }, 
-                limit: 10}) {
+                    }, 
+                limit: 10,
+                offset: 3
+                }) {
                     totalHits
                     took
                     hits {

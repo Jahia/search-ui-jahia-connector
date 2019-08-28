@@ -23,6 +23,34 @@ class JahiaSearchAPIConnector {
             adaptResponse(json, state.resultsPerPage)
         );
     }
+
+    async onAutocomplete({searchTerm}, queryConfig) {
+        if (queryConfig.results) {
+            const query = adaptRequest(
+                {searchTerm},
+                queryConfig.results
+            );
+
+            return request(this.apiToken, this.baseURL, 'POST', query).then(json => ({
+                autocompletedResults: adaptResponse(json, queryConfig.results.resultsPerPage).results
+            }));
+        }
+        if (queryConfig.suggestions) {
+            console.warn(
+                'search-ui-jahia-connector: Site Search does support query suggestions on autocomplete'
+            );
+        }
+    }
+
+    onAutocompleteResultClick({ query, documentId, tags }) {
+        if (tags) {
+            console.warn(
+                "search-ui-jahia-connector: Site Search does not support tags on autocompleteClick"
+            );
+        }
+        console.log(query, documentId);
+        //Todo integrate with CXS
+    }
 }
 
 export default JahiaSearchAPIConnector;

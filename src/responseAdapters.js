@@ -3,12 +3,14 @@ export function getFacets() {
 }
 
 export function getResults(hits) {
-    return hits.map(hit => {
-        const result = {
+    return hits.filter(hit => {
+        return hit.node !== null;
+    }).map(hit => {
+        return {
             link: {
                 raw: hit.link
             },
-            updatedAt : {
+            updatedAt: {
                 raw: hit.lastModified
             },
             excerpt: {
@@ -21,7 +23,6 @@ export function getResults(hits) {
                 raw: hit.node.uuid
             }
         };
-        return result;
     });
 
 }

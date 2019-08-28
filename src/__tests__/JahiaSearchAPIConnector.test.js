@@ -39,3 +39,27 @@ describe('#onSearch', () => {
         expect(response).toMatchSnapshot();
     });
 });
+
+describe('#onAutocomplete', () => {
+    function subject({
+        state,
+        queryConfig = {
+            results: {}
+        }
+    }) {
+        const connector = new JahiaSearchAPIConnector({
+            ...params
+        });
+        return connector.onAutocomplete(state, queryConfig);
+    }
+
+    it('will correctly format an API response', async () => {
+        const response = await subject({
+            state: {},
+            queryConfig: {
+                results: {}
+            }
+        });
+        expect(response).toMatchSnapshot();
+    });
+});
