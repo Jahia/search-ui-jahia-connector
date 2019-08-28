@@ -1,11 +1,11 @@
 
 {
-  "name": "@elastic/search-ui-site-search-connector",
+  "name": "@jahia/search-ui-jahia-connector",
   "version": "1.0.0",
-  "description": "A Search UI connector for Elastic's Site Search Service",
+  "description": "A Search UI connector for Jahia GraphQL Search API",
   "license": "MIT",
   "main": "lib",
-  "module": "es",
+  "module": "jahia",
   "author": "Jahia Team",
   "sideEffects": false,
   "directories": {
