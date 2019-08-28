@@ -1,0 +1,261 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#onSearch will correctly format an API response 1`] = `
+Object {
+  "requestId": "",
+  "results": Array [
+    Object {
+      "excerpt": Object {
+        "snippet": "Jahia <em>cluster</em> <em>setup</em> ... The Jahia Team Jahia <em>cluster</em> <em>setup</em> Here are the steps followed to install an Jahia <em>cluster</em> for a production environment. We will also detail",
+      },
+      "id": Object {
+        "raw": undefined,
+      },
+      "link": Object {
+        "raw": "http://localhost/cms/render/default/en/sites/academy/home/documentation/developer/dx/techwiki/misc/dx-cluster-setup.html",
+      },
+      "title": Object {
+        "raw": "Jahia cluster setup",
+      },
+      "updatedAt": Object {
+        "raw": "Tue Jul 16 04:07:26 EDT 2019",
+      },
+    },
+    Object {
+      "excerpt": Object {
+        "snippet": "ElasticSearch / Unomi <em>cluster</em> <em>setup</em> ... The Jahia Team ElasticSearch / Unomi <em>cluster</em> <em>setup</em> Please note that the following instructions are not 100% valid for JExperience 1.10.1 and Apache",
+      },
+      "id": Object {
+        "raw": undefined,
+      },
+      "link": Object {
+        "raw": "http://localhost/cms/render/default/en/sites/academy/home/documentation/developer/dx/techwiki/misc/elasticsearch--unomi-cluster-setup.html",
+      },
+      "title": Object {
+        "raw": "ElasticSearch / Unomi cluster setup",
+      },
+      "updatedAt": Object {
+        "raw": "Wed Jul 17 03:39:23 EDT 2019",
+      },
+    },
+    Object {
+      "excerpt": Object {
+        "snippet": "6 - <em>Cluster</em> <em>setup</em> ... The Jahia Team 6 - <em>Cluster</em> <em>setup</em> 6.1 Discovery
+
+6.1.1 Overview
+
+Discovery must be configured on every layer of the <em>cluster</em> architecture",
+      },
+      "id": Object {
+        "raw": undefined,
+      },
+      "link": Object {
+        "raw": "http://localhost/cms/render/default/en/sites/academy/home/legacy-1/marketing-factory/18/technical/installation-configuration-and-f/6---cluster-setup.html",
+      },
+      "title": Object {
+        "raw": "6 - Cluster setup",
+      },
+      "updatedAt": Object {
+        "raw": "Tue Jul 24 08:46:50 EDT 2018",
+      },
+    },
+    Object {
+      "excerpt": Object {
+        "snippet": " during the Digital Experience Manager configuration wizard (<em>cluster</em> installation), please restore it at the appropriate location.
+
+Remove the 2 “lock ...  (DX 7.2.1.1+)
+
+The safe backup restore here is only relevant, when you are restoring a DX <em>clustered</em> backup at another infrastructure, say cloning",
+      },
+      "id": Object {
+        "raw": undefined,
+      },
+      "link": Object {
+        "raw": "http://localhost/cms/render/default/en/sites/academy/home/documentation/system-administrator/dx/72/technical/configuration-and-fine-tuning/faq.html",
+      },
+      "title": Object {
+        "raw": "FAQs",
+      },
+      "updatedAt": Object {
+        "raw": "Tue Apr 16 14:03:29 EDT 2019",
+      },
+    },
+    Object {
+      "excerpt": Object {
+        "snippet": "
+|_________indexing_configuration_version.xml
+
+If you have chosen an alternative location of the datastore folder during the Jahia configuration wizard (<em>cluster</em> installation ...  keep the former indexes to save time.
+
+Safe backup restore
+
+The safe backup restore here is only relevant, when you are restoring a Jahia <em>clustered</em>",
+      },
+      "id": Object {
+        "raw": undefined,
+      },
+      "link": Object {
+        "raw": "http://localhost/cms/render/default/en/sites/academy/home/documentation/system-administrator/dx/73/technical/configuration-and-fine-tuning/faq.html",
+      },
+      "title": Object {
+        "raw": "FAQs",
+      },
+      "updatedAt": Object {
+        "raw": "Mon Jul 15 10:38:44 EDT 2019",
+      },
+    },
+    Object {
+      "excerpt": Object {
+        "snippet": " during the Digital Experience Manager configuration wizard (<em>cluster</em> installation), please restore it at the appropriate location.
+
+Remove the 2 “lock ...  of a restored DX instance.
+
+It includes currently:
+
+
+ the purge of the JGROUPSPING database table data, which is responsible for the <em>cluster</em> membership",
+      },
+      "id": Object {
+        "raw": undefined,
+      },
+      "link": Object {
+        "raw": "http://localhost/cms/render/default/en/sites/academy/trash/dx-new-docs-do-not-suppress/technical/configuration-and-fine-tuning/faq.html",
+      },
+      "title": Object {
+        "raw": "FAQ",
+      },
+      "updatedAt": Object {
+        "raw": "Mon Feb 19 04:18:00 EST 2018",
+      },
+    },
+    Object {
+      "excerpt": Object {
+        "snippet": " for <em>clustering</em> settings. Since Digital Experience Manager 7.0.0.2 the runtime data and configuration files are located outside the Web application ...  features and services.
+ jahia.node.properties – configuration file for the <em>clustering</em> options
+ license.xml – is a file with your current Digital",
+      },
+      "id": Object {
+        "raw": undefined,
+      },
+      "link": Object {
+        "raw": "http://localhost/cms/render/default/en/sites/academy/trash/dx-new-docs-do-not-suppress/technical/configuration-and-fine-tuning/configuring.html",
+      },
+      "title": Object {
+        "raw": "Configuring",
+      },
+      "updatedAt": Object {
+        "raw": "Mon Feb 19 04:18:05 EST 2018",
+      },
+    },
+    Object {
+      "excerpt": Object {
+        "snippet": " configuration options are gathered in the jahia.properties and jahia.node.properties files. The latter one is responsible only for <em>clustering</em> settings. Since ...  and services.
+ jahia.node.properties – configuration file for the <em>clustering</em> options
+ license.xml – is a file with your current Digital Experience Manager",
+      },
+      "id": Object {
+        "raw": undefined,
+      },
+      "link": Object {
+        "raw": "http://localhost/cms/render/default/en/sites/academy/home/documentation/system-administrator/dx/72/technical/configuration-and-fine-tuning/configuring.html",
+      },
+      "title": Object {
+        "raw": "Configuring DX features",
+      },
+      "updatedAt": Object {
+        "raw": "Tue Apr 16 14:02:29 EDT 2019",
+      },
+    },
+    Object {
+      "excerpt": Object {
+        "snippet": " are gathered in the jahia.properties and jahia.node.properties files. The latter one is responsible only for <em>clustering</em> settings. The runtime data ...  and services.
+ jahia.node.properties – configuration file for the <em>clustering</em> options
+ license.xml – is a file with your current Jahia license",
+      },
+      "id": Object {
+        "raw": undefined,
+      },
+      "link": Object {
+        "raw": "http://localhost/cms/render/default/en/sites/academy/home/documentation/system-administrator/dx/73/technical/configuration-and-fine-tuning/configuring.html",
+      },
+      "title": Object {
+        "raw": "Configuring Jahia features",
+      },
+      "updatedAt": Object {
+        "raw": "Tue Jul 16 04:07:26 EDT 2019",
+      },
+    },
+    Object {
+      "excerpt": Object {
+        "snippet": "",
+      },
+      "id": Object {
+        "raw": undefined,
+      },
+      "link": Object {
+        "raw": "http://localhost/cms/render/default/en/sites/academy/trash/dx-new-docs-do-not-suppress/development/development-best-practices.html",
+      },
+      "title": Object {
+        "raw": "Development Best Practices",
+      },
+      "updatedAt": Object {
+        "raw": "Mon Feb 19 04:18:05 EST 2018",
+      },
+    },
+    Object {
+      "excerpt": Object {
+        "snippet": "",
+      },
+      "id": Object {
+        "raw": undefined,
+      },
+      "link": Object {
+        "raw": "http://localhost/cms/render/default/en/sites/academy/home/documentation/developer/dx/72/development/development-best-practices.html",
+      },
+      "title": Object {
+        "raw": "Development best practices",
+      },
+      "updatedAt": Object {
+        "raw": "Tue Apr 16 14:12:46 EDT 2019",
+      },
+    },
+    Object {
+      "excerpt": Object {
+        "snippet": "",
+      },
+      "id": Object {
+        "raw": undefined,
+      },
+      "link": Object {
+        "raw": "http://localhost/cms/render/default/en/sites/academy/home/documentation/developer/dx/73/development/development-best-practices.html",
+      },
+      "title": Object {
+        "raw": "Development best practices",
+      },
+      "updatedAt": Object {
+        "raw": "Tue Jul 16 08:36:55 EDT 2019",
+      },
+    },
+    Object {
+      "excerpt": Object {
+        "snippet": "AELB-26 qa At installation time, Jahia generate a UUID to ensure that each <em>cluster</em> node id is unique.
+From https://wiki.apache.org/jackrabbit ... /<em>Clustering</em>#Unique_Cluster_Node_ID it is safe to use any kind of identifier for this property as long as this ID is unique on each <em>cluster</em> nodes. It could",
+      },
+      "id": Object {
+        "raw": undefined,
+      },
+      "link": Object {
+        "raw": "http://localhost/cms/render/default/en/sites/academy/home/training--kb/how-to.html",
+      },
+      "title": Object {
+        "raw": "Knowledge Base",
+      },
+      "updatedAt": Object {
+        "raw": "Tue Aug 06 09:59:46 EDT 2019",
+      },
+    },
+  ],
+  "totalPages": NaN,
+  "totalResults": 13,
+}
+`;

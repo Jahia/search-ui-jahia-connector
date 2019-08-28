@@ -1,1 +1,1 @@
-export { default } from "./JahiaSearchUIConnector";
+export { default } from "./JahiaSearchAPIConnector";
