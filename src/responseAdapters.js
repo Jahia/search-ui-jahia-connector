@@ -24,5 +24,4 @@ export function getResults(hits) {
             }
         };
     });
-
 }

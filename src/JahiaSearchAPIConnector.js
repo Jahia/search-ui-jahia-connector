@@ -6,7 +6,7 @@ class JahiaSearchAPIConnector {
     /**
      * @typedef Options
      * @param  {string} apiToken Credential found in your Jahia Tools
-     * @param  {string} baseURL  URL of your jahia installation
+     * @param  {string} baseURL  URL of your Jahia installation
      */
     constructor({
         apiToken,
@@ -48,7 +48,7 @@ class JahiaSearchAPIConnector {
                 "search-ui-jahia-connector: Site Search does not support tags on autocompleteClick"
             );
         }
-        //Todo integrate with CXS
+        //Todo integrate with JCustomer
     }
 }
 
