@@ -132,7 +132,7 @@ module.exports = {
     // snapshotSerializers: [],
 
     // The test environment that will be used for testing
-    testEnvironment: 'node'
+    testEnvironment: 'node',
 
     // Options that will be passed to the testEnvironment
     // testEnvironmentOptions: {},
@@ -156,6 +156,7 @@ module.exports = {
 
     // This option allows the use of a custom results processor
     // testResultsProcessor: null,
+    "testResultsProcessor": "jest-teamcity-reporter"
 
     // This option allows use of a custom test runner
     // testRunner: "jasmine2",
