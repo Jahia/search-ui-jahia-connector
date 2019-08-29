@@ -2,11 +2,18 @@ import adaptRequest from '../requestAdapter';
 
 describe('adaptRequest', () => {
     it('adapts request', () => {
-        expect(adaptRequest(request, queryConfig)).toEqual(
+        expect(adaptRequest(requestOptions, request, queryConfig)).toEqual(
             adaptedRequest
         );
     });
 });
+
+const requestOptions = {
+    siteKey: "academy",
+    language: "en",
+    workspace: "LIVE",
+    nodeType:"jnt:page"
+};
 
 const queryConfig = {
     facets: {
