@@ -45,7 +45,13 @@ class JahiaSearchAPIConnector {
 
     async onAutocomplete({searchTerm}, queryConfig) {
         if (queryConfig.results) {
-            const query = adaptRequest(
+            let requestOptions = {
+                siteKey: this.siteKey,
+                language: this.language,
+                workspace: this.workspace,
+                nodeType: this.nodeType
+            };
+            const query = adaptRequest(requestOptions,
                 {searchTerm},
                 queryConfig.results
             );
