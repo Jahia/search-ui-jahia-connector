@@ -44,6 +44,11 @@ class JahiaSearchAPIConnector {
     }
 
     async onAutocomplete({searchTerm}, queryConfig) {
+        if (queryConfig.suggestions) {
+            console.warn(
+                'search-ui-jahia-connector: Site Search does support query suggestions on autocomplete'
+            );
+        }
         if (queryConfig.results) {
             let requestOptions = {
                 siteKey: this.siteKey,
@@ -59,11 +64,6 @@ class JahiaSearchAPIConnector {
             return request(this.apiToken, this.baseURL, 'POST', query).then(json => ({
                 autocompletedResults: adaptResponse(json, queryConfig.results.resultsPerPage).results
             }));
-        }
-        if (queryConfig.suggestions) {
-            console.warn(
-                'search-ui-jahia-connector: Site Search does support query suggestions on autocomplete'
-            );
         }
     }
 

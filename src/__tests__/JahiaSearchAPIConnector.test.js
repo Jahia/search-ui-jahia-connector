@@ -62,4 +62,14 @@ describe('#onAutocomplete', () => {
         });
         expect(response).toMatchSnapshot();
     });
+
+    it('will not return anything for suggestions', async () => {
+        const response = await subject({
+            state: {},
+            queryConfig: {
+                suggestions: {}
+            }
+        });
+        expect(response).toMatchSnapshot();
+    });
 });
