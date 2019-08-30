@@ -73,3 +73,24 @@ describe('#onAutocomplete', () => {
         expect(response).toMatchSnapshot();
     });
 });
+
+describe("#onAutocompleteResultClick", () => {
+    function subject(clickData) {
+        const connector = new JahiaSearchAPIConnector(params);
+        return connector.onAutocompleteResultClick(clickData);
+    }
+
+    it("will call the API with the correct body params", async () => {
+        const query = "test";
+        const documentId = "12345";
+        const tags = "12345";
+
+        const response = await subject({
+            query,
+            documentId,
+            tags
+        });
+
+        expect(response).toMatchSnapshot();
+    });
+});

@@ -259,6 +259,8 @@ From https://wiki.apache.org/jackrabbit ... /<em>Clustering</em>#Unique_Cluster_
 
 exports[`#onAutocomplete will not return anything for suggestions 1`] = `undefined`;
 
+exports[`#onAutocompleteResultClick will call the API with the correct body params 1`] = `undefined`;
+
 exports[`#onSearch will correctly format an API response 1`] = `
 Object {
   "requestId": "",
