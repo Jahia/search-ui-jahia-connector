@@ -16,9 +16,12 @@ beforeEach(() => {
 
 const apiToken = 12345;
 const baseURL = 'http://localhost:8080';
+const siteKey = 'localhost';
+
 const params = {
     apiToken,
-    baseURL
+    baseURL,
+    siteKey
 };
 
 it('can be initialized', () => {
