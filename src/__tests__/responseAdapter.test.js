@@ -72,7 +72,7 @@ const emptyResponse = {
             'searches': {
                 'search': {
                     'totalHits': 0,
-                    'took': '13 milliseconds',
+                    'took': '0 milliseconds',
                     'hits': []
                 }
             }
@@ -81,7 +81,5 @@ const emptyResponse = {
 };
 const adaptedEmptyResponse = {
     requestId: '',
-    results: [],
-    totalPages: 0,
-    totalResults: 0
+    results: []
 };
