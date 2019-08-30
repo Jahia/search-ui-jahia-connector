@@ -21,6 +21,11 @@ class JahiaSearchAPIConnector {
         workspace = Constants.WORKSPACE,
         nodeType = Constants.NODE_FILTER.TYPE
     }) {
+        if (!apiToken || !baseURL  || !siteKey) {
+            throw Error(
+                "apiToken, baseURL, and siteKey are required"
+            );
+        }
         this.apiToken = apiToken;
         this.baseURL = baseURL;
         this.siteKey = siteKey;
