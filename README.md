@@ -14,7 +14,7 @@ Sandbox
 <!--
     A one-liner about the project, like a subtitle. For example: Jahia Digital Experience Manager Core
 -->
-<p align="center">A connector based on [Search UI Site Search Connector](https://github.com/elastic/search-ui/tree/master/packages/search-ui-site-search-connector) by [Elastic](https://elastic.co)</p>
+<p align="center">A connector based on <a href="https://github.com/elastic/search-ui/tree/master/packages/search-ui-site-search-connector">Search UI Site Search Connector</a> by <a href="https://elastic.co">[Elastic]</a></p>
 
 <!--
     A short technical description (not more than one paragraph) about the project, eventually with tech/tools/framework used.
