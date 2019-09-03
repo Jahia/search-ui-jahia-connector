@@ -1,5 +1,5 @@
 import adaptRequest, {buildFields} from '../requestAdapter';
-import Field, {FieldType} from "../field";
+import {Field, FieldType} from "../field";
 
 
 describe('adaptRequest', () => {

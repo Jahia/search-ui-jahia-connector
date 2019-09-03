@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A Search UI connector for Jahia GraphQL Search API",
   "license": "MIT",
-  "main": "lib",
+  "main": "dist",
   "module": "jahia",
   "author": "Jahia Team",
   "sideEffects": false,

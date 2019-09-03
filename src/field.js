@@ -3,9 +3,7 @@ const FieldType = {
     NODE: 'node'
 };
 
-export {FieldType};
-
-export default class Field {
+class Field {
     /**
      *
      * @param type {FieldType} The type of field (ESHit or JCR)
@@ -52,3 +50,5 @@ export default class Field {
         result[this.alias ? this.alias : this.name.replace(':', '_')] = field;
     }
 }
+
+export {Field, FieldType};

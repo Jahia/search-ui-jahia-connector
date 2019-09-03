@@ -1,4 +1,4 @@
-import Field, {FieldType} from "./field";
+import {Field, FieldType} from "./field";
 
 const buildFields = (fields) => {
     let fieldsConcatenated = {

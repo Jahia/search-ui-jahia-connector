@@ -1,5 +1,5 @@
 import adaptResponse from '../responseAdapter';
-import Field, {FieldType} from "../field";
+import {Field, FieldType} from "../field";
 
 describe('adaptResponse', () => {
     describe('adaptResponse', () => {
