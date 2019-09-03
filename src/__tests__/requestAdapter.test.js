@@ -1,6 +1,6 @@
-import adaptRequest, {buildFields} from '../requestAdapter';
-import {Field, FieldType} from "../field";
-
+import adaptRequest from '../requestAdapter';
+import {Field, FieldType} from '../field';
+import {parse, print} from 'graphql';
 
 describe('adaptRequest', () => {
     it('adapts request', () => {
@@ -11,10 +11,10 @@ describe('adaptRequest', () => {
 });
 
 const requestOptions = {
-    siteKey: "academy",
-    language: "en",
-    workspace: "LIVE",
-    nodeType:"jnt:page"
+    siteKey: 'academy',
+    language: 'en',
+    workspace: 'LIVE',
+    nodeType: 'jnt:page'
 };
 
 const queryConfig = {
@@ -24,13 +24,17 @@ const queryConfig = {
             size: 30
         }
     },
+    // eslint-disable-next-line camelcase
     result_fields: [
         new Field(FieldType.HIT, 'link'),
         new Field(FieldType.HIT, 'displayableName', 'title'),
         new Field(FieldType.HIT, 'excerpt', null, true),
         new Field(FieldType.HIT, 'score'),
-        new Field(FieldType.NODE, 'jcr:created', 'created')
+        new Field(FieldType.NODE, 'jcr:created', 'created'),
+        new Field(FieldType.REFERENCE_AS_PATH, 'logo', 'logo'),
+        new Field(FieldType.REFERENCE_AS_VALUE, 'industryCat', 'industry')
     ],
+    // eslint-disable-next-line camelcase
     search_fields: {
         title: {},
         description: {},
@@ -44,13 +48,17 @@ const request = {
     current: 4,
     sortDirection: 'asc',
     sortField: 'title',
+    // eslint-disable-next-line camelcase
     result_fields: [
         new Field(FieldType.HIT, 'link'),
         new Field(FieldType.HIT, 'displayableName', 'title'),
         new Field(FieldType.HIT, 'excerpt', null, true),
         new Field(FieldType.HIT, 'score'),
-        new Field(FieldType.NODE, 'jcr:created', 'created')
+        new Field(FieldType.NODE, 'jcr:created', 'created'),
+        new Field(FieldType.REFERENCE_AS_PATH, 'logo', 'logo'),
+        new Field(FieldType.REFERENCE_AS_VALUE, 'industryCat', 'industry')
     ],
+    // eslint-disable-next-line camelcase
     search_fields: {
         title: {},
         description: {},
@@ -100,40 +108,35 @@ const request = {
     ]
 };
 
-let resultFields = "results" in queryConfig ? queryConfig.results.result_fields : queryConfig.result_fields;
-let resolvedRequestFields = buildFields(Object.keys(resultFields).reduce((acc, curr) => {
-    let field = resultFields[curr];
-    if (field instanceof Field) {
-        acc.push(field);
-    }
-    return acc;
-}, []));
-
-const adaptedRequest = `query {
-    jcr {
+const adaptedRequest = print(parse(`{
+      jcr {
         searches(siteKey: "academy", language: "en", workspace: LIVE) {
-            search(searchInput: {searchCriteria: {
-                text: "test"}, 
-                nodeTypeCriteria:{
-                    nodeType:"jnt:page"
-                    }, 
-                limit: 10,
-                offset: 3
-                }) {
-                    totalHits
-                    took
-                    hits {
-                        ${resolvedRequestFields.hitFields}
-                        score
-                        displayableName
-                        excerpt
-                        link
-                        node {
-                            uuid
-                            ${resolvedRequestFields.nodeFields}
-                        }                  
-                    }
+          search(searchInput: {searchCriteria: {text: "test"}, nodeTypeCriteria: {nodeType: "jnt:page"}, limit: 10, offset: 3}) {
+            totalHits
+            took
+            hits {
+              link
+              displayableName
+              excerpt
+              score
+              node {
+                uuid
+                jcr_created: property(name: "jcr:created") {
+                  value
                 }
+                logo: property(name: "logo") {
+                  refNode {
+                    path
+                  }
+                }
+                industryCat: property(name: "industryCat") {
+                  refNode {
+                    displayName
+                  }
+                }
+              }
             }
           }
-        }`;
+        }
+      }
+    }`));

@@ -1,6 +1,8 @@
 const FieldType = {
     HIT: 'hit',
-    NODE: 'node'
+    NODE: 'node',
+    REFERENCE_AS_VALUE: 'refValue',
+    REFERENCE_AS_PATH: 'refPath'
 };
 
 class Field {
@@ -19,26 +21,42 @@ class Field {
     }
 
     resolveRequestField() {
-        switch(this.type) {
+        switch (this.type) {
             case FieldType.HIT:
                 return this.name;
             case FieldType.NODE:
                 return `${this.name.replace(':', '_')} : property(name: "${this.name}") {
                     value
                 }`;
-            default:
-                return null;
+            case FieldType.REFERENCE_AS_PATH:
+                return `${this.name.replace(':', '_')} : property(name: "${this.name}") {
+                    refNode {
+                        path
+                    } 
+                }`;
+            case FieldType.REFERENCE_AS_VALUE:
+                return `${this.name.replace(':', '_')} : property(name: "${this.name}") {
+                    refNode {
+                        displayName
+                    } 
+                }`;
         }
     }
 
     resolveResponseField(hit, result) {
         let property = null;
-        switch(this.type) {
+        switch (this.type) {
             case FieldType.HIT:
-                property = hit[this.name.replace(':', "_")];
+                property = hit[this.name.replace(':', '_')];
                 break;
             case FieldType.NODE:
-                property = hit.node[this.name.replace(':', "_")].value;
+                property = hit.node[this.name.replace(':', '_')].value;
+                break;
+            case FieldType.REFERENCE_AS_PATH:
+                property = hit.node[this.name.replace(':', '_')].refNode.path;
+                break;
+            case FieldType.REFERENCE_AS_VALUE:
+                property = hit.node[this.name.replace(':', '_')].refNode.displayName;
                 break;
         }
         let field = {};

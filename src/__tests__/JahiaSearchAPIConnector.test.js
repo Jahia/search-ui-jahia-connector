@@ -1,7 +1,7 @@
 import JahiaSearchAPIConnector from '..';
 
 import exampleAPIResponse from '../../resources/example-response.json';
-import {Field, FieldType} from "../field";
+import {Field, FieldType} from '../field';
 
 function fetchResponse(response) {
     return Promise.resolve({
@@ -30,6 +30,10 @@ it('can be initialized', () => {
     expect(connector).toBeInstanceOf(JahiaSearchAPIConnector);
 });
 
+it('can not be initialized', () => {
+    expect(() => {new JahiaSearchAPIConnector("","","");}).toThrow();
+});
+
 describe('#onSearch', () => {
     function subject({state, queryConfig = {}}) {
         const connector = new JahiaSearchAPIConnector({
@@ -40,6 +44,7 @@ describe('#onSearch', () => {
 
     it('will correctly format an API response', async () => {
         let queryConfig = {
+            // eslint-disable-next-line camelcase
             result_fields: [
                 new Field(FieldType.HIT, 'link'),
                 new Field(FieldType.HIT, 'displayableName', 'title'),
@@ -64,8 +69,9 @@ describe('#onAutocomplete', () => {
         return connector.onAutocomplete(state, queryConfig);
     }
 
-    let queryConfig = {
+    let config = {
         results: {
+            // eslint-disable-next-line camelcase
             result_fields: [
                 new Field(FieldType.HIT, 'link'),
                 new Field(FieldType.HIT, 'displayableName', 'title'),
@@ -78,7 +84,7 @@ describe('#onAutocomplete', () => {
     it('will correctly format an API response', async () => {
         const response = await subject({
             state: {},
-            queryConfig: queryConfig
+            queryConfig: config
         });
         expect(response).toMatchSnapshot();
     });
@@ -88,6 +94,7 @@ describe('#onAutocomplete', () => {
             state: {},
             queryConfig: {
                 suggestions: {},
+                // eslint-disable-next-line camelcase
                 result_fields: [
                     new Field(FieldType.HIT, 'link'),
                     new Field(FieldType.HIT, 'displayableName', 'title'),
@@ -101,16 +108,16 @@ describe('#onAutocomplete', () => {
     });
 });
 
-describe("#onAutocompleteResultClick", () => {
+describe('#onAutocompleteResultClick', () => {
     function subject(clickData) {
         const connector = new JahiaSearchAPIConnector(params);
         return connector.onAutocompleteResultClick(clickData);
     }
 
-    it("will call the API with the correct body params", async () => {
-        const query = "test";
-        const documentId = "12345";
-        const tags = "12345";
+    it('will call the API with the correct body params', async () => {
+        const query = 'test';
+        const documentId = '12345';
+        const tags = '12345';
 
         const response = await subject({
             query,

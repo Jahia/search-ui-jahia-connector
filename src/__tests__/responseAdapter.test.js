@@ -1,5 +1,5 @@
 import adaptResponse from '../responseAdapter';
-import {Field, FieldType} from "../field";
+import {Field, FieldType} from '../field';
 
 describe('adaptResponse', () => {
     describe('adaptResponse', () => {
@@ -17,13 +17,16 @@ describe('adaptResponse', () => {
     });
 });
 const queryConfig = {
+    // eslint-disable-next-line camelcase
     result_fields: [
         new Field(FieldType.HIT, 'link'),
         new Field(FieldType.HIT, 'displayableName', 'title'),
         new Field(FieldType.HIT, 'excerpt', null, true),
         new Field(FieldType.HIT, 'score'),
-        new Field(FieldType.NODE, 'jcr:created', 'created')
-    ],
+        new Field(FieldType.NODE, 'jcr:created', 'created'),
+        new Field(FieldType.REFERENCE_AS_PATH, 'logo', 'logo'),
+        new Field(FieldType.REFERENCE_AS_VALUE, 'industryCat', 'industry')
+    ]
 };
 const response = {
     'data': {
@@ -40,8 +43,18 @@ const response = {
                             'link': 'http://localhost/sites/academy/home/documentation/developer/dx/techwiki/misc/dx-cluster-setup.html',
                             'node': {
                                 'uuid': 'cad826d1-edda-4587-b090-343158b40b5b',
-                                "jcr_created":{
-                                    "value":"2016-01-12T23:14:03.248+01:00"
+                                'jcr_created': {
+                                    'value': '2016-01-12T23:14:03.248+01:00'
+                                },
+                                'industryCat': {
+                                    'refNode': {
+                                        'displayName': 'Media'
+                                    }
+                                },
+                                'logo': {
+                                    'refNode': {
+                                        'path': '/sites/digitall/files/images/companies/allsportslogo_light.png'
+                                    }
                                 }
                             }
                         }
@@ -59,7 +72,7 @@ const adaptedResponse = {
                 raw: 'http://localhost/sites/academy/home/documentation/developer/dx/techwiki/misc/dx-cluster-setup.html'
             },
             created: {
-                "raw": "2016-01-12T23:14:03.248+01:00"
+                'raw': '2016-01-12T23:14:03.248+01:00'
             },
             title: {
                 raw: 'Jahia cluster setup'
@@ -72,6 +85,12 @@ const adaptedResponse = {
             },
             score: {
                 raw: 198.3385772705078
+            },
+            industry: {
+                raw: 'Media'
+            },
+            logo: {
+                raw: '/sites/digitall/files/images/companies/allsportslogo_light.png'
             }
         }
     ],

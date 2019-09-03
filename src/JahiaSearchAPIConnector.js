@@ -22,7 +22,7 @@ class JahiaSearchAPIConnector {
         nodeType = Constants.NODE_FILTER.TYPE
     }) {
         if (!apiToken || !baseURL  || !siteKey) {
-            throw Error(
+            throw new Error(
                 "apiToken, baseURL, and siteKey are required"
             );
         }
