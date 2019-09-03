@@ -1,6 +1,8 @@
 import JahiaSearchAPIConnector from '..';
 
 import exampleAPIResponse from '../../resources/example-response.json';
+import Field from "../field";
+import {FieldType} from "../../dist/field";
 
 function fetchResponse(response) {
     return Promise.resolve({
@@ -38,7 +40,16 @@ describe('#onSearch', () => {
     }
 
     it('will correctly format an API response', async () => {
-        const response = await subject({state: {}, queryConfig: {}});
+        let queryConfig = {
+            result_fields: [
+                new Field(FieldType.HIT, 'link'),
+                new Field(FieldType.HIT, 'displayableName', 'title'),
+                new Field(FieldType.HIT, 'excerpt', null, true),
+                new Field(FieldType.HIT, 'score'),
+                new Field(FieldType.NODE, 'jcr:created', 'created')
+            ]
+        };
+        const response = await subject({state: {}, queryConfig: queryConfig});
         expect(response).toMatchSnapshot();
     });
 });
@@ -46,9 +57,7 @@ describe('#onSearch', () => {
 describe('#onAutocomplete', () => {
     function subject({
         state,
-        queryConfig = {
-            results: {}
-        }
+        queryConfig
     }) {
         const connector = new JahiaSearchAPIConnector({
             ...params
@@ -56,12 +65,21 @@ describe('#onAutocomplete', () => {
         return connector.onAutocomplete(state, queryConfig);
     }
 
+    let queryConfig = {
+        results: {
+            result_fields: [
+                new Field(FieldType.HIT, 'link'),
+                new Field(FieldType.HIT, 'displayableName', 'title'),
+                new Field(FieldType.HIT, 'excerpt', null, true),
+                new Field(FieldType.HIT, 'score'),
+                new Field(FieldType.NODE, 'jcr:created', 'created')
+            ]
+        }
+    };
     it('will correctly format an API response', async () => {
         const response = await subject({
             state: {},
-            queryConfig: {
-                results: {}
-            }
+            queryConfig: queryConfig
         });
         expect(response).toMatchSnapshot();
     });
@@ -70,7 +88,14 @@ describe('#onAutocomplete', () => {
         const response = await subject({
             state: {},
             queryConfig: {
-                suggestions: {}
+                suggestions: {},
+                result_fields: [
+                    new Field(FieldType.HIT, 'link'),
+                    new Field(FieldType.HIT, 'displayableName', 'title'),
+                    new Field(FieldType.HIT, 'excerpt', null, true),
+                    new Field(FieldType.HIT, 'score'),
+                    new Field(FieldType.NODE, 'jcr:created', 'created')
+                ]
             }
         });
         expect(response).toMatchSnapshot();

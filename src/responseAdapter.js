@@ -1,8 +1,9 @@
 import {getFacets, getResults} from './responseAdapters';
 
-export default function adaptResponse(response, resultsPerPage) {
+export default function adaptResponse(response, resultsPerPage, queryConfig) {
     const requestId = '';
-    const results = getResults(response.data.jcr.searches.search.hits);
+    const fields = "results" in queryConfig ? queryConfig.results.result_fields : queryConfig.result_fields;
+    const results = getResults(response.data.jcr.searches.search.hits, fields);
     if (results.length === 0) {
         return {
             results,

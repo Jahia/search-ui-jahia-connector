@@ -35,7 +35,7 @@ class JahiaSearchAPIConnector {
     }
 
     onSearch(state, queryConfig) {
-        console.log("state",state,"query", queryConfig);
+        console.log("state",state,"query config", queryConfig);
         let requestOptions = {
             siteKey: this.siteKey,
             language: this.language,
@@ -44,7 +44,7 @@ class JahiaSearchAPIConnector {
         };
         const query = adaptRequest(requestOptions, state, queryConfig);
         return request(this.apiToken, this.baseURL, 'POST', query).then(json =>
-            adaptResponse(json, state.resultsPerPage)
+            adaptResponse(json, state.resultsPerPage, queryConfig)
         );
     }
 
@@ -63,11 +63,11 @@ class JahiaSearchAPIConnector {
             };
             const query = adaptRequest(requestOptions,
                 {searchTerm},
-                queryConfig.results
+                queryConfig
             );
 
             return request(this.apiToken, this.baseURL, 'POST', query).then(json => ({
-                autocompletedResults: adaptResponse(json, queryConfig.results.resultsPerPage).results
+                autocompletedResults: adaptResponse(json, queryConfig.results.resultsPerPage, queryConfig).results
             }));
         }
     }
