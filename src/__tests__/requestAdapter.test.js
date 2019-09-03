@@ -1,6 +1,6 @@
 import adaptRequest, {buildFields} from '../requestAdapter';
-import Field from "../field";
-import {FieldType} from "../../dist/field";
+import Field, {FieldType} from "../field";
+
 
 describe('adaptRequest', () => {
     it('adapts request', () => {

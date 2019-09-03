@@ -1,8 +1,7 @@
 import JahiaSearchAPIConnector from '..';
 
 import exampleAPIResponse from '../../resources/example-response.json';
-import Field from "../field";
-import {FieldType} from "../../dist/field";
+import Field, {FieldType} from "../field";
 
 function fetchResponse(response) {
     return Promise.resolve({
