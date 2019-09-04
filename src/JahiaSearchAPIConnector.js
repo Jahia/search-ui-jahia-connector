@@ -1,6 +1,6 @@
 import request from './request';
-import adaptRequest from './requestAdapter';
-import adaptResponse from './responseAdapter';
+import adaptRequest from './adaptRequest';
+import adaptResponse from './adaptResponse';
 import Constants from './constants';
 
 class JahiaSearchAPIConnector {
@@ -70,6 +70,7 @@ class JahiaSearchAPIConnector {
                 autocompletedResults: adaptResponse(json, queryConfig.results.resultsPerPage, queryConfig).results
             }));
         }
+        return {};
     }
 
     onAutocompleteResultClick({ query, documentId, tags }) {
@@ -78,7 +79,6 @@ class JahiaSearchAPIConnector {
                 "search-ui-jahia-connector: Site Search does not support tags on autocompleteClick"
             );
         }
-        //Todo integrate with JCustomer
     }
 }
 
