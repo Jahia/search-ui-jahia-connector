@@ -53,10 +53,10 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
     jcr {
         searches(siteKey: "${graphQLOptions.siteKey}", language: "${graphQLOptions.language}", workspace: ${graphQLOptions.workspace}) {
             search(searchInput: {searchCriteria: {
-                text: "${graphQLOptions.searchTerm}"}, 
+                text: "${graphQLOptions.searchTerm}"},
                 nodeTypeCriteria:{
                     nodeType:"${graphQLOptions.nodeType}"
-                    }, 
+                    },
                 limit: ${graphQLOptions.resultsPerPage},
                 offset: ${graphQLOptions.current - 1}
                 }) {
@@ -67,7 +67,7 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
                         node {
                             uuid
                             ${resolvedRequestFields.nodeFields}
-                        }                  
+                        }
                     }
                 }
             }

@@ -1,14 +1,6 @@
-import adaptRequest from '../requestAdapter';
+import adaptRequest from '../adaptRequest';
 import {Field, FieldType} from '../field';
 import {parse, print} from 'graphql';
-
-describe('adaptRequest', () => {
-    it('adapts request', () => {
-        expect(adaptRequest(requestOptions, request, queryConfig)).toEqual(
-            adaptedRequest
-        );
-    });
-});
 
 const requestOptions = {
     siteKey: 'academy',
@@ -140,3 +132,11 @@ const adaptedRequest = print(parse(`{
         }
       }
     }`));
+
+describe('adaptRequest', () => {
+    it('adapts request', () => {
+        expect(adaptRequest(requestOptions, request, queryConfig)).toEqual(
+            adaptedRequest
+        );
+    });
+});

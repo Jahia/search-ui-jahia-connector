@@ -1,21 +1,6 @@
-import adaptResponse from '../responseAdapter';
+import adaptResponse from '../adaptResponse';
 import {Field, FieldType} from '../field';
 
-describe('adaptResponse', () => {
-    describe('adaptResponse', () => {
-        it('adapts response', () => {
-            expect(adaptResponse(response, 10, queryConfig)).toEqual(
-                adaptedResponse
-            );
-        });
-
-        it('adapts empty response', () => {
-            expect(adaptResponse(emptyResponse, 10, queryConfig)).toEqual(
-                adaptedEmptyResponse
-            );
-        });
-    });
-});
 const queryConfig = {
     // eslint-disable-next-line camelcase
     result_fields: [
@@ -39,7 +24,9 @@ const response = {
                         {
                             'score': 198.3385772705078,
                             'displayableName': 'Jahia cluster setup',
-                            'excerpt': 'The Jahia Team Jahia <em>cluster</em> <em>setup</em> Here are the steps followed to install an Jahia <em>cluster</em> for a production environment. We will also detail ... Jahia <em>cluster</em> <em>setup</em>',
+                            'excerpt': 'The Jahia Team Jahia <em>cluster</em> <em>setup</em> Here are the steps ' +
+                                'followed to install an Jahia <em>cluster</em> for a production environment.' +
+                                ' We will also detail ... Jahia <em>cluster</em> <em>setup</em>',
                             'link': 'http://localhost/sites/academy/home/documentation/developer/dx/techwiki/misc/dx-cluster-setup.html',
                             'node': {
                                 'uuid': 'cad826d1-edda-4587-b090-343158b40b5b',
@@ -78,7 +65,9 @@ const adaptedResponse = {
                 raw: 'Jahia cluster setup'
             },
             excerpt: {
-                snippet: 'The Jahia Team Jahia <em>cluster</em> <em>setup</em> Here are the steps followed to install an Jahia <em>cluster</em> for a production environment. We will also detail ... Jahia <em>cluster</em> <em>setup</em>'
+                snippet: 'The Jahia Team Jahia <em>cluster</em> <em>setup</em> Here are the steps ' +
+                    'followed to install an Jahia <em>cluster</em> for a production environment.' +
+                    ' We will also detail ... Jahia <em>cluster</em> <em>setup</em>'
             },
             id: {
                 raw: 'cad826d1-edda-4587-b090-343158b40b5b'
@@ -115,3 +104,19 @@ const adaptedEmptyResponse = {
     requestId: '',
     results: []
 };
+
+describe('adaptResponse', () => {
+    describe('adaptResponse', () => {
+        it('adapts response', () => {
+            expect(adaptResponse(response, 10, queryConfig)).toEqual(
+                adaptedResponse
+            );
+        });
+
+        it('adapts empty response', () => {
+            expect(adaptResponse(emptyResponse, 10, queryConfig)).toEqual(
+                adaptedEmptyResponse
+            );
+        });
+    });
+});

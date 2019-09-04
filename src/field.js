@@ -21,26 +21,32 @@ class Field {
     }
 
     resolveRequestField() {
+        let fieldTemplate;
         switch (this.type) {
             case FieldType.HIT:
-                return this.name;
+                fieldTemplate =  this.name;
+                break;
             case FieldType.NODE:
-                return `${this.name.replace(':', '_')} : property(name: "${this.name}") {
+                fieldTemplate = `${this.name.replace(':', '_')} : property(name: "${this.name}") {
                     value
                 }`;
+                break;
             case FieldType.REFERENCE_AS_PATH:
-                return `${this.name.replace(':', '_')} : property(name: "${this.name}") {
+                fieldTemplate = `${this.name.replace(':', '_')} : property(name: "${this.name}") {
                     refNode {
                         path
-                    } 
+                    }
                 }`;
+                break;
             case FieldType.REFERENCE_AS_VALUE:
-                return `${this.name.replace(':', '_')} : property(name: "${this.name}") {
+                fieldTemplate = `${this.name.replace(':', '_')} : property(name: "${this.name}") {
                     refNode {
                         displayName
-                    } 
+                    }
                 }`;
+                break;
         }
+        return fieldTemplate;
     }
 
     resolveResponseField(hit, result) {
