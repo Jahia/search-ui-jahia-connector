@@ -8,7 +8,7 @@
 <!--
     Project name can either be the full length project name (if there is one) or just the repo name. For example: Digital Experience Manager
 -->
-Sandbox test - another test
+Sandbox test - bis test
 ======================
 
 <!--
