@@ -1,14 +1,8 @@
-import adaptRequest from '../requestAdapter';
+import adaptRequest from '../adaptRequest';
 import {Field, FieldType} from '../field';
 
-describe("Sort parameters tests", function() {
-    const requestOptions = {
-        siteKey: "fake",
-        language: "fake",
-        workspace: "fake",
-        nodeType: "fake"
-    };
-    const queryConfig = {
+beforeEach(() => {
+    global.queryConfig = {
         // eslint-disable-next-line camelcase
         result_fields: [
             new Field(FieldType.HIT, 'link'),
@@ -17,6 +11,15 @@ describe("Sort parameters tests", function() {
             new Field(FieldType.HIT, 'score'),
             new Field(FieldType.NODE, 'jcr:created', 'created')
         ]
+    };
+});
+
+describe("Sort parameters tests", function() {
+    const requestOptions = {
+        siteKey: "fake",
+        language: "fake",
+        workspace: "fake",
+        nodeType: "fake"
     };
 
     it("Query without sort", function() {

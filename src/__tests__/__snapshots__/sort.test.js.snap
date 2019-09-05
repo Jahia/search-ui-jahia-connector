@@ -56,7 +56,7 @@ exports[`Sort parameters tests Query with sort 1`] = `
 "{
   jcr {
     searches(siteKey: \\"fake\\", language: \\"fake\\", workspace: fake) {
-      search(searchInput: {searchCriteria: {text: \\"undefined\\"}, nodeTypeCriteria: {nodeType: \\"fake\\"}, limit: 5, offset: 0}) {
+      search(searchInput: {searchCriteria: {text: \\"undefined\\"}, nodeTypeCriteria: {nodeType: \\"fake\\"}, limit: 5, offset: 0}, sortBy: {orderType: ASC, property: \\"jcr:title\\"}) {
         totalHits
         took
         hits {
