@@ -1,9 +1,9 @@
 function invalidSortFields(qc) {
     return qc === null || qc.sortDirection === "" || qc.sortDirection === undefined || qc.sortField === "" || qc.sortField === undefined;
 }
-export default function(queryConfig) {
-    if (invalidSortFields(queryConfig)) {
+export default function(state) {
+    if (invalidSortFields(state)) {
         return "";
     }
-    return `, sortBy: { orderType: ${queryConfig.sortDirection.toUpperCase()}, property: "${queryConfig.sortField}"}`;
+    return `, sortBy: { orderType: ${state.sortDirection.toUpperCase()}, property: "${state.sortField}"}`;
 }
