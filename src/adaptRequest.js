@@ -1,5 +1,6 @@
 import {Field, FieldType} from './field';
 import {parse, print} from 'graphql';
+import sort from './sort';
 
 const buildFields = (fields) => {
     let fieldsConcatenated = {
@@ -59,7 +60,7 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
                     },
                 limit: ${graphQLOptions.resultsPerPage},
                 offset: ${graphQLOptions.current - 1}
-                }) {
+                }${sort(request)}) {
                     totalHits
                     took
                     hits {

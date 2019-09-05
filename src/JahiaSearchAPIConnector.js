@@ -35,7 +35,7 @@ class JahiaSearchAPIConnector {
     }
 
     onSearch(state, queryConfig) {
-        console.log("state",state,"query config", queryConfig);
+        // console.log("state",state,"query config", queryConfig);
         let requestOptions = {
             siteKey: this.siteKey,
             language: this.language,

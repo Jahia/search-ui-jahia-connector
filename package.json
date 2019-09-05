@@ -31,6 +31,7 @@
   "devDependencies": {
     "@babel/cli": "^7.5.0",
     "@babel/core": "^7.5.5",
+    "@babel/runtime": "^7.5.4",
     "@babel/plugin-proposal-class-properties": "^7.5.0",
     "@babel/plugin-transform-classes": "^7.4.4",
     "@babel/plugin-transform-runtime": "^7.5.0",
@@ -52,7 +53,6 @@
     "rimraf": "^2.6.3"
   },
   "dependencies": {
-    "@babel/runtime": "^7.5.4",
     "graphql": "^14.5.4"
   }
 }
