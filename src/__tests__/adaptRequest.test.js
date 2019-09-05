@@ -103,7 +103,7 @@ const request = {
 const adaptedRequest = print(parse(`{
       jcr {
         searches(siteKey: "academy", language: "en", workspace: LIVE) {
-          search(searchInput: {searchCriteria: {text: "test"}, nodeTypeCriteria: {nodeType: "jnt:page"}, limit: 10, offset: 3}) {
+          search(searchInput: {searchCriteria: {text: "test"}, nodeTypeCriteria: {nodeType: "jnt:page"}, limit: 10, offset: 3}, sortBy: {orderType: ASC, property: "title"}) {
             totalHits
             took
             hits {

@@ -12,6 +12,7 @@ beforeEach(() => {
             new Field(FieldType.NODE, 'jcr:created', 'created')
         ]
     };
+    global.state = {};
 });
 
 describe("Sort parameters tests", function() {
@@ -23,30 +24,30 @@ describe("Sort parameters tests", function() {
     };
 
     it("Query without sort", function() {
-        const query = adaptRequest(requestOptions, {}, queryConfig);
+        const query = adaptRequest(requestOptions, state, queryConfig);
         expect(query).toMatchSnapshot();
     });
 
     it("Query with sort", function() {
-        queryConfig["sortDirection"] = "ASC";
-        queryConfig["sortField"] = "jcr:title";
-        const query = adaptRequest(requestOptions, {}, queryConfig);
+        state["sortDirection"] = "ASC";
+        state["sortField"] = "jcr:title";
+        const query = adaptRequest(requestOptions, state, queryConfig);
         expect(query).toMatchSnapshot();
     });
 
     it("Query with incorrect sort field", function() {
         //Note that in this case sort parameters are ignored and the sort falls back to Relevance
-        queryConfig["sortDirection"] = "ASC";
-        queryConfig["sortField"] = "";
-        const query = adaptRequest(requestOptions, {}, queryConfig);
+        state["sortDirection"] = "ASC";
+        state["sortField"] = "";
+        const query = adaptRequest(requestOptions, state, queryConfig);
         expect(query).toMatchSnapshot();
     });
 
     it("Query with incorrect sort direction", function() {
         //Note that in this case sort parameters are ignored and the sort falls back to Relevance
-        queryConfig["sortDirection"] = "";
-        queryConfig["sortField"] = "jcr:title";
-        const query = adaptRequest(requestOptions, {}, queryConfig);
+        state["sortDirection"] = "";
+        state["sortField"] = "jcr:title";
+        const query = adaptRequest(requestOptions, state, queryConfig);
         expect(query).toMatchSnapshot();
     });
 });
