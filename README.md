@@ -35,7 +35,7 @@ The following functionality is currently implemented:
 * Sort
 
 #### Options
-The following configuration is required in order for the custom request/response adaptors
+The following configuration is required in order for the custom request/response adaptors to work
 
 | Param     | Type                | Description                                                                                                            |
 | --------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------- |
@@ -111,3 +111,4 @@ let config = {
         hasA11yNotifications: true
     }
 ```
+At this point you should have all bricks necessary to successfully use Jahia's Search UI Connector.
