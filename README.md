@@ -5,7 +5,7 @@
     <img src="https://www.jahia.com/files/live/sites/jahiacom/files/logo-jahia-2016.png" alt="Jahia logo" title="Jahia" align="right" height="60" />
 </a>
 
-Jahia Search UI Connector
+Jahia Search UI Connector test
 ======================
 
 <!--
