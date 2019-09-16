@@ -9,7 +9,7 @@ Jahia Search UI Connector
 ======================
 
 <!--
-    A one-liner about the project, like a subtitle. For example: Jahia Digital Experience Manager Core
+    TEST A one-liner about the project, like a subtitle. For example: Jahia Digital Experience Manager Core
 -->
 <p align="center">A connector based on <a href="https://github.com/elastic/search-ui/tree/master/packages/search-ui-site-search-connector">Search UI Site Search Connector</a> by <a href="https://elastic.co">Elastic</a></p>
 
