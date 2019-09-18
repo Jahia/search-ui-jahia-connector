@@ -61,7 +61,7 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
                     },
                 limit: ${graphQLOptions.resultsPerPage},
                 offset: ${graphQLOptions.current - 1}
-                }${sort(request)} ${facets(request)}) {
+                }${sort(request)} ${facets(request, queryConfig)}) {
                     totalHits
                     took
                     facets {

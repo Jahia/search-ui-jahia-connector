@@ -13,8 +13,7 @@ export default function adaptResponse(response, resultsPerPage, queryConfig) {
     const totalPages = Math.ceil(response.data.jcr.searches.search.totalHits / resultsPerPage);
     const totalResults = response.data.jcr.searches.search.totalHits;
 
-    const facets = getFacets(response);
-
+    const facets = getFacets(response.data.jcr.searches.search.facets);
     return {
         results,
         totalPages,

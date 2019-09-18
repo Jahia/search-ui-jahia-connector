@@ -3,17 +3,17 @@ const facetTypes = {
     range: 'RANGE'
 };
 
-export default function facets(request) {
-    if (Object.entries(request.facets).length === 0) {
+export default function facets(request, queryConfig) {
+    if (Object.entries(queryConfig.facets).length === 0) {
         return ``;
     }
     let processedFacets = [];
-    Object.entries(request.facets).forEach(([facetName, facetGroup]) => {
+    Object.entries(queryConfig.facets).forEach(([facetName, facet]) => {
         //handle filter values
         let selections = [];
         request.filters.filter(filter => facetName === filter.field).forEach(filter => {
             if (filter) {
-                switch (filter.type) {
+                switch (facet.type) {
                     case "value":
                         filter.values.forEach(value => selections.push(`{value: "${value}"}`));
                         break;
@@ -23,9 +23,7 @@ export default function facets(request) {
                 }
             }
         });
-        facetGroup.forEach(facet => {
-            processedFacets.push(`{ field: "${facetName}", type: ${facetTypes[facet.type]}, ${facet.size ?  `max: ${facet.size},` : ''} disjunctive: ${facet.disjunctive} ${selections.length > 0 ? `, selections: [${selections.join(',')}]` : ''} }`);
-        });
+        processedFacets.push(`{ field: "${facetName}", type: ${facetTypes[facet.type]}, disjunctive:  ${!!facet.disjunctive} ${facet.size ?  `, max: ${facet.size},` : ''} ${selections.length > 0 ? `, selections: [${selections.join(',')}]` : ''} }`);
     });
     return `, facets: {facetsInput: [${processedFacets.join(',')}]}`;
 }
