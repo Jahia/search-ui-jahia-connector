@@ -1,4 +1,4 @@
-name: CI
+name: CI with yarn
 
 on: [push]
 
@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: "Borales/actions-yarn@master"
-    - name: yarn install
-      run: yarn install
-    
-    - uses: "Borales/actions-yarn@master"
-    - name: yarn test
-      run: yarn test
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - name: Install & test with yarn
+    - run: yarn install
+    - run: yarn test
