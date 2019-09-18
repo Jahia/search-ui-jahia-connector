@@ -1,0 +1,15 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: "Borales/actions-yarn@master"
+    - name: yarn install and test
+      run: |
+        yarn install
+        yarn test
