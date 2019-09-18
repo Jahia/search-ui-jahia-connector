@@ -9,7 +9,9 @@ jobs:
     
     steps:
     - uses: "Borales/actions-yarn@master"
-    - name: yarn install and test
-      run: |
-        yarn install
-        yarn test
+    - name: yarn install
+      run: yarn install
+    
+    - uses: "Borales/actions-yarn@master"
+    - name: yarn test
+      run: yarn test
