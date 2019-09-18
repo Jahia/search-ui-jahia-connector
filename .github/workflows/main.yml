@@ -13,5 +13,6 @@ jobs:
       with:
         node-version: '10.x'
     - name: Install & test with yarn
-    - run: yarn install
-    - run: yarn test
+      run: |
+        yarn install
+        yarn test
