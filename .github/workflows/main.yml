@@ -15,4 +15,4 @@ jobs:
     - name: Install & test with yarn
       run: |
         yarn install
-        yarn test
+        yarn test --coverage
