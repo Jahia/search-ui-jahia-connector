@@ -5,6 +5,18 @@
         "search": {
           "totalHits": 13,
           "took": "1 second and 10 milliseconds",
+          "facets": [
+            {
+              "field": "jfs:tags",
+              "type": "sterms",
+              "data": [
+                {
+                  "count": 1,
+                  "value": "cluster"
+                }
+              ]
+            }
+          ],
           "hits": [
             {
               "score": 65.67353057861328,

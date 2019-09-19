@@ -1,9 +1,11 @@
 export function getFacets(facets) {
     let normalizedFacets = {};
-    facets.forEach(facet => {
-        normalizedFacets[facet.field] = [];
-        normalizedFacets[facet.field].push(facet);
-    });
+    if (facets) {
+        facets.forEach(facet => {
+            normalizedFacets[facet.field] = [];
+            normalizedFacets[facet.field].push(facet);
+        });
+    }
     return normalizedFacets;
 }
 

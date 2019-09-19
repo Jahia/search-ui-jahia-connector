@@ -51,7 +51,14 @@ describe('#onSearch', () => {
                 new Field(FieldType.HIT, 'excerpt', null, true),
                 new Field(FieldType.HIT, 'score'),
                 new Field(FieldType.NODE, 'jcr:created', 'created')
-            ]
+            ],
+            facets: {
+                "jfs:tags": {
+                    type: 'value',
+                    size: 10,
+                    disjunctive: true
+                }
+            }
         };
         const response = await subject({state: {}, queryConfig: queryConfig});
         expect(response).toMatchSnapshot();
@@ -79,7 +86,8 @@ describe('#onAutocomplete', () => {
                 new Field(FieldType.HIT, 'score'),
                 new Field(FieldType.NODE, 'jcr:created', 'created')
             ]
-        }
+        },
+        facets: {}
     };
     it('will correctly format an API response', async () => {
         const response = await subject({

@@ -11,9 +11,10 @@ const requestOptions = {
 
 const queryConfig = {
     facets: {
-        states: {
+        "jfs:tags": {
             type: 'value',
-            size: 30
+            size: 10,
+            disjunctive: true
         }
     },
     // eslint-disable-next-line camelcase
@@ -58,44 +59,9 @@ const request = {
     },
     filters: [
         {
-            field: 'initial',
-            values: ['values'],
+            field: 'jfs:tags',
+            values: ['cluster'],
             type: 'all'
-        },
-        {
-            field: 'initial',
-            values: ['more values'],
-            type: 'all'
-        },
-        {
-            field: 'test',
-            values: [
-                {
-                    to: 100,
-                    from: 0,
-                    name: 'test'
-                }
-            ],
-            type: 'all'
-        },
-        {
-            field: 'initial',
-            values: ['additional values', 'and values', 'and even more values'],
-            type: 'all'
-        },
-        {
-            field: 'another',
-            values: ['additional values', 'and values', 'and even more values'],
-            type: 'any'
-        },
-        {
-            field: 'whatever',
-            values: ['value']
-        },
-        {
-            type: 'none',
-            field: 'nunya',
-            values: ['busi', 'ness']
         }
     ]
 };
@@ -103,9 +69,18 @@ const request = {
 const adaptedRequest = print(parse(`{
       jcr {
         searches(siteKey: "academy", language: "en", workspace: LIVE) {
-          search(searchInput: {searchCriteria: {text: "test"}, nodeTypeCriteria: {nodeType: "jnt:page"}, limit: 10, offset: 3}, sortBy: {orderType: ASC, property: "title"}) {
+          search(searchInput: {searchCriteria: {text: "test"}, nodeTypeCriteria: {nodeType: "jnt:page"}, limit: 10, offset: 3}, sortBy: {orderType: ASC, property: "title"},
+                facetsInput: {facets: [{field: "jfs:tags", type: VALUE, disjunctive: true, max: 10, selections: [{value: "cluster"}]}]}) {
             totalHits
             took
+            facets {
+              field
+              type
+              data {
+                count
+                value
+              }
+            }
             hits {
               link
               displayableName

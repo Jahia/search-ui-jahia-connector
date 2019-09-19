@@ -4,26 +4,26 @@ const facetTypes = {
 };
 
 export default function facets(request, queryConfig) {
-    if (Object.entries(queryConfig.facets).length === 0) {
+    if (!queryConfig.facets || Object.entries(queryConfig.facets).length === 0) {
         return ``;
     }
     let processedFacets = [];
     Object.entries(queryConfig.facets).forEach(([facetName, facet]) => {
         //handle filter values
         let selections = [];
-        request.filters.filter(filter => facetName === filter.field).forEach(filter => {
-            if (filter) {
+        let filters = request.filters;
+        if (filters) {
+            filters.filter(filter => facetName === filter.field).forEach(filter => {
                 switch (facet.type) {
                     case "value":
+                    default:
                         filter.values.forEach(value => selections.push(`{value: "${value}"}`));
                         break;
-                    case "range":
-                        //not implemented yet
-                        return;
+                        //Other cases to be implemented in the future
                 }
-            }
-        });
+            });
+        }
         processedFacets.push(`{ field: "${facetName}", type: ${facetTypes[facet.type]}, disjunctive:  ${!!facet.disjunctive} ${facet.size ?  `, max: ${facet.size},` : ''} ${selections.length > 0 ? `, selections: [${selections.join(',')}]` : ''} }`);
     });
-    return `, facets: {facetsInput: [${processedFacets.join(',')}]}`;
+    return `, facetsInput: {facets: [${processedFacets.join(',')}]}`;
 }

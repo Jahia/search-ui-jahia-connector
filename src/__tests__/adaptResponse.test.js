@@ -11,7 +11,13 @@ const queryConfig = {
         new Field(FieldType.NODE, 'jcr:created', 'created'),
         new Field(FieldType.REFERENCE_AS_PATH, 'logo', 'logo'),
         new Field(FieldType.REFERENCE_AS_VALUE, 'industryCat', 'industry')
-    ]
+    ],
+    facets: {
+        "jfs:tags": {
+            type: "value",
+            disjunctive: true
+        }
+    }
 };
 const response = {
     'data': {
@@ -20,6 +26,18 @@ const response = {
                 'search': {
                     'totalHits': 16,
                     'took': '33 milliseconds',
+                    'facets': [
+                        {
+                            'field': 'jfs:tags',
+                            'type': 'sterms',
+                            'data': [
+                                {
+                                    'count': 1,
+                                    'value': 'cluster'
+                                }
+                            ]
+                        }
+                    ],
                     'hits': [
                         {
                             'score': 198.3385772705078,
@@ -85,7 +103,15 @@ const adaptedResponse = {
     ],
     totalPages: 2,
     totalResults: 16,
-    requestId: ''
+    requestId: '',
+    facets: {
+        "jfs:tags": [{
+            field:"jfs:tags",
+            type:"sterms",
+            data:[{count:1, value:"cluster"}]
+        }]
+    }
+
 };
 const emptyResponse = {
     'data': {

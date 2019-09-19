@@ -10,7 +10,8 @@ beforeEach(() => {
             new Field(FieldType.HIT, 'excerpt', null, true),
             new Field(FieldType.HIT, 'score'),
             new Field(FieldType.NODE, 'jcr:created', 'created')
-        ]
+        ],
+        facets: {}
     };
     global.state = {};
 });
