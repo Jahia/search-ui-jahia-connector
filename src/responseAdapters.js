@@ -6,6 +6,7 @@ export function getFacets(facets) {
             normalizedFacets[facet.field].push(facet);
         });
     }
+
     return normalizedFacets;
 }
 
@@ -15,7 +16,7 @@ export function getResults(hits, fields) {
     }).map(hit => {
         let result = {
             id: {
-                //Default property that is required by rendering View component
+                // Default property that is required by rendering View component
                 raw: hit.node.uuid
             }
         };

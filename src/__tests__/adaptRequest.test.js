@@ -11,7 +11,7 @@ const requestOptions = {
 
 const queryConfig = {
     facets: {
-        "jfs:tags": {
+        'jfs:tags': {
             type: 'value',
             size: 10,
             disjunctive: true

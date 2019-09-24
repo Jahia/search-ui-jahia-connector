@@ -1,10 +1,10 @@
 const Constants = {
-    WORKSPACE: "LIVE",
+    WORKSPACE: 'LIVE',
     NODE_FILTER: {
-        TYPE: "jnt:page",
+        TYPE: 'jnt:page',
         INCLUDE_SUB_NODES: false
     },
-    LANGUAGE: "en"
+    LANGUAGE: 'en'
 };
 
 export default Constants;

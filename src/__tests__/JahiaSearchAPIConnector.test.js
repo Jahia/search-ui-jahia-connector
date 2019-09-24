@@ -31,7 +31,9 @@ it('can be initialized', () => {
 });
 
 it('can not be initialized', () => {
-    expect(() => {new JahiaSearchAPIConnector("","","");}).toThrow();
+    expect(() => {
+        new JahiaSearchAPIConnector('', '', '');
+    }).toThrow();
 });
 
 describe('#onSearch', () => {
@@ -53,7 +55,7 @@ describe('#onSearch', () => {
                 new Field(FieldType.NODE, 'jcr:created', 'created')
             ],
             facets: {
-                "jfs:tags": {
+                'jfs:tags': {
                     type: 'value',
                     size: 10,
                     disjunctive: true

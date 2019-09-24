@@ -3,10 +3,10 @@ import {parse, print} from 'graphql';
 import sort from './sort';
 import facets from './facets';
 
-const buildFields = (fields) => {
+const buildFields = fields => {
     let fieldsConcatenated = {
-        hitFields: ``,
-        nodeFields: ``
+        hitFields: '',
+        nodeFields: ''
     };
     fields.forEach(field => {
         switch (field.type) {
@@ -48,6 +48,7 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
         if (field instanceof Field) {
             acc.push(field);
         }
+
         return acc;
     }, []));
 

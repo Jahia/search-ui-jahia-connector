@@ -17,6 +17,7 @@
   },
   "scripts": {
     "build": "yarn lint && babel src --out-dir dist --ignore './src/**/*.test.js'",
+    "build:nolint": "babel src --out-dir dist --ignore './src/**/*.test.js'",
     "build:watch": "yarn lint && babel src --out-dir dist --ignore '**/*.test.js' --watch &",
     "build:analyze": "yarn build --analyze",
     "build:production": "yarn build -p",
@@ -31,13 +32,14 @@
   "devDependencies": {
     "@babel/cli": "^7.5.0",
     "@babel/core": "^7.5.5",
-    "@babel/runtime": "^7.5.4",
     "@babel/plugin-proposal-class-properties": "^7.5.0",
     "@babel/plugin-transform-classes": "^7.4.4",
     "@babel/plugin-transform-runtime": "^7.5.0",
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "^7.3.3",
+    "@babel/runtime": "^7.5.4",
+    "@jahia/eslint-config": "^1.0.0-beta.20190920132338",
     "axios": "^0.19.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.2",

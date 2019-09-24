@@ -16,38 +16,38 @@ beforeEach(() => {
     global.state = {};
 });
 
-describe("Sort parameters tests", function() {
+describe('Sort parameters tests', function () {
     const requestOptions = {
-        siteKey: "fake",
-        language: "fake",
-        workspace: "fake",
-        nodeType: "fake"
+        siteKey: 'fake',
+        language: 'fake',
+        workspace: 'fake',
+        nodeType: 'fake'
     };
 
-    it("Query without sort", function() {
+    it('Query without sort', function () {
         const query = adaptRequest(requestOptions, state, queryConfig);
         expect(query).toMatchSnapshot();
     });
 
-    it("Query with sort", function() {
-        state["sortDirection"] = "ASC";
-        state["sortField"] = "jcr:title";
+    it('Query with sort', function () {
+        state.sortDirection = 'ASC';
+        state.sortField = 'jcr:title';
         const query = adaptRequest(requestOptions, state, queryConfig);
         expect(query).toMatchSnapshot();
     });
 
-    it("Query with incorrect sort field", function() {
-        //Note that in this case sort parameters are ignored and the sort falls back to Relevance
-        state["sortDirection"] = "ASC";
-        state["sortField"] = "";
+    it('Query with incorrect sort field', function () {
+        // Note that in this case sort parameters are ignored and the sort falls back to Relevance
+        state.sortDirection = 'ASC';
+        state.sortField = '';
         const query = adaptRequest(requestOptions, state, queryConfig);
         expect(query).toMatchSnapshot();
     });
 
-    it("Query with incorrect sort direction", function() {
-        //Note that in this case sort parameters are ignored and the sort falls back to Relevance
-        state["sortDirection"] = "";
-        state["sortField"] = "jcr:title";
+    it('Query with incorrect sort direction', function () {
+        // Note that in this case sort parameters are ignored and the sort falls back to Relevance
+        state.sortDirection = '';
+        state.sortField = 'jcr:title';
         const query = adaptRequest(requestOptions, state, queryConfig);
         expect(query).toMatchSnapshot();
     });

@@ -13,52 +13,52 @@ const queryConfig = {
         new Field(FieldType.REFERENCE_AS_VALUE, 'industryCat', 'industry')
     ],
     facets: {
-        "jfs:tags": {
-            type: "value",
+        'jfs:tags': {
+            type: 'value',
             disjunctive: true
         }
     }
 };
 const response = {
-    'data': {
-        'jcr': {
-            'searches': {
-                'search': {
-                    'totalHits': 16,
-                    'took': '33 milliseconds',
-                    'facets': [
+    data: {
+        jcr: {
+            searches: {
+                search: {
+                    totalHits: 16,
+                    took: '33 milliseconds',
+                    facets: [
                         {
-                            'field': 'jfs:tags',
-                            'type': 'sterms',
-                            'data': [
+                            field: 'jfs:tags',
+                            type: 'sterms',
+                            data: [
                                 {
-                                    'count': 1,
-                                    'value': 'cluster'
+                                    count: 1,
+                                    value: 'cluster'
                                 }
                             ]
                         }
                     ],
-                    'hits': [
+                    hits: [
                         {
-                            'score': 198.3385772705078,
-                            'displayableName': 'Jahia cluster setup',
-                            'excerpt': 'The Jahia Team Jahia <em>cluster</em> <em>setup</em> Here are the steps ' +
+                            score: 198.3385772705078,
+                            displayableName: 'Jahia cluster setup',
+                            excerpt: 'The Jahia Team Jahia <em>cluster</em> <em>setup</em> Here are the steps ' +
                                 'followed to install an Jahia <em>cluster</em> for a production environment.' +
                                 ' We will also detail ... Jahia <em>cluster</em> <em>setup</em>',
-                            'link': 'http://localhost/sites/academy/home/documentation/developer/dx/techwiki/misc/dx-cluster-setup.html',
-                            'node': {
-                                'uuid': 'cad826d1-edda-4587-b090-343158b40b5b',
-                                'jcr_created': {
-                                    'value': '2016-01-12T23:14:03.248+01:00'
+                            link: 'http://localhost/sites/academy/home/documentation/developer/dx/techwiki/misc/dx-cluster-setup.html',
+                            node: {
+                                uuid: 'cad826d1-edda-4587-b090-343158b40b5b',
+                                jcr_created: {
+                                    value: '2016-01-12T23:14:03.248+01:00'
                                 },
-                                'industryCat': {
-                                    'refNode': {
-                                        'displayName': 'Media'
+                                industryCat: {
+                                    refNode: {
+                                        displayName: 'Media'
                                     }
                                 },
-                                'logo': {
-                                    'refNode': {
-                                        'path': '/sites/digitall/files/images/companies/allsportslogo_light.png'
+                                logo: {
+                                    refNode: {
+                                        path: '/sites/digitall/files/images/companies/allsportslogo_light.png'
                                     }
                                 }
                             }
@@ -77,7 +77,7 @@ const adaptedResponse = {
                 raw: 'http://localhost/sites/academy/home/documentation/developer/dx/techwiki/misc/dx-cluster-setup.html'
             },
             created: {
-                'raw': '2016-01-12T23:14:03.248+01:00'
+                raw: '2016-01-12T23:14:03.248+01:00'
             },
             title: {
                 raw: 'Jahia cluster setup'
@@ -105,22 +105,22 @@ const adaptedResponse = {
     totalResults: 16,
     requestId: '',
     facets: {
-        "jfs:tags": [{
-            field:"jfs:tags",
-            type:"sterms",
-            data:[{count:1, value:"cluster"}]
+        'jfs:tags': [{
+            field: 'jfs:tags',
+            type: 'sterms',
+            data: [{count: 1, value: 'cluster'}]
         }]
     }
 
 };
 const emptyResponse = {
-    'data': {
-        'jcr': {
-            'searches': {
-                'search': {
-                    'totalHits': 0,
-                    'took': '0 milliseconds',
-                    'hits': []
+    data: {
+        jcr: {
+            searches: {
+                search: {
+                    totalHits: 0,
+                    took: '0 milliseconds',
+                    hits: []
                 }
             }
         }

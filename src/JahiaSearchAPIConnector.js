@@ -21,11 +21,12 @@ class JahiaSearchAPIConnector {
         workspace = Constants.WORKSPACE,
         nodeType = Constants.NODE_FILTER.TYPE
     }) {
-        if (!apiToken || !baseURL  || !siteKey) {
+        if (!apiToken || !baseURL || !siteKey) {
             throw new Error(
-                "apiToken, baseURL, and siteKey are required"
+                'apiToken, baseURL, and siteKey are required'
             );
         }
+
         this.apiToken = apiToken;
         this.baseURL = baseURL;
         this.siteKey = siteKey;
@@ -35,7 +36,7 @@ class JahiaSearchAPIConnector {
     }
 
     onSearch(state, queryConfig) {
-        // console.log("state",state,"query config", queryConfig);
+        // Console.log("state",state,"query config", queryConfig);
         let requestOptions = {
             siteKey: this.siteKey,
             language: this.language,
@@ -54,6 +55,7 @@ class JahiaSearchAPIConnector {
                 'search-ui-jahia-connector: Site Search does support query suggestions on autocomplete'
             );
         }
+
         if (queryConfig.results) {
             let requestOptions = {
                 siteKey: this.siteKey,
@@ -70,13 +72,14 @@ class JahiaSearchAPIConnector {
                 autocompletedResults: adaptResponse(json, queryConfig.results.resultsPerPage, queryConfig).results
             }));
         }
+
         return {};
     }
 
-    onAutocompleteResultClick({ query, documentId, tags }) {
+    onAutocompleteResultClick({tags}) {
         if (tags) {
             console.warn(
-                "search-ui-jahia-connector: Site Search does not support tags on autocompleteClick"
+                'search-ui-jahia-connector: Site Search does not support tags on autocompleteClick'
             );
         }
     }
