@@ -12,7 +12,7 @@ export default async function request(apiToken, baseURL, method, query) {
             body: JSON.stringify({
                 query
             }),
-            credentials: 'omit'
+            credentials: 'include'
         }
     );
 
