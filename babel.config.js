@@ -5,9 +5,9 @@ const presets = [
             targets: {
                 browsers: ['last 2 versions', '> 5%']
             },
-            modules: process.env.BABEL_MODULES
-                ? process.env.BABEL_MODULES
-                : 'commonjs' // babel's default is commonjs
+            modules: process.env.BABEL_MODULES ?
+                process.env.BABEL_MODULES :
+                'commonjs' // Babel's default is commonjs
         }
     ]
 ];

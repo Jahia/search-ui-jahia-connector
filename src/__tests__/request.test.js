@@ -8,9 +8,9 @@ function fetchResponse(response, statusCode) {
         json: () => {
             if (response) {
                 return Promise.resolve(response);
-            } else {
-                throw new Error('Couldn\'t parse');
             }
+
+            throw new Error('Couldn\'t parse');
         }
     });
 }
@@ -29,7 +29,7 @@ function respondWithError(json) {
 }
 
 function subject() {
-    return request('engine','http://localhost:8080', 'GET', 'test');
+    return request('engine', 'http://localhost:8080', 'GET', 'test');
 }
 
 it('will return json on successful request with json', async () => {

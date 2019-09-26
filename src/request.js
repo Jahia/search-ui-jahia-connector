@@ -1,8 +1,8 @@
 export default async function request(apiToken, baseURL, method, query) {
     const headers = new Headers({
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiToken}`,
-        'Accept': 'application/json'
+        Authorization: `Bearer ${apiToken}`,
+        Accept: 'application/json'
     });
     const response = await fetch(
         `${baseURL}/modules/graphql`,
@@ -25,8 +25,8 @@ export default async function request(apiToken, baseURL, method, query) {
 
     if (response.status >= 200 && response.status < 300) {
         return json;
-    } else {
-        const message = json && json.error ? json.error : response.status;
-        throw new Error(message);
     }
+
+    const message = json && json.error ? json.error : response.status;
+    throw new Error(message);
 }

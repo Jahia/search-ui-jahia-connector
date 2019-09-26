@@ -1,4 +1,5 @@
 /node
 /node_modules
-src/tests
+src/__tests__
 dist
+*.config.js

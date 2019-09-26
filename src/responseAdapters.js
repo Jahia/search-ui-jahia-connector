@@ -1,5 +1,13 @@
-export function getFacets() {
-    return {};
+export function getFacets(facets) {
+    let normalizedFacets = {};
+    if (facets) {
+        facets.forEach(facet => {
+            normalizedFacets[facet.field] = [];
+            normalizedFacets[facet.field].push(facet);
+        });
+    }
+
+    return normalizedFacets;
 }
 
 export function getResults(hits, fields) {
@@ -8,7 +16,7 @@ export function getResults(hits, fields) {
     }).map(hit => {
         let result = {
             id: {
-                //Default property that is required by rendering View component
+                // Default property that is required by rendering View component
                 raw: hit.node.uuid
             }
         };
