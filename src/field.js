@@ -23,9 +23,6 @@ class Field {
     resolveRequestField() {
         let fieldTemplate;
         switch (this.type) {
-            case FieldType.HIT:
-                fieldTemplate =  this.name;
-                break;
             case FieldType.NODE:
                 fieldTemplate = `${this.name.replace(':', '_')} : property(name: "${this.name}") {
                     value
@@ -45,16 +42,17 @@ class Field {
                     }
                 }`;
                 break;
+            case FieldType.HIT:
+            default:
+                fieldTemplate = this.name;
         }
+
         return fieldTemplate;
     }
 
     resolveResponseField(hit, result) {
         let property = null;
         switch (this.type) {
-            case FieldType.HIT:
-                property = hit[this.name.replace(':', '_')];
-                break;
             case FieldType.NODE:
                 property = hit.node[this.name.replace(':', '_')].value;
                 break;
@@ -64,13 +62,18 @@ class Field {
             case FieldType.REFERENCE_AS_VALUE:
                 property = hit.node[this.name.replace(':', '_')].refNode.displayName;
                 break;
+            case FieldType.HIT:
+            default:
+                property = hit[this.name.replace(':', '_')];
         }
+
         let field = {};
         if (this.useSnippet) {
             field.snippet = property;
         } else {
             field.raw = property;
         }
+
         result[this.alias ? this.alias : this.name.replace(':', '_')] = field;
     }
 }
