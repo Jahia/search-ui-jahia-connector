@@ -69,8 +69,18 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
                         field
                         type
                         data {
-                            count
-                            value
+                            ... on TermValue {
+                                count
+                                value
+                            }
+                            ... on RangeValue {
+                                count
+                                range {
+                                    from
+                                    to
+                                    name
+                                }
+                            }
                         }
                     }
                     hits {

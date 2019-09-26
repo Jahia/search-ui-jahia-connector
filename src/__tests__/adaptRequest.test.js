@@ -15,6 +15,11 @@ const queryConfig = {
             type: 'value',
             size: 10,
             disjunctive: true
+        },
+        'jfs:lastModified': {
+            type: 'date_range',
+            disjunctive: true,
+            ranges: [{from: 'now-1M', to: '', name: 'last month'}, {from: 'now-1y', to: 'now', name: 'last year'}]
         }
     },
     // eslint-disable-next-line camelcase
@@ -62,6 +67,11 @@ const request = {
             field: 'jfs:tags',
             values: ['cluster'],
             type: 'all'
+        },
+        {
+            field: 'jfs:lastModified',
+            values: [{from: "2018-09-26T18:09:35.527Z", to: "2019-09-26T18:09:35.527Z", name: "last year"}],
+            type: 'all'
         }
     ]
 };
@@ -70,15 +80,25 @@ const adaptedRequest = print(parse(`{
       jcr {
         searches(siteKey: "academy", language: "en", workspace: LIVE) {
           search(searchInput: {searchCriteria: {text: "test"}, nodeTypeCriteria: {nodeType: "jnt:page"}, limit: 10, offset: 3}, sortBy: {orderType: ASC, property: "title"},
-                facetsInput: {facets: [{field: "jfs:tags", type: VALUE, disjunctive: true, max: 10, selections: [{value: "cluster"}]}]}) {
+                facetsInput: {termFacets: [{field: "jfs:tags", disjunctive: true, max: 10, selections: ["cluster"]}],  dateRangeFacets: [{field: "jfs:lastModified", ranges: [{name: "last month", from: "now-1M"}, {name: "last year", from: "now-1y", to: "now"}], disjunctive: true, selections: [{name: "last year", from: "2018-09-26T18:09:35.527Z", to: "2019-09-26T18:09:35.527Z"}]}]}) {
             totalHits
             took
             facets {
               field
               type
               data {
-                count
-                value
+                ... on TermValue {
+                  count
+                  value
+                }
+                ... on RangeValue {
+                  count
+                  range {
+                    from
+                    to
+                    name
+                  }
+                }
               }
             }
             hits {
