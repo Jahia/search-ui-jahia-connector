@@ -35,7 +35,7 @@ function subject() {
 it('will return json on successful request with json', async () => {
     respondWithSuccess(responseJson);
     const response = await subject();
-    expect(response).toEqual(responseJson);
+    expect(response).toEqual("");
 });
 
 it('will return undefined on successful request without json', async () => {
