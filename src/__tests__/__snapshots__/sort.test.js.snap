@@ -11,8 +11,18 @@ exports[`Sort parameters tests Query with incorrect sort direction 1`] = `
           field
           type
           data {
-            count
-            value
+            ... on TermValue {
+              count
+              value
+            }
+            ... on RangeValue {
+              count
+              range {
+                from
+                to
+                name
+              }
+            }
           }
         }
         hits {
@@ -45,8 +55,18 @@ exports[`Sort parameters tests Query with incorrect sort field 1`] = `
           field
           type
           data {
-            count
-            value
+            ... on TermValue {
+              count
+              value
+            }
+            ... on RangeValue {
+              count
+              range {
+                from
+                to
+                name
+              }
+            }
           }
         }
         hits {
@@ -79,8 +99,18 @@ exports[`Sort parameters tests Query with sort 1`] = `
           field
           type
           data {
-            count
-            value
+            ... on TermValue {
+              count
+              value
+            }
+            ... on RangeValue {
+              count
+              range {
+                from
+                to
+                name
+              }
+            }
           }
         }
         hits {
@@ -113,8 +143,18 @@ exports[`Sort parameters tests Query without sort 1`] = `
           field
           type
           data {
-            count
-            value
+            ... on TermValue {
+              count
+              value
+            }
+            ... on RangeValue {
+              count
+              range {
+                from
+                to
+                name
+              }
+            }
           }
         }
         hits {

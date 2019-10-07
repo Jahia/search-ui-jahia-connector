@@ -3,6 +3,10 @@ export function getFacets(facets) {
     if (facets) {
         facets.forEach(facet => {
             normalizedFacets[facet.field] = [];
+            if (facet.type === 'date_range' || facet.type === 'range') {
+                facet.data = facet.data.map(entry => ({count: entry.count, value: entry.range}));
+            }
+
             normalizedFacets[facet.field].push(facet);
         });
     }

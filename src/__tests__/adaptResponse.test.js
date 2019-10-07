@@ -16,6 +16,11 @@ const queryConfig = {
         'jfs:tags': {
             type: 'value',
             disjunctive: true
+        },
+        'jfs:lastModified': {
+            type: 'date_range',
+            disjunctive: true,
+            ranges: [{from: 'now-1M', to: '', name: 'last month'}, {from: 'now-1y', to: 'now', name: 'last year'}]
         }
     }
 };
@@ -34,6 +39,16 @@ const response = {
                                 {
                                     count: 1,
                                     value: 'cluster'
+                                }
+                            ]
+                        },
+                        {
+                            field: 'jfs:lastModified',
+                            type: 'date_range',
+                            data: [
+                                {
+                                    count: 91,
+                                    range: {from: "2018-09-26T19:06:47.388Z", to: "2019-09-26T19:06:47.388Z", name: "last year"}
                                 }
                             ]
                         }
@@ -109,6 +124,11 @@ const adaptedResponse = {
             field: 'jfs:tags',
             type: 'sterms',
             data: [{count: 1, value: 'cluster'}]
+        }],
+        'jfs:lastModified': [{
+            field: 'jfs:lastModified',
+            type: 'date_range',
+            data: [{count: 91, value: {from: "2018-09-26T19:06:47.388Z", to: "2019-09-26T19:06:47.388Z", name: "last year"}}]
         }]
     }
 

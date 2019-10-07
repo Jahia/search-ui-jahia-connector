@@ -303,6 +303,22 @@ exports[`#onAutocompleteResultClick will call the API with the correct body para
 exports[`#onSearch will correctly format an API response 1`] = `
 Object {
   "facets": Object {
+    "jfs:lastModified": Array [
+      Object {
+        "data": Array [
+          Object {
+            "count": 91,
+            "value": Object {
+              "from": "2018-09-26T19:06:47.388Z",
+              "name": "last year",
+              "to": "2019-09-26T19:06:47.388Z",
+            },
+          },
+        ],
+        "field": "jfs:lastModified",
+        "type": "date_range",
+      },
+    ],
     "jfs:tags": Array [
       Object {
         "data": Array [
