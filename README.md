@@ -58,6 +58,36 @@ Fields in result set are determined by a list of instantiated `Field` object
 | **alias** | <code>string</code> | Alternate name to be used in response |
 | **useSnippet**  | <code>string</code> | Field rendering type; snippet (HTML) or raw (Plain text) |
 
+#### Facet Configuration
+
+There are 3 types of facets currently supported
+
+* _Term_
+* _Range_
+* _Date Range_
+
+##### Facet Object Configuration
+| Param     | Type                | Description                                                                                                            |
+| --------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **type***   | <code>string</code> | Type of facet [*value*\|*range*\|*date_range*] |
+| **disjunctive**  | <code>boolean</code> | AND[*false*] or OR[*true*] operation |
+| **ranges**** | <code>Array</code> | Array of range objects described below |
+
+> **ranges** field is required for Date/Number range facet. Below is the structure:
+
+ ```javascript
+  let rangeExample = {
+    //Label used for this range (required)
+    name: 'jcr:lastModified',
+    //At least `from` or `to` is required
+    //Optional
+    from: 'now-1M',
+    //Optional
+    to: 'now'
+  }
+ ```
+> Note date_range value can be a date string or [date math expression](https://www.elastic.co/guide/en/elasticsearch/client/net-api/7.x/date-math-expressions.html) i.e _now-1M_
+
 ## Example
 
 By following the guidelines below, you will be able to use JahiaSearchAPIConnector in your Search UI app.
@@ -92,12 +122,52 @@ let fields = [
     ...
 ];
 ```
+
+Facets are configured by using the following structure
+```javascript
+let facets = {
+  // Term Range Facet
+  'jcr:keywords': {
+    type: 'value',
+    disjunctive: true
+  },
+  // Date Range Facet
+  'jcr:lastModified': {
+      type: 'date_range',
+      disjunctive: true,
+      ranges: [
+        {
+          from: 'now-1w',
+          to: 'now',
+          name: 'Last Week'
+        },
+        {
+          from: 'now-1M',
+          to: 'now',
+          name: 'Last month'
+        },
+        {
+          from: 'now-6M',
+          to: 'now',
+          name: 'Last 6 months'
+        },
+        {
+          from: 'now-1y',
+          to: 'now',
+          name: 'Last year'
+        }
+      ]
+  }
+}
+```
+
 Define the configuration object for Search UI's `SearchProvider` components
 ```javascript
 let config = {
         searchQuery: {
             //Set defined fields for search query
-            result_fields: fields
+            result_fields: fields,
+            facets: facets
         },
         autocompleteQuery: {
             results: {
