@@ -22,13 +22,6 @@ const buildFields = fields => {
 };
 
 /**
- * @typedef RequestOptions
- * @param  {string} siteKey The site search will be performed in
- * @param  {string} language Language in which search will be performed
- * @param  {string} workspace Workspace in which search will be performed
- * @param  {string} nodeType The node type that should be searched
- */
-/**
  *
  * @param {RequestOptions} requestOptions
  * @param request
@@ -73,7 +66,7 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
                                 count
                                 value
                             }
-                            ... on RangeValue {
+                            ... on DateRangeValue {
                                 count
                                 range {
                                     from

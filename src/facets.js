@@ -1,8 +1,8 @@
 const facetTypeToInput = {
-    value: 'termFacets',
-    range: 'rangeFacets',
+    value: 'term',
+    range: 'numberRange',
     // eslint-disable-next-line camelcase
-    date_range: 'dateRangeFacets'
+    date_range: 'dateRange'
 };
 
 function buildRangeValue(range) {
@@ -62,5 +62,5 @@ export default function facets(request, queryConfig) {
         });
         facetInputs.push(`${facetTypeToInput[facetType]}: [${processedFacetGroups.join(',')}]`);
     });
-    return `, facetsInput: {${facetInputs.join(',')}}`;
+    return `, facets: {${facetInputs.join(',')}}`;
 }
