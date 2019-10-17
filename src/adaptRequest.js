@@ -48,14 +48,13 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
     return print(parse(`query {
     jcr {
         searches(siteKey: "${graphQLOptions.siteKey}", language: "${graphQLOptions.language}", workspace: ${graphQLOptions.workspace}) {
-            search(searchInput: {searchCriteria: {
-                text: "${graphQLOptions.searchTerm}"},
-                nodeTypeCriteria:{
-                    nodeType:"${graphQLOptions.nodeType}"
-                    },
+            search(
+                q: "${graphQLOptions.searchTerm}",
                 limit: ${graphQLOptions.resultsPerPage},
-                offset: ${graphQLOptions.current - 1}
-                }${sort(request)} ${facets(request, queryConfig)}) {
+                offset: ${graphQLOptions.current - 1},
+                filter: { nodeType: { type: "${graphQLOptions.nodeType}" } },
+                ${sort(request)}, 
+                ${facets(request, queryConfig)}) {
                     totalHits
                     took
                     facets {
