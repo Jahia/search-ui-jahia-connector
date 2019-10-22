@@ -79,8 +79,8 @@ const request = {
 const adaptedRequest = print(parse(`{
       jcr {
         searches(siteKey: "academy", language: "en", workspace: LIVE) {
-          search(searchInput: {searchCriteria: {text: "test"}, nodeTypeCriteria: {nodeType: "jnt:page"}, limit: 10, offset: 3}, sortBy: {orderType: ASC, property: "title"},
-                facetsInput: {termFacets: [{field: "jfs:tags", disjunctive: true, max: 10, selections: ["cluster"]}],  dateRangeFacets: [{field: "jfs:lastModified", ranges: [{name: "last month", from: "now-1M"}, {name: "last year", from: "now-1y", to: "now"}], disjunctive: true, selections: [{name: "last year", from: "2018-09-26T18:09:35.527Z", to: "2019-09-26T18:09:35.527Z"}]}]}) {
+          search(q: "test", limit: 10, offset: 3, filter: {nodeType: {type: "jnt:page"}}, sortBy: {orderType: ASC, property: "title"},
+                 facets: {term: [{field: "jfs:tags", disjunctive: true, max: 10, selections: ["cluster"]}], dateRange: [{field: "jfs:lastModified", ranges: [{name: "last month", from: "now-1M"}, {name: "last year", from: "now-1y", to: "now"}], disjunctive: true, selections: [{name: "last year", from: "2018-09-26T18:09:35.527Z", to: "2019-09-26T18:09:35.527Z"}]}]}) { 
             totalHits
             took
             facets {
@@ -91,7 +91,7 @@ const adaptedRequest = print(parse(`{
                   count
                   value
                 }
-                ... on RangeValue {
+                ... on DateRangeValue {
                   count
                   range {
                     from

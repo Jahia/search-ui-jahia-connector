@@ -4,7 +4,7 @@ exports[`Sort parameters tests Query with incorrect sort direction 1`] = `
 "{
   jcr {
     searches(siteKey: \\"fake\\", language: \\"fake\\", workspace: fake) {
-      search(searchInput: {searchCriteria: {text: \\"undefined\\"}, nodeTypeCriteria: {nodeType: \\"fake\\"}, limit: 5, offset: 0}) {
+      search(q: \\"undefined\\", limit: 5, offset: 0, filter: {nodeType: {type: \\"fake\\"}}) {
         totalHits
         took
         facets {
@@ -15,7 +15,7 @@ exports[`Sort parameters tests Query with incorrect sort direction 1`] = `
               count
               value
             }
-            ... on RangeValue {
+            ... on DateRangeValue {
               count
               range {
                 from
@@ -48,7 +48,7 @@ exports[`Sort parameters tests Query with incorrect sort field 1`] = `
 "{
   jcr {
     searches(siteKey: \\"fake\\", language: \\"fake\\", workspace: fake) {
-      search(searchInput: {searchCriteria: {text: \\"undefined\\"}, nodeTypeCriteria: {nodeType: \\"fake\\"}, limit: 5, offset: 0}) {
+      search(q: \\"undefined\\", limit: 5, offset: 0, filter: {nodeType: {type: \\"fake\\"}}) {
         totalHits
         took
         facets {
@@ -59,7 +59,7 @@ exports[`Sort parameters tests Query with incorrect sort field 1`] = `
               count
               value
             }
-            ... on RangeValue {
+            ... on DateRangeValue {
               count
               range {
                 from
@@ -92,7 +92,7 @@ exports[`Sort parameters tests Query with sort 1`] = `
 "{
   jcr {
     searches(siteKey: \\"fake\\", language: \\"fake\\", workspace: fake) {
-      search(searchInput: {searchCriteria: {text: \\"undefined\\"}, nodeTypeCriteria: {nodeType: \\"fake\\"}, limit: 5, offset: 0}, sortBy: {orderType: ASC, property: \\"jcr:title\\"}) {
+      search(q: \\"undefined\\", limit: 5, offset: 0, filter: {nodeType: {type: \\"fake\\"}}, sortBy: {orderType: ASC, property: \\"jcr:title\\"}) {
         totalHits
         took
         facets {
@@ -103,7 +103,7 @@ exports[`Sort parameters tests Query with sort 1`] = `
               count
               value
             }
-            ... on RangeValue {
+            ... on DateRangeValue {
               count
               range {
                 from
@@ -136,7 +136,7 @@ exports[`Sort parameters tests Query without sort 1`] = `
 "{
   jcr {
     searches(siteKey: \\"fake\\", language: \\"fake\\", workspace: fake) {
-      search(searchInput: {searchCriteria: {text: \\"undefined\\"}, nodeTypeCriteria: {nodeType: \\"fake\\"}, limit: 5, offset: 0}) {
+      search(q: \\"undefined\\", limit: 5, offset: 0, filter: {nodeType: {type: \\"fake\\"}}) {
         totalHits
         took
         facets {
@@ -147,7 +147,7 @@ exports[`Sort parameters tests Query without sort 1`] = `
               count
               value
             }
-            ... on RangeValue {
+            ... on DateRangeValue {
               count
               range {
                 from
