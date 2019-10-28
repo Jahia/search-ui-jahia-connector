@@ -102,12 +102,12 @@ const adaptedRequest = print(parse(`{
               }
             }
             hits {
+              id
               link
               displayableName
               excerpt
               score
               node {
-                uuid
                 jcr_created: property(name: "jcr:created") {
                   value
                 }

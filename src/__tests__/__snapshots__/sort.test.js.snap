@@ -26,12 +26,12 @@ exports[`Sort parameters tests Query with incorrect sort direction 1`] = `
           }
         }
         hits {
+          id
           link
           displayableName
           excerpt
           score
           node {
-            uuid
             jcr_created: property(name: \\"jcr:created\\") {
               value
             }
@@ -70,12 +70,12 @@ exports[`Sort parameters tests Query with incorrect sort field 1`] = `
           }
         }
         hits {
+          id
           link
           displayableName
           excerpt
           score
           node {
-            uuid
             jcr_created: property(name: \\"jcr:created\\") {
               value
             }
@@ -114,12 +114,12 @@ exports[`Sort parameters tests Query with sort 1`] = `
           }
         }
         hits {
+          id
           link
           displayableName
           excerpt
           score
           node {
-            uuid
             jcr_created: property(name: \\"jcr:created\\") {
               value
             }
@@ -158,12 +158,12 @@ exports[`Sort parameters tests Query without sort 1`] = `
           }
         }
         hits {
+          id
           link
           displayableName
           excerpt
           score
           node {
-            uuid
             jcr_created: property(name: \\"jcr:created\\") {
               value
             }
