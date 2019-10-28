@@ -55,6 +55,7 @@ const response = {
                     ],
                     hits: [
                         {
+                            id: 'cad826d1-edda-4587-b090-343158b40b5b',
                             score: 198.3385772705078,
                             displayableName: 'Jahia cluster setup',
                             excerpt: 'The Jahia Team Jahia <em>cluster</em> <em>setup</em> Here are the steps ' +
@@ -62,7 +63,6 @@ const response = {
                                 ' We will also detail ... Jahia <em>cluster</em> <em>setup</em>',
                             link: 'http://localhost/sites/academy/home/documentation/developer/dx/techwiki/misc/dx-cluster-setup.html',
                             node: {
-                                uuid: 'cad826d1-edda-4587-b090-343158b40b5b',
                                 jcr_created: {
                                     value: '2016-01-12T23:14:03.248+01:00'
                                 },

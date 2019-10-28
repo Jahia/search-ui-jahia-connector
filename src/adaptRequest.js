@@ -18,6 +18,10 @@ const buildFields = fields => {
                 break;
         }
     });
+    if (fieldsConcatenated.nodeFields !== '') {
+        fieldsConcatenated.nodeFields = `node {${fieldsConcatenated.nodeFields}}`;
+    }
+
     return fieldsConcatenated;
 };
 
@@ -76,11 +80,9 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
                         }
                     }
                     hits {
+                        id
                         ${resolvedRequestFields.hitFields}
-                        node {
-                            uuid
-                            ${resolvedRequestFields.nodeFields}
-                        }
+                        ${resolvedRequestFields.nodeFields}
                     }
                 }
             }

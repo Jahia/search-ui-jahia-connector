@@ -21,7 +21,7 @@ export function getResults(hits, fields) {
         let result = {
             id: {
                 // Default property that is required by rendering View component
-                raw: hit.node.uuid
+                raw: hit.id
             }
         };
         fields.forEach(field => field.resolveResponseField(hit, result));
