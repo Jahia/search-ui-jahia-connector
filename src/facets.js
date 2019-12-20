@@ -55,7 +55,7 @@ export default function facets(request, queryConfig) {
         let processedFacetGroups = [];
         Object.entries(facetGroup).forEach(([facetName, facet]) => {
             if (facetType === 'value') {
-                processedFacetGroups.push(`{ field: "${facetName}", disjunctive: ${Boolean(facet.facet.disjunctive)} ${facet.facet.size ? `, max: ${facet.facet.size},` : ''} ${facet.selections !== undefined && facet.selections.length > 0 ? `, selections: [${facet.selections.join(',')}]` : ''} }`);
+                processedFacetGroups.push(`{ field: "${facetName}", disjunctive: ${Boolean(facet.facet.disjunctive)} ${facet.facet.size ? `, max: ${facet.facet.size},` : ''} ${facet.facet.minDoc ? `, minDocCount: ${facet.facet.minDoc},` : ''} ${facet.selections !== undefined && facet.selections.length > 0 ? `, selections: [${facet.selections.join(',')}]` : ''} }`);
             } else if (facetType === 'date_range' || facetType === 'range') {
                 processedFacetGroups.push(`{ field: "${facetName}", ranges:[${facet.facet.ranges.map(range => `${buildRangeValue(range)}`).join(',')}], disjunctive: ${Boolean(facet.facet.disjunctive)} ${facet.facet.size ? `, max: ${facet.facet.size},` : ''} ${facet.selections !== undefined && facet.selections.length > 0 ? `, selections: [${facet.selections.join(',')}]` : ''} }`);
             }
