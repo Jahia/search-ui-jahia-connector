@@ -5,7 +5,7 @@ import Constants from './constants';
 
 class JahiaSearchAPIConnector {
     /**
-     * @typedef Options
+     * Define the options available to initialize your JahiaSearchAPIConnector
      * @param  {string} apiToken Credential found in your Jahia Tools
      * @param  {string} baseURL  URL of your Jahia installation
      * @param  {string} siteKey The site search will be performed in

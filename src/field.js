@@ -7,11 +7,11 @@ const FieldType = {
 
 class Field {
     /**
-     *
-     * @param type {FieldType} The type of field (ESHit or JCR)
-     * @param name {string}  field name that should be returned in the response
-     * @param alias {string} optional
-     * @param useSnippet {boolean} configure if value is html based (snippet) or plain text (raw)
+     * Field allows you define the data you want to receive from your searches
+     * @param {FieldType} type The type of field (ESHit or JCR)
+     * @param {string} name  field name that should be returned in the response
+     * @param {string} alias optional, define an alias for this field
+     * @param {boolean} useSnippet configure if value is html based (snippet) or plain text (raw)
      */
     constructor(type, name, alias, useSnippet = false) {
         this.type = type;

@@ -26,11 +26,11 @@ const buildFields = fields => {
 };
 
 /**
- *
- * @param {RequestOptions} requestOptions
- * @param request
- * @param queryConfig
- * @returns {string}
+ * Adapt the request from Search UI to Jahia Augmented Search
+ * @param {RequestOptions} requestOptions the options for this request
+ * @param {any} request the state of the current request
+ * @param {any} queryConfig the query configuration as defined when initializing the App
+ * @returns {string} the graphql query to be excuted on a Jahia backend
  */
 export default function adaptRequest(requestOptions, request, queryConfig) {
     const graphQLOptions = {
