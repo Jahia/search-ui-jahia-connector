@@ -1,12 +1,5 @@
-const facetTypeToInput = {
-    value: 'term',
-    range: 'numberRange',
-    // eslint-disable-next-line camelcase
-    date_range: 'dateRange'
-};
-
 function buildRangeValue(range) {
-    let args = [`name: "${range.name}"`];
+    const args = [`name: "${range.name}"`];
     if (range.from) {
         args.push(`from: "${range.from}"`);
     }
@@ -23,44 +16,52 @@ export default function facets(request, queryConfig) {
         return '';
     }
 
-    let processedFacets = {};
+    const processedFacets = {};
+
+    function extractSelections(filters, facetName, facet) {
+        const selections = [];
+        filters.filter(filter => facetName === filter.field).forEach(filter => {
+            switch (facet.type) {
+                case 'range':
+                case 'date_range':
+                    filter.values.forEach(value => selections.push(buildRangeValue(value)));
+                    break;
+                case 'value':
+                default:
+                    filter.values.forEach(value => selections.push(`"${value}"`));
+                    break;
+            }
+        });
+        processedFacets[facet.type][facetName].selections = selections;
+    }
+
     Object.entries(queryConfig.facets).forEach(([facetName, facet]) => {
         // Handle filter values
-        let filters = request.filters;
+        const filters = request.filters;
         if (processedFacets[facet.type] === undefined) {
             processedFacets[facet.type] = {};
         }
 
         processedFacets[facet.type][facetName] = {facet: facet};
         if (filters) {
-            let selections = [];
-            filters.filter(filter => facetName === filter.field).forEach(filter => {
-                switch (facet.type) {
-                    case 'range':
-                    case 'date_range':
-                        filter.values.forEach(value => selections.push(buildRangeValue(value)));
-                        break;
-                    case 'value':
-                    default:
-                        filter.values.forEach(value => selections.push(`"${value}"`));
-                        break;
-                    // Other cases to be implemented in the future
-                }
-            });
-            processedFacets[facet.type][facetName].selections = selections;
+            extractSelections(filters, facetName, facet);
         }
     });
-    let facetInputs = [];
+    const facetInputs = [];
     Object.entries(processedFacets).forEach(([facetType, facetGroup]) => {
-        let processedFacetGroups = [];
         Object.entries(facetGroup).forEach(([facetName, facet]) => {
             if (facetType === 'value') {
-                processedFacetGroups.push(`{ field: "${facetName}", disjunctive: ${Boolean(facet.facet.disjunctive)} ${facet.facet.size ? `, max: ${facet.facet.size},` : ''} ${facet.facet.minDoc ? `, minDocCount: ${facet.facet.minDoc},` : ''} ${facet.selections !== undefined && facet.selections.length > 0 ? `, selections: [${facet.selections.join(',')}]` : ''} }`);
+                facetInputs.push(`${facetName.replace(':', '_')}: termFacet(field:"${facetName}", disjunctive: ${Boolean(facet.facet.disjunctive)} 
+                ${facet.facet.size ? `, max: ${facet.facet.size},` : ''} ${facet.facet.minDoc ? `, minDocCount: ${facet.facet.minDoc},` : ''}) {
+                data{value,count}}`);
             } else if (facetType === 'date_range' || facetType === 'range') {
-                processedFacetGroups.push(`{ field: "${facetName}", ranges:[${facet.facet.ranges.map(range => `${buildRangeValue(range)}`).join(',')}], disjunctive: ${Boolean(facet.facet.disjunctive)} ${facet.facet.size ? `, max: ${facet.facet.size},` : ''} ${facet.selections !== undefined && facet.selections.length > 0 ? `, selections: [${facet.selections.join(',')}]` : ''} }`);
+                facetInputs.push(`${facetName.replace(':', '_')}:rangeFacet(field: "${facetName}", 
+                ranges:[${facet.facet.ranges.map(range => `${buildRangeValue(range)}`).join(',')}] 
+                ${facet.facet.size ? `, max: ${facet.facet.size},` : ''}) {
+                data{name,count}}`);
             }
         });
-        facetInputs.push(`${facetTypeToInput[facetType]}: [${processedFacetGroups.join(',')}]`);
     });
-    return `, facets: {${facetInputs.join(',')}}`;
+    console.log(`${facetInputs.join(',')}`);
+    return `${facetInputs.join(',')}`;
 }

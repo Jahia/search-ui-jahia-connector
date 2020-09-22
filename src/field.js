@@ -23,24 +23,10 @@ class Field {
     resolveRequestField() {
         let fieldTemplate;
         switch (this.type) {
-            case FieldType.NODE:
-                fieldTemplate = `${this.name.replace(':', '_')} : property(name: "${this.name}") {
-                    value
-                }`;
-                break;
-            case FieldType.REFERENCE_AS_PATH:
-                fieldTemplate = `${this.name.replace(':', '_')} : property(name: "${this.name}") {
-                    refNode {
-                        path
-                    }
-                }`;
-                break;
             case FieldType.REFERENCE_AS_VALUE:
-                fieldTemplate = `${this.name.replace(':', '_')} : property(name: "${this.name}") {
-                    refNode {
-                        displayName
-                    }
-                }`;
+            case FieldType.REFERENCE_AS_PATH:
+            case FieldType.NODE:
+                fieldTemplate = `${this.alias ? this.alias : this.name.replace(':', '_')} : property(name: "${this.name}")`;
                 break;
             case FieldType.HIT:
             default:
@@ -54,20 +40,16 @@ class Field {
         let property = null;
         switch (this.type) {
             case FieldType.NODE:
-                property = hit.node[this.name.replace(':', '_')].value;
-                break;
             case FieldType.REFERENCE_AS_PATH:
-                property = hit.node[this.name.replace(':', '_')].refNode.path;
-                break;
             case FieldType.REFERENCE_AS_VALUE:
-                property = hit.node[this.name.replace(':', '_')].refNode.displayName;
+                property = hit[this.alias ? this.alias : this.name.replace(':', '_')];
                 break;
             case FieldType.HIT:
             default:
                 property = hit[this.name.replace(':', '_')];
         }
 
-        let field = {};
+        const field = {};
         if (this.useSnippet) {
             field.snippet = property;
         } else {

@@ -11,15 +11,17 @@ const requestOptions = {
 
 const queryConfig = {
     facets: {
-        'jfs:tags': {
+        'jgql:tags': {
             type: 'value',
             size: 10,
+            minDoc: 1,
             disjunctive: true
         },
-        'jfs:lastModified': {
+        'jgql:lastModified': {
             type: 'date_range',
             disjunctive: true,
-            ranges: [{from: 'now-1M', to: '', name: 'last month'}, {from: 'now-1y', to: 'now', name: 'last year'}]
+            ranges: [{from: 'now-1y', to: 'now', name: 'last year'},
+                {from: 'now-5y', to: 'now-1y', name: 'last 5 years'}]
         }
     },
     // eslint-disable-next-line camelcase
@@ -28,7 +30,7 @@ const queryConfig = {
         new Field(FieldType.HIT, 'displayableName', 'title'),
         new Field(FieldType.HIT, 'excerpt', null, true),
         new Field(FieldType.HIT, 'score'),
-        new Field(FieldType.NODE, 'jcr:created', 'created'),
+        new Field(FieldType.NODE, 'jgql:created'),
         new Field(FieldType.REFERENCE_AS_PATH, 'logo', 'logo'),
         new Field(FieldType.REFERENCE_AS_VALUE, 'industryCat', 'industry')
     ],
@@ -52,7 +54,7 @@ const request = {
         new Field(FieldType.HIT, 'displayableName', 'title'),
         new Field(FieldType.HIT, 'excerpt', null, true),
         new Field(FieldType.HIT, 'score'),
-        new Field(FieldType.NODE, 'jcr:created', 'created'),
+        new Field(FieldType.NODE, 'jcr:created'),
         new Field(FieldType.REFERENCE_AS_PATH, 'logo', 'logo'),
         new Field(FieldType.REFERENCE_AS_VALUE, 'industryCat', 'industry')
     ],
@@ -64,69 +66,49 @@ const request = {
     },
     filters: [
         {
-            field: 'jfs:tags',
+            field: 'jgql:tags',
             values: ['cluster'],
             type: 'all'
         },
         {
-            field: 'jfs:lastModified',
-            values: [{from: "2018-09-26T18:09:35.527Z", to: "2019-09-26T18:09:35.527Z", name: "last year"}],
+            field: 'jgql:lastModified',
+            values: [{from: 'now-1y', to: 'now', name: 'last year'}],
             type: 'all'
         }
     ]
 };
 
 const adaptedRequest = print(parse(`{
-      jcr {
-        searches(siteKey: "academy", language: "en", workspace: LIVE) {
-          search(q: "test", limit: 10, offset: 3, filter: {nodeType: {type: "jnt:page"}}, sortBy: {orderType: ASC, property: "title"},
-                 facets: {term: [{field: "jfs:tags", disjunctive: true, max: 10, selections: ["cluster"]}], dateRange: [{field: "jfs:lastModified", ranges: [{name: "last month", from: "now-1M"}, {name: "last year", from: "now-1y", to: "now"}], disjunctive: true, selections: [{name: "last year", from: "2018-09-26T18:09:35.527Z", to: "2019-09-26T18:09:35.527Z"}]}]}) { 
-            totalHits
-            took
-            facets {
-              field
-              type
-              data {
-                ... on TermValue {
-                  count
-                  value
+      search (q: "test", siteKeys: ["academy"], language: "en", workspace: LIVE, filters: {nodeType: {type: "jnt:page"}}) {
+            results (size: 10, page: 3, sortBy: {dir: ASC, field: "title"}) {
+                totalHits
+                took
+                hits {
+                  id
+                  link
+                  displayableName
+                  excerpt
+                  score
+                  jgql_created: property(name: "jgql:created")
+                  logo: property(name: "logo")
+                  industry: property(name: "industryCat")
                 }
-                ... on DateRangeValue {
-                  count
-                  range {
-                    from
-                    to
+            }
+            jgql_tags: termFacet(field: "jgql:tags", disjunctive: true, max: 10, minDocCount: 1) {
+                data {
+                    value
+                    count
+                }
+            }
+            jgql_lastModified: rangeFacet(field: "jgql:lastModified", ranges: [{name: "last year", from: "now-1y", to: "now"},
+                                                            {name: "last 5 years", from: "now-5y", to: "now-1y"}]) {
+                data {
                     name
-                  }
+                    count
                 }
-              }
             }
-            hits {
-              id
-              link
-              displayableName
-              excerpt
-              score
-              node {
-                jcr_created: property(name: "jcr:created") {
-                  value
-                }
-                logo: property(name: "logo") {
-                  refNode {
-                    path
-                  }
-                }
-                industryCat: property(name: "industryCat") {
-                  refNode {
-                    displayName
-                  }
-                }
-              }
-            }
-          }
-        }
       }
-    }`));
+}`));
 
 describe('adaptRequest', () => {
     it('adapts request', () => {

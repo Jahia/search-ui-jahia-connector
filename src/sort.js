@@ -8,5 +8,5 @@ export default function (state) {
         return '';
     }
 
-    return `, sortBy: { orderType: ${state.sortDirection.toUpperCase()}, property: "${state.sortField}"}`;
+    return `, sortBy: { dir: ${state.sortDirection.toUpperCase()}, field: "${state.sortField}"}`;
 }

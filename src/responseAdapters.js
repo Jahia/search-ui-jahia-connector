@@ -1,13 +1,18 @@
-export function getFacets(facets) {
-    let normalizedFacets = {};
+export function getFacets(facets, queryConfig) {
+    if (!queryConfig.facets || Object.entries(queryConfig.facets).length === 0) {
+        return {};
+    }
+
+    const normalizedFacets = {};
     if (facets) {
-        facets.forEach(facet => {
-            normalizedFacets[facet.field] = [];
+        Object.entries(queryConfig.facets).forEach(([facetName, facet]) => {
+            normalizedFacets[facetName] = [];
+            const facetResponse = facets[facetName.replace(':', '_')];
             if (facet.type === 'date_range' || facet.type === 'range') {
-                facet.data = facet.data.map(entry => ({count: entry.count, value: entry.range}));
+                facetResponse.data = facetResponse.data.map(entry => ({count: entry.count, value: entry.name}));
             }
 
-            normalizedFacets[facet.field].push(facet);
+            normalizedFacets[facetName].push(facetResponse);
         });
     }
 
@@ -15,10 +20,8 @@ export function getFacets(facets) {
 }
 
 export function getResults(hits, fields) {
-    return hits.filter(hit => {
-        return hit.node !== null;
-    }).map(hit => {
-        let result = {
+    return hits.map(hit => {
+        const result = {
             id: {
                 // Default property that is required by rendering View component
                 raw: hit.id

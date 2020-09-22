@@ -52,10 +52,10 @@ describe('#onSearch', () => {
                 new Field(FieldType.HIT, 'displayableName', 'title'),
                 new Field(FieldType.HIT, 'excerpt', null, true),
                 new Field(FieldType.HIT, 'score'),
-                new Field(FieldType.NODE, 'jcr:created', 'created')
+                new Field(FieldType.NODE, 'jgql:created', 'created')
             ],
             facets: {
-                'jfs:tags': {
+                'jgql:tags': {
                     type: 'value',
                     size: 10,
                     disjunctive: true
