@@ -1,195 +1,69 @@
 {
   "data": {
-    "jcr": {
-      "searches": {
-        "search": {
-          "totalHits": 13,
-          "took": "1 second and 10 milliseconds",
-          "facets": [
-            {
-              "field": "jfs:tags",
-              "type": "sterms",
-              "data": [
-                {
-                  "count": 1,
-                  "value": "cluster"
-                }
-              ]
-            },
-            {
-              "field": "jfs:lastModified",
-              "type": "date_range",
-              "data": [
-                {
-                  "count": 91,
-                  "range": {
-                    "from": "2018-09-26T19:06:47.388Z",
-                    "to": "2019-09-26T19:06:47.388Z",
-                    "name": "last year"
-                  }
-                }
-              ]
-            }
-          ],
-          "hits": [
-            {
-              "id": "e567c804-7d9b-4652-bb28-250095457015",
-              "score": 65.67353057861328,
-              "displayableName": "Jahia cluster setup",
-              "excerpt": "Jahia <em>cluster</em> <em>setup</em> ... The Jahia Team Jahia <em>cluster</em> <em>setup</em> Here are the steps followed to install an Jahia <em>cluster</em> for a production environment. We will also detail",
-              "link": "http://localhost/cms/render/default/en/sites/academy/home/documentation/developer/dx/techwiki/misc/dx-cluster-setup.html",
-              "node": {
-                "jcr_created": {
-                  "value": "2016-01-12T23:14:03.248+01:00"
-                }
-              }
-            },
-            {
-              "id": "e567c804-7d9b-4652-bb28-250095457015",
-              "score": 58.33796310424805,
-              "displayableName": "ElasticSearch / Unomi cluster setup",
-              "excerpt": "ElasticSearch / Unomi <em>cluster</em> <em>setup</em> ... The Jahia Team ElasticSearch / Unomi <em>cluster</em> <em>setup</em> Please note that the following instructions are not 100% valid for JExperience 1.10.1 and Apache",
-              "link": "http://localhost/cms/render/default/en/sites/academy/home/documentation/developer/dx/techwiki/misc/elasticsearch--unomi-cluster-setup.html",
-              "node": {
-                "jcr_created": {
-                  "value": "2016-01-12T23:14:03.248+01:00"
-                }
-              }
-            },
-            {
-              "id": "e567c804-7d9b-4652-bb28-250095457015",
-              "score": 56.66311264038086,
-              "displayableName": "6 - Cluster setup",
-              "excerpt": "6 - <em>Cluster</em> <em>setup</em> ... The Jahia Team 6 - <em>Cluster</em> <em>setup</em> 6.1 Discovery\n\n6.1.1 Overview\n\nDiscovery must be configured on every layer of the <em>cluster</em> architecture",
-              "link": "http://localhost/cms/render/default/en/sites/academy/home/legacy-1/marketing-factory/18/technical/installation-configuration-and-f/6---cluster-setup.html",
-              "node": {
-                "jcr_created": {
-                  "value": "2016-01-12T23:14:03.248+01:00"
-                }
-              }
-            },
-            {
-              "id": "e567c804-7d9b-4652-bb28-250095457015",
-              "score": 6.531671047210693,
-              "displayableName": "FAQs",
-              "excerpt": " during the Digital Experience Manager configuration wizard (<em>cluster</em> installation), please restore it at the appropriate location.\n\nRemove the 2 “lock ...  (DX 7.2.1.1+)\n\nThe safe backup restore here is only relevant, when you are restoring a DX <em>clustered</em> backup at another infrastructure, say cloning",
-              "link": "http://localhost/cms/render/default/en/sites/academy/home/documentation/system-administrator/dx/72/technical/configuration-and-fine-tuning/faq.html",
-              "node": {
-                "jcr_created": {
-                  "value": "2016-01-12T23:14:03.248+01:00"
-                }
-              }
-            },
-            {
-              "id": "e567c804-7d9b-4652-bb28-250095457015",
-              "score": 6.531671047210693,
-              "displayableName": "FAQs",
-              "excerpt": "\n|_________indexing_configuration_version.xml\n\nIf you have chosen an alternative location of the datastore folder during the Jahia configuration wizard (<em>cluster</em> installation ...  keep the former indexes to save time.\n\nSafe backup restore\n\nThe safe backup restore here is only relevant, when you are restoring a Jahia <em>clustered</em>",
-              "link": "http://localhost/cms/render/default/en/sites/academy/home/documentation/system-administrator/dx/73/technical/configuration-and-fine-tuning/faq.html",
-              "node": {
-                "jcr_created": {
-                  "value": "2016-01-12T23:14:03.248+01:00"
-                }
-              }
-            },
-            {
-              "id": "e567c804-7d9b-4652-bb28-250095457015",
-              "score": 6.531671047210693,
-              "displayableName": "FAQ",
-              "excerpt": " during the Digital Experience Manager configuration wizard (<em>cluster</em> installation), please restore it at the appropriate location.\n\nRemove the 2 “lock ...  of a restored DX instance.\n\nIt includes currently:\n\n\n the purge of the JGROUPSPING database table data, which is responsible for the <em>cluster</em> membership",
-              "link": "http://localhost/cms/render/default/en/sites/academy/trash/dx-new-docs-do-not-suppress/technical/configuration-and-fine-tuning/faq.html",
-              "node": {
-                "jcr_created": {
-                  "value": "2016-01-12T23:14:03.248+01:00"
-                }
-              }
-            },
-            {
-              "id": "e567c804-7d9b-4652-bb28-250095457015",
-              "score": 4.4613118171691895,
-              "displayableName": "Configuring",
-              "excerpt": " for <em>clustering</em> settings. Since Digital Experience Manager 7.0.0.2 the runtime data and configuration files are located outside the Web application ...  features and services.\n jahia.node.properties – configuration file for the <em>clustering</em> options\n license.xml – is a file with your current Digital",
-              "link": "http://localhost/cms/render/default/en/sites/academy/trash/dx-new-docs-do-not-suppress/technical/configuration-and-fine-tuning/configuring.html",
-              "node": {
-                "jcr_created": {
-                  "value": "2016-01-12T23:14:03.248+01:00"
-                }
-              }
-            },
-            {
-              "id": "e567c804-7d9b-4652-bb28-250095457015",
-              "score": 4.4613118171691895,
-              "displayableName": "Configuring DX features",
-              "excerpt": " configuration options are gathered in the jahia.properties and jahia.node.properties files. The latter one is responsible only for <em>clustering</em> settings. Since ...  and services.\n jahia.node.properties – configuration file for the <em>clustering</em> options\n license.xml – is a file with your current Digital Experience Manager",
-              "link": "http://localhost/cms/render/default/en/sites/academy/home/documentation/system-administrator/dx/72/technical/configuration-and-fine-tuning/configuring.html",
-              "node": {
-                "jcr_created": {
-                  "value": "2016-01-12T23:14:03.248+01:00"
-                }
-              }
-            },
-            {
-              "id": "e567c804-7d9b-4652-bb28-250095457015",
-              "score": 4.4613118171691895,
-              "displayableName": "Configuring Jahia features",
-              "excerpt": " are gathered in the jahia.properties and jahia.node.properties files. The latter one is responsible only for <em>clustering</em> settings. The runtime data ...  and services.\n jahia.node.properties – configuration file for the <em>clustering</em> options\n license.xml – is a file with your current Jahia license",
-              "link": "http://localhost/cms/render/default/en/sites/academy/home/documentation/system-administrator/dx/73/technical/configuration-and-fine-tuning/configuring.html",
-              "node": {
-                "jcr_created": {
-                  "value": "2016-01-12T23:14:03.248+01:00"
-                }
-              }
-            },
-            {
-              "id": "e567c804-7d9b-4652-bb28-250095457015",
-              "score": 4.233768463134766,
-              "displayableName": "Development Best Practices",
-              "excerpt": "",
-              "link": "http://localhost/cms/render/default/en/sites/academy/trash/dx-new-docs-do-not-suppress/development/development-best-practices.html",
-              "node": {
-                "jcr_created": {
-                  "value": "2016-01-12T23:14:03.248+01:00"
-                }
-              }
-            },
-            {
-              "id": "e567c804-7d9b-4652-bb28-250095457015",
-              "score": 4.233768463134766,
-              "displayableName": "Development best practices",
-              "excerpt": "",
-              "link": "http://localhost/cms/render/default/en/sites/academy/home/documentation/developer/dx/72/development/development-best-practices.html",
-              "node": {
-                "jcr_created": {
-                  "value": "2016-01-12T23:14:03.248+01:00"
-                }
-              }
-            },
-            {
-              "id": "e567c804-7d9b-4652-bb28-250095457015",
-              "score": 4.233768463134766,
-              "displayableName": "Development best practices",
-              "excerpt": "",
-              "link": "http://localhost/cms/render/default/en/sites/academy/home/documentation/developer/dx/73/development/development-best-practices.html",
-              "node": {
-                "jcr_created": {
-                  "value": "2016-01-12T23:14:03.248+01:00"
-                }
-              }
-            },
-            {
-              "id": "e567c804-7d9b-4652-bb28-250095457015",
-              "score": 1.6895579099655151,
-              "displayableName": "Knowledge Base",
-              "excerpt": "AELB-26 qa At installation time, Jahia generate a UUID to ensure that each <em>cluster</em> node id is unique.\nFrom https://wiki.apache.org/jackrabbit ... /<em>Clustering</em>#Unique_Cluster_Node_ID it is safe to use any kind of identifier for this property as long as this ID is unique on each <em>cluster</em> nodes. It could",
-              "link": "http://localhost/cms/render/default/en/sites/academy/home/training--kb/how-to.html",
-              "node": {
-                "jcr_created": {
-                  "value": "2016-01-12T23:14:03.248+01:00"
-                }
-              }
-            }
-          ]
-        }
+    "search": {
+      "results": {
+        "totalHits": 3,
+        "took": "4ms",
+        "hits": [
+          {
+            "id": "1bbcb33b-28b6-4db4-9d9d-77d7792d88ff",
+            "link": "http://localhost/sites/digitall/home/demo-roles-and-users.html",
+            "displayableName": "Demo Roles and Users",
+            "excerpt": "How to use this <em>dem</em>onstration?\n\nYou can discover Jahia 7 using the following users (login / password):\n\n\n root / root (if you're using the <em>Dem</em>o Pack. Otherwise, the root password is the one set using the Jahia's installation tool): Server Administrator of this Jahia instance (with access to the full",
+            "score": 105.96808624267578,
+            "jgql_created": "2016-08-11T01:04:54.216Z",
+            "logo": null,
+            "industry": null
+          },
+          {
+            "id": "6e352fe6-da4c-4b96-bd50-64dac8114c54",
+            "link": "http://localhost/sites/digitall/home.html",
+            "displayableName": "Home",
+            "excerpt": "Over time, the <em>dem</em>and became so great that the provider network grew nationwide. As the customers asked for more, it created opportunities for even small organic farmers to join the network. By going digital with their ordering and delivery systems, organic food is now delivered on-<em>dem</em>and - within 24<br/>Bill Taylor, CFO (Chief Farming Officer) of the Organi-Food Network gave up being a stockbroker to become a farmer and then  revolutionize the on-<em>dem</em>and green grocery business.  meet Bill Happytown",
+            "score": 40.4446907043457,
+            "jgql_created": "2020-09-14T14:03:24.964Z",
+            "logo": null,
+            "industry": null
+          },
+          {
+            "id": "09f5cf40-f2f7-4419-a690-db654b728ab9",
+            "link": "http://localhost/sites/digitall/home/newsroom/news-entry.html",
+            "displayableName": "News Entry",
+            "excerpt": "can lead to more conversations and an intangible sense of connection; in other words, movies bring people together.\n\n\nWith the anticipated increased <em>dem</em>and on their movie inventory, all-Movies is recommending people sign up for the films they want to see on DVD and Blue-Ray as soon as possible. By doing",
+            "score": 5.5665740966796875,
+            "jgql_created": "2016-01-06T17:50:45.737Z",
+            "logo": null,
+            "industry": null
+          }
+        ]
+      },
+      "jgql_tags": {
+        "data": [
+          {
+            "value": "food",
+            "count": 1
+          },
+          {
+            "value": "health",
+            "count": 1
+          },
+          {
+            "value": "movies",
+            "count": 1
+          }
+        ]
+      },
+      "jgql_lastModified": {
+        "data": [
+          {
+            "name": "last 5 years",
+            "count": 2
+          },
+          {
+            "name": "last year",
+            "count": 1
+          }
+        ]
       }
     }
   }

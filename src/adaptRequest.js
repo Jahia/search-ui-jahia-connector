@@ -4,24 +4,17 @@ import sort from './sort';
 import facets from './facets';
 
 const buildFields = fields => {
-    let fieldsConcatenated = {
+    const fieldsConcatenated = {
         hitFields: '',
         nodeFields: ''
     };
     fields.forEach(field => {
-        switch (field.type) {
-            case FieldType.HIT:
-                fieldsConcatenated.hitFields = `${fieldsConcatenated.hitFields},${field.resolveRequestField()}`;
-                break;
-            default:
-                fieldsConcatenated.nodeFields = `${fieldsConcatenated.nodeFields},${field.resolveRequestField()}`;
-                break;
+        if (field.type === FieldType.HIT) {
+            fieldsConcatenated.hitFields = `${fieldsConcatenated.hitFields},${field.resolveRequestField()}`;
+        } else {
+            fieldsConcatenated.nodeFields = `${fieldsConcatenated.nodeFields},${field.resolveRequestField()}`;
         }
     });
-    if (fieldsConcatenated.nodeFields !== '') {
-        fieldsConcatenated.nodeFields = `node {${fieldsConcatenated.nodeFields}}`;
-    }
-
     return fieldsConcatenated;
 };
 
@@ -39,9 +32,9 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
         ...requestOptions,
         ...request
     };
-    let resultFields = 'results' in queryConfig ? queryConfig.results.result_fields : queryConfig.result_fields;
-    let resolvedRequestFields = buildFields(Object.keys(resultFields).reduce((acc, curr) => {
-        let field = resultFields[curr];
+    const resultFields = 'results' in queryConfig ? queryConfig.results.result_fields : queryConfig.result_fields;
+    const resolvedRequestFields = buildFields(Object.keys(resultFields).reduce((acc, curr) => {
+        const field = resultFields[curr];
         if (field instanceof Field) {
             acc.push(field);
         }
@@ -50,42 +43,27 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
     }, []));
 
     return print(parse(`query {
-    jcr {
-        searches(siteKey: "${graphQLOptions.siteKey}", language: "${graphQLOptions.language}", workspace: ${graphQLOptions.workspace}) {
-            search(
-                q: "${graphQLOptions.searchTerm}",
-                limit: ${graphQLOptions.resultsPerPage},
-                offset: ${graphQLOptions.current - 1},
-                filter: { nodeType: { type: "${graphQLOptions.nodeType}" } },
-                ${sort(request)}, 
-                ${facets(request, queryConfig)}) {
-                    totalHits
-                    took
-                    facets {
-                        field
-                        type
-                        data {
-                            ... on TermValue {
-                                count
-                                value
-                            }
-                            ... on DateRangeValue {
-                                count
-                                range {
-                                    from
-                                    to
-                                    name
-                                }
-                            }
-                        }
-                    }
-                    hits {
-                        id
-                        ${resolvedRequestFields.hitFields}
-                        ${resolvedRequestFields.nodeFields}
-                    }
+        search(
+            q: "${graphQLOptions.searchTerm}",
+            siteKeys: ["${graphQLOptions.siteKey}"],
+            language: "${graphQLOptions.language}",
+            workspace: ${graphQLOptions.workspace}
+            filters: { nodeType: { type: "${graphQLOptions.nodeType}" } }) {
+
+            results(size: ${graphQLOptions.resultsPerPage},
+                    page: ${graphQLOptions.current - 1}
+                    ${sort(request)}
+                    ) {
+                totalHits
+                took
+                hits {
+                    id
+                    ${resolvedRequestFields.hitFields}
+                    ${resolvedRequestFields.nodeFields}
                 }
             }
-          }
-        }`));
+
+            ${facets(request, queryConfig)}
+        }
+    }`));
 }

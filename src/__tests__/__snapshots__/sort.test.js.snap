@@ -2,41 +2,17 @@
 
 exports[`Sort parameters tests Query with incorrect sort direction 1`] = `
 "{
-  jcr {
-    searches(siteKey: \\"fake\\", language: \\"fake\\", workspace: fake) {
-      search(q: \\"undefined\\", limit: 5, offset: 0, filter: {nodeType: {type: \\"fake\\"}}) {
-        totalHits
-        took
-        facets {
-          field
-          type
-          data {
-            ... on TermValue {
-              count
-              value
-            }
-            ... on DateRangeValue {
-              count
-              range {
-                from
-                to
-                name
-              }
-            }
-          }
-        }
-        hits {
-          id
-          link
-          displayableName
-          excerpt
-          score
-          node {
-            jcr_created: property(name: \\"jcr:created\\") {
-              value
-            }
-          }
-        }
+  search(q: \\"undefined\\", siteKeys: [\\"fake\\"], language: \\"fake\\", workspace: fake, filters: {nodeType: {type: \\"fake\\"}}) {
+    results(size: 5, page: 0) {
+      totalHits
+      took
+      hits {
+        id
+        link
+        displayableName
+        excerpt
+        score
+        created: property(name: \\"jcr:created\\")
       }
     }
   }
@@ -46,41 +22,17 @@ exports[`Sort parameters tests Query with incorrect sort direction 1`] = `
 
 exports[`Sort parameters tests Query with incorrect sort field 1`] = `
 "{
-  jcr {
-    searches(siteKey: \\"fake\\", language: \\"fake\\", workspace: fake) {
-      search(q: \\"undefined\\", limit: 5, offset: 0, filter: {nodeType: {type: \\"fake\\"}}) {
-        totalHits
-        took
-        facets {
-          field
-          type
-          data {
-            ... on TermValue {
-              count
-              value
-            }
-            ... on DateRangeValue {
-              count
-              range {
-                from
-                to
-                name
-              }
-            }
-          }
-        }
-        hits {
-          id
-          link
-          displayableName
-          excerpt
-          score
-          node {
-            jcr_created: property(name: \\"jcr:created\\") {
-              value
-            }
-          }
-        }
+  search(q: \\"undefined\\", siteKeys: [\\"fake\\"], language: \\"fake\\", workspace: fake, filters: {nodeType: {type: \\"fake\\"}}) {
+    results(size: 5, page: 0) {
+      totalHits
+      took
+      hits {
+        id
+        link
+        displayableName
+        excerpt
+        score
+        created: property(name: \\"jcr:created\\")
       }
     }
   }
@@ -90,41 +42,17 @@ exports[`Sort parameters tests Query with incorrect sort field 1`] = `
 
 exports[`Sort parameters tests Query with sort 1`] = `
 "{
-  jcr {
-    searches(siteKey: \\"fake\\", language: \\"fake\\", workspace: fake) {
-      search(q: \\"undefined\\", limit: 5, offset: 0, filter: {nodeType: {type: \\"fake\\"}}, sortBy: {orderType: ASC, property: \\"jcr:title\\"}) {
-        totalHits
-        took
-        facets {
-          field
-          type
-          data {
-            ... on TermValue {
-              count
-              value
-            }
-            ... on DateRangeValue {
-              count
-              range {
-                from
-                to
-                name
-              }
-            }
-          }
-        }
-        hits {
-          id
-          link
-          displayableName
-          excerpt
-          score
-          node {
-            jcr_created: property(name: \\"jcr:created\\") {
-              value
-            }
-          }
-        }
+  search(q: \\"undefined\\", siteKeys: [\\"fake\\"], language: \\"fake\\", workspace: fake, filters: {nodeType: {type: \\"fake\\"}}) {
+    results(size: 5, page: 0, sortBy: {dir: ASC, field: \\"jcr:title\\"}) {
+      totalHits
+      took
+      hits {
+        id
+        link
+        displayableName
+        excerpt
+        score
+        created: property(name: \\"jcr:created\\")
       }
     }
   }
@@ -134,41 +62,17 @@ exports[`Sort parameters tests Query with sort 1`] = `
 
 exports[`Sort parameters tests Query without sort 1`] = `
 "{
-  jcr {
-    searches(siteKey: \\"fake\\", language: \\"fake\\", workspace: fake) {
-      search(q: \\"undefined\\", limit: 5, offset: 0, filter: {nodeType: {type: \\"fake\\"}}) {
-        totalHits
-        took
-        facets {
-          field
-          type
-          data {
-            ... on TermValue {
-              count
-              value
-            }
-            ... on DateRangeValue {
-              count
-              range {
-                from
-                to
-                name
-              }
-            }
-          }
-        }
-        hits {
-          id
-          link
-          displayableName
-          excerpt
-          score
-          node {
-            jcr_created: property(name: \\"jcr:created\\") {
-              value
-            }
-          }
-        }
+  search(q: \\"undefined\\", siteKeys: [\\"fake\\"], language: \\"fake\\", workspace: fake, filters: {nodeType: {type: \\"fake\\"}}) {
+    results(size: 5, page: 0) {
+      totalHits
+      took
+      hits {
+        id
+        link
+        displayableName
+        excerpt
+        score
+        created: property(name: \\"jcr:created\\")
       }
     }
   }
