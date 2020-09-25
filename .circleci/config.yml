@@ -10,9 +10,6 @@ parameters:
 
 
 references:
-  workdir: &workdir
-    working_directory: ~/source
-
   persist-workspace: &persist-workspace
     persist_to_workspace:
       root: ~/source
@@ -24,7 +21,7 @@ references:
       at: .
 
 defaults: &defaults
-  - *workdir
+  working_directory: ~/source
   docker:
     - image: circleci/node:latest
 jobs:
@@ -93,10 +90,12 @@ workflows:
           context: QA_ENVIRONMENT
       - test:
           context: QA_ENVIRONMENT
-          requires: build
+          requires:
+            - build
       - publish:
           requires:
             - test
           filters:
             branches:
-              only: master
+              only:
+                - master
