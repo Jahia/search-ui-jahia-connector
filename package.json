@@ -45,7 +45,7 @@
     "babel-eslint": "^10.0.2",
     "babel-jest": "^24.9.0",
     "babel-plugin-lodash": "^3.3.4",
-    "eslint": "^5.16.0",
+    "eslint": "^7.9.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-jest": "^22.9.0",
     "eslint-plugin-react": "^7.14.2",
@@ -55,6 +55,7 @@
     "rimraf": "^2.6.3"
   },
   "dependencies": {
+    "eslint-plugin-react-hooks": "^4.1.2",
     "graphql": "^14.5.4"
   }
 }
