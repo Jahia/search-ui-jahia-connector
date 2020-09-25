@@ -20,7 +20,7 @@ export default async function request(apiToken, baseURL, method, query) {
     try {
         json = await response.json();
     } catch (error) {
-        // Nothing to do here, certain responses won't have json
+        console.log(error);
     }
 
     if (response.status >= 200 && response.status < 300) {
