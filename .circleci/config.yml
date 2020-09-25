@@ -93,6 +93,7 @@ workflows:
           requires:
             - build
       - publish:
+          context: QA_ENVIRONMENT
           requires:
             - test
           filters:
