@@ -74,7 +74,7 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=$NPMJS_TOKEN" > ~/source/.npmrc
       - run:
           name: Publish package
-          command: npm publish
+          command: npm publish --access public
       - slack/status:
           channel: << pipeline.parameters.slack_channel >>
           fail_only: true
