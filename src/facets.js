@@ -51,11 +51,11 @@ export default function facets(request, queryConfig) {
     Object.entries(processedFacets).forEach(([facetType, facetGroup]) => {
         Object.entries(facetGroup).forEach(([facetName, facet]) => {
             if (facetType === 'value') {
-                facetInputs.push(`${facetName.replace(':', '_')}: termFacet(field:"${facetName}", disjunctive: ${Boolean(facet.facet.disjunctive)} 
+                facetInputs.push(`${facetName.replace(/[:.]/g, '_')}: termFacet(field:"${facetName}", disjunctive: ${Boolean(facet.facet.disjunctive)} 
                 ${facet.facet.size ? `, max: ${facet.facet.size},` : ''} ${facet.facet.minDoc ? `, minDocCount: ${facet.facet.minDoc},` : ''}) {
                 data{value,count}}`);
             } else if (facetType === 'date_range' || facetType === 'range') {
-                facetInputs.push(`${facetName.replace(':', '_')}:rangeFacet(field: "${facetName}", 
+                facetInputs.push(`${facetName.replace(/[:.]/g, '_')}:rangeFacet(field: "${facetName}", 
                 ranges:[${facet.facet.ranges.map(range => `${buildRangeValue(range)}`).join(',')}] 
                 ${facet.facet.size ? `, max: ${facet.facet.size},` : ''}) {
                 data{name,count}}`);

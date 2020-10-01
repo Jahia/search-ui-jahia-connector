@@ -7,7 +7,8 @@ export function getFacets(facets, queryConfig) {
     if (facets) {
         Object.entries(queryConfig.facets).forEach(([facetName, facet]) => {
             normalizedFacets[facetName] = [];
-            const facetResponse = facets[facetName.replace(':', '_')];
+            const facetResponse = facets[facetName.replace(/[.:]/g, '_')];
+            facetResponse.field = facetName;
             if (facet.type === 'date_range' || facet.type === 'range') {
                 facetResponse.data = facetResponse.data.map(entry => ({count: entry.count, value: entry.name}));
             }

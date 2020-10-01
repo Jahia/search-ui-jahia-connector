@@ -1,67 +1,287 @@
 {
-  "data": {
-    "search": {
-      "results": {
-        "totalHits": 3,
-        "took": "4ms",
-        "hits": [
+  "data":{
+    "search":{
+      "results":{
+        "totalHits":15,
+        "took":"11ms",
+        "hits":[
           {
-            "id": "1bbcb33b-28b6-4db4-9d9d-77d7792d88ff",
-            "link": "http://localhost/sites/digitall/home/demo-roles-and-users.html",
-            "displayableName": "Demo Roles and Users",
-            "excerpt": "How to use this <em>dem</em>onstration?\n\nYou can discover Jahia 7 using the following users (login / password):\n\n\n root / root (if you're using the <em>Dem</em>o Pack. Otherwise, the root password is the one set using the Jahia's installation tool): Server Administrator of this Jahia instance (with access to the full",
-            "score": 105.96808624267578,
-            "jgql_created": "2016-08-11T01:04:54.216Z",
-            "logo": null,
-            "industry": null
+            "id":"72ec4bf1-1ea3-4704-ac10-a1c4488fc1fa",
+            "link":"http://localhost/sites/digitall/home/search-results.html",
+            "displayableName":"Search Results",
+            "excerpt":"",
+            "score":1.0,
+            "lastModified":"2016-02-29T17:15:16.340Z",
+            "lastModifiedBy":"root",
+            "createdBy":"system",
+            "created":"2020-09-23T21:09:44.886Z"
           },
           {
-            "id": "6e352fe6-da4c-4b96-bd50-64dac8114c54",
-            "link": "http://localhost/sites/digitall/home.html",
-            "displayableName": "Home",
-            "excerpt": "Over time, the <em>dem</em>and became so great that the provider network grew nationwide. As the customers asked for more, it created opportunities for even small organic farmers to join the network. By going digital with their ordering and delivery systems, organic food is now delivered on-<em>dem</em>and - within 24<br/>Bill Taylor, CFO (Chief Farming Officer) of the Organi-Food Network gave up being a stockbroker to become a farmer and then  revolutionize the on-<em>dem</em>and green grocery business.  meet Bill Happytown",
-            "score": 40.4446907043457,
-            "jgql_created": "2020-09-14T14:03:24.964Z",
-            "logo": null,
-            "industry": null
+            "id":"16d88584-0fbc-4bd8-a521-c5f16a29e46d",
+            "link":"http://localhost/sites/digitall/home/newsroom.html",
+            "displayableName":"Newsroom",
+            "excerpt":"",
+            "score":1.0,
+            "lastModified":"2016-01-13T17:10:39.807Z",
+            "lastModifiedBy":"root",
+            "createdBy":"root",
+            "created":"2016-01-07T23:46:37.268Z"
           },
           {
-            "id": "09f5cf40-f2f7-4419-a690-db654b728ab9",
-            "link": "http://localhost/sites/digitall/home/newsroom/news-entry.html",
-            "displayableName": "News Entry",
-            "excerpt": "can lead to more conversations and an intangible sense of connection; in other words, movies bring people together.\n\n\nWith the anticipated increased <em>dem</em>and on their movie inventory, all-Movies is recommending people sign up for the films they want to see on DVD and Blue-Ray as soon as possible. By doing",
-            "score": 5.5665740966796875,
-            "jgql_created": "2016-01-06T17:50:45.737Z",
-            "logo": null,
-            "industry": null
+            "id":"76674c64-b416-4f22-841e-6b597a562cb6",
+            "link":"http://localhost/sites/digitall/home/about/history.html",
+            "displayableName":"History",
+            "excerpt":"",
+            "score":1.0,
+            "lastModified":"2020-09-23T21:17:49.680Z",
+            "lastModifiedBy":"root",
+            "createdBy":"root",
+            "created":"2016-01-06T17:48:15.587Z"
+          },
+          {
+            "id":"8c1ef957-a3ff-416f-bdbb-36af02ea6576",
+            "link":"http://localhost/sites/digitall/home/investors/events.html",
+            "displayableName":"Events",
+            "excerpt":"",
+            "score":1.0,
+            "lastModified":"2016-05-03T23:40:30.739Z",
+            "lastModifiedBy":"root",
+            "createdBy":"root",
+            "created":"2016-01-15T17:33:19.501Z"
+          },
+          {
+            "id":"03e87822-02c3-476a-a6d8-3079678d163a",
+            "link":"http://localhost/sites/digitall/home/investors/contacts.html",
+            "displayableName":"Contacts",
+            "excerpt":"",
+            "score":1.0,
+            "lastModified":"2016-03-25T15:53:17.237Z",
+            "lastModifiedBy":"root",
+            "createdBy":"root",
+            "created":"2016-01-06T20:00:41.972Z"
+          },
+          {
+            "id":"b0719a5e-c305-47f7-9ee0-d088a4563047",
+            "link":"http://localhost/sites/digitall/home.html",
+            "displayableName":"Home",
+            "excerpt":"",
+            "score":1.0,
+            "lastModified":"2016-08-11T18:18:34.611Z",
+            "lastModifiedBy":"root",
+            "createdBy":"system",
+            "created":"2020-09-23T21:09:44.884Z"
+          },
+          {
+            "id":"df03c642-20cf-422e-830c-d9cc550266e3",
+            "link":"http://localhost/sites/digitall/home/demo-roles-and-users.html",
+            "displayableName":"Demo Roles and Users",
+            "excerpt":"",
+            "score":1.0,
+            "lastModified":"2016-10-14T14:14:14.034Z",
+            "lastModifiedBy":"root",
+            "createdBy":"root",
+            "created":"2016-08-11T01:04:54.216Z"
+          },
+          {
+            "id":"5600dfa5-22aa-4ba7-995c-265285b482b8",
+            "link":"http://localhost/sites/digitall/home/about.html",
+            "displayableName":"About",
+            "excerpt":"",
+            "score":1.0,
+            "lastModified":"2016-03-25T16:07:03.302Z",
+            "lastModifiedBy":"root",
+            "createdBy":"root",
+            "created":"2016-01-06T17:47:36.255Z"
+          },
+          {
+            "id":"f082f32c-8e9b-454f-b05c-9c23ade267fd",
+            "link":"http://localhost/sites/digitall/home/corporate-responsibility.html",
+            "displayableName":"Corporate Responsibility",
+            "excerpt":"",
+            "score":1.0,
+            "lastModified":"2016-05-03T22:22:22.524Z",
+            "lastModifiedBy":"root",
+            "createdBy":"root",
+            "created":"2016-01-06T17:49:45.308Z"
+          },
+          {
+            "id":"b0d5dfb2-d4af-422f-a3c0-ddd8d8142c70",
+            "link":"http://localhost/sites/digitall/home/our-companies.html",
+            "displayableName":"Our Companies",
+            "excerpt":"",
+            "score":1.0,
+            "lastModified":"2016-05-03T23:29:51.425Z",
+            "lastModifiedBy":"root",
+            "createdBy":"root",
+            "created":"2016-01-06T17:50:14.491Z"
+          },
+          {
+            "id":"beed98bd-41c4-4a44-b9e9-54bb062d8352",
+            "link":"http://localhost/sites/digitall/home/newsroom/news-entry.html",
+            "displayableName":"News Entry",
+            "excerpt":"",
+            "score":1.0,
+            "lastModified":"2016-05-03T22:56:57.983Z",
+            "lastModifiedBy":"root",
+            "createdBy":"root",
+            "created":"2016-01-06T17:50:45.737Z"
+          },
+          {
+            "id":"c8e0c2ec-be1f-4378-8df6-c2a92bc5aa27",
+            "link":"http://localhost/sites/digitall/home/newsroom/all-news.html",
+            "displayableName":"All News",
+            "excerpt":"",
+            "score":1.0,
+            "lastModified":"2016-05-03T22:45:34.067Z",
+            "lastModifiedBy":"root",
+            "createdBy":"root",
+            "created":"2016-01-15T17:28:34.127Z"
+          },
+          {
+            "id":"496d07c2-8a25-4daf-988f-1ce04b826a69",
+            "link":"http://localhost/sites/digitall/home/investors.html",
+            "displayableName":"Investors",
+            "excerpt":"",
+            "score":1.0,
+            "lastModified":"2016-03-25T15:42:24.098Z",
+            "lastModifiedBy":"root",
+            "createdBy":"root",
+            "created":"2016-01-06T17:51:21.187Z"
+          },
+          {
+            "id":"a39f719c-f0f0-4991-9077-02617ed5189c",
+            "link":"http://localhost/sites/digitall/home/investors/press-releases-entry.html",
+            "displayableName":"Press Releases Entry",
+            "excerpt":"",
+            "score":1.0,
+            "lastModified":"2016-03-25T15:47:50.053Z",
+            "lastModifiedBy":"root",
+            "createdBy":"root",
+            "created":"2016-01-12T22:14:03.248Z"
+          },
+          {
+            "id":"9f7d5c51-a19f-412a-a8e2-882650c8eb82",
+            "link":"http://localhost/sites/digitall/home/about/leadership.html",
+            "displayableName":"Leadership",
+            "excerpt":"",
+            "score":1.0,
+            "lastModified":"2020-09-23T21:17:49.680Z",
+            "lastModifiedBy":"root",
+            "createdBy":"root",
+            "created":"2016-01-06T17:48:26.398Z"
           }
         ]
       },
-      "jgql_tags": {
-        "data": [
+      "jcr_categories_keyword":{
+        "data":[
           {
-            "value": "food",
-            "count": 1
+            "value":"Categories",
+            "count":3
           },
           {
-            "value": "health",
-            "count": 1
+            "value":"Classical",
+            "count":2
           },
           {
-            "value": "movies",
-            "count": 1
+            "value":"Electronic",
+            "count":2
+          },
+          {
+            "value":"Music",
+            "count":2
+          },
+          {
+            "value":"Annual Filings",
+            "count":1
+          },
+          {
+            "value":"Blues",
+            "count":1
+          },
+          {
+            "value":"Canadian Blues",
+            "count":1
+          },
+          {
+            "value":"Chiptune",
+            "count":1
           }
         ]
       },
-      "jgql_lastModified": {
-        "data": [
+      "jgql_categories_path_facet":{
+        "data":[
           {
-            "name": "last 5 years",
-            "count": 2
+            "value":"/music",
+            "count":2
           },
           {
-            "name": "last year",
-            "count": 1
+            "value":"/music/classical",
+            "count":2
+          },
+          {
+            "value":"/music/electronic",
+            "count":2
+          },
+          {
+            "value":"/annual-filings",
+            "count":1
+          },
+          {
+            "value":"/music/blues",
+            "count":1
+          },
+          {
+            "value":"/music/blues/canadian_blues",
+            "count":1
+          },
+          {
+            "value":"/music/electronic/chiptune",
+            "count":1
+          }
+        ]
+      },
+      "jgql_tags":{
+        "data":[
+          {
+            "value":"food",
+            "count":1
+          },
+          {
+            "value":"health",
+            "count":1
+          },
+          {
+            "value":"movies",
+            "count":1
+          }
+        ]
+      },
+      "jcr_keywords":{
+        "data":[
+
+        ]
+      },
+      "jgql_lastModified":{
+        "data":[
+          {
+            "name":"Last 5 years",
+            "count":13
+          },
+          {
+            "name":"Last year",
+            "count":0
+          },
+          {
+            "name":"Last 6 months",
+            "count":0
+          },
+          {
+            "name":"Last month",
+            "count":2
+          },
+          {
+            "name":"Last Week",
+            "count":0
           }
         ]
       }
