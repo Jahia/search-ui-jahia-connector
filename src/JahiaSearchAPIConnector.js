@@ -2,6 +2,7 @@ import request from './request';
 import adaptRequest from './adaptRequest';
 import adaptResponse from './adaptResponse';
 import Constants from './constants';
+import treeFacetHelper, {prepareCategoryFacet} from './treeFacetHelper';
 
 class JahiaSearchAPIConnector {
     /**
@@ -35,7 +36,7 @@ class JahiaSearchAPIConnector {
         this.nodeType = nodeType;
     }
 
-    onSearch(state, queryConfig) {
+    async onSearch(state, queryConfig) {
         // Console.log("state",state,"query config", queryConfig);
         let requestOptions = {
             siteKey: this.siteKey,
@@ -44,9 +45,23 @@ class JahiaSearchAPIConnector {
             nodeType: this.nodeType
         };
         const query = adaptRequest(requestOptions, state, queryConfig);
-        return request(this.apiToken, this.baseURL, 'POST', query).then(json =>
-            adaptResponse(json, state.resultsPerPage, queryConfig)
-        );
+        const responseJson = await request(this.apiToken, this.baseURL, 'POST', query);
+        const adaptedResponse = adaptResponse(responseJson, state.resultsPerPage, queryConfig);
+        await this.processTreeFacets(adaptedResponse, state, requestOptions);
+
+        return adaptedResponse;
+    }
+
+    async processTreeFacets(adaptedResponse, state, requestOptions) {
+        const fieldName = 'jgql:categories_path.facet';
+        const pathFacets = adaptedResponse.facets[fieldName];
+        if (pathFacets) {
+            const pathFacetsData = pathFacets[0].data;
+            const categoryTitleData = adaptedResponse.facets['jcr:categories.keyword'][0].data;
+            const treeFacetRequest = treeFacetHelper(pathFacetsData, state, fieldName, requestOptions);
+            const treeFacetJson = await request(this.apiToken, this.baseURL, 'POST', treeFacetRequest);
+            adaptedResponse.facets[fieldName][0].data = prepareCategoryFacet(treeFacetJson.data.search, pathFacetsData, categoryTitleData);
+        }
     }
 
     async onAutocomplete({searchTerm}, queryConfig) {
