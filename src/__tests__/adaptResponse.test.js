@@ -145,7 +145,8 @@ const adaptedResponse = {
                     value: 'movies',
                     count: 1
                 }
-            ]
+            ],
+            field: 'jgql:tags'
         }],
         'jgql:lastModified': [{
             data: [
@@ -157,7 +158,8 @@ const adaptedResponse = {
                     value: 'last year',
                     count: 1
                 }
-            ]
+            ],
+            field: 'jgql:lastModified'
         }]
     }
 
