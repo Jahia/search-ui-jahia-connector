@@ -20,7 +20,7 @@ class JahiaSearchAPIConnector {
         siteKey,
         language = Constants.LANGUAGE,
         workspace = Constants.WORKSPACE,
-        nodeType = Constants.NODE_FILTER.TYPE
+        nodeType
     }) {
         if (!apiToken || !baseURL || !siteKey) {
             throw new Error(

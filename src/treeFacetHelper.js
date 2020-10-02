@@ -20,7 +20,8 @@ export default function treeFacetRequest(data, state, fieldName, requestOptions)
             siteKeys: ["${graphQLOptions.siteKey}"],
             language: "${graphQLOptions.language}",
             workspace: ${graphQLOptions.workspace}
-            filters: { nodeType: { type: "${graphQLOptions.nodeType}" } }) {
+            ${graphQLOptions.nodeType ? `filters: { nodeType: { type: "${graphQLOptions.nodeType}" } }` : ''}
+            ) {
 
 
            ${facetInputs.join('\n')}
