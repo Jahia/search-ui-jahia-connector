@@ -48,7 +48,8 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
             siteKeys: ["${graphQLOptions.siteKey}"],
             language: "${graphQLOptions.language}",
             workspace: ${graphQLOptions.workspace}
-            filters: { nodeType: { type: "${graphQLOptions.nodeType}" } }) {
+            ${graphQLOptions.nodeType ? `filters: { nodeType: { type: "${graphQLOptions.nodeType}" } }` : ''}
+            ) {
 
             results(size: ${graphQLOptions.resultsPerPage},
                     page: ${graphQLOptions.current - 1}
