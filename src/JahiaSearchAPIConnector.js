@@ -57,6 +57,10 @@ class JahiaSearchAPIConnector {
     async processTreeFacets(adaptedResponse, state, requestOptions) {
         const fieldName = 'jgql:categories_path.facet';
         const pathFacets = adaptedResponse.facets[fieldName];
+        if (!pathFacets) {
+            return;
+        }
+
         const pathFacetsData = pathFacets[0].data;
         if (Array.isArray(pathFacetsData) && pathFacetsData.length) {
             const categoryTitleData = adaptedResponse.facets['jcr:categories.keyword'][0].data;
