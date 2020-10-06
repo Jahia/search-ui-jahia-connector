@@ -2,6 +2,7 @@ import {Field, FieldType} from './field';
 import {parse, print} from 'graphql';
 import sort from './sort';
 import facets from './facets';
+import filters from './filters';
 
 const buildFields = fields => {
     const fieldsConcatenated = {
@@ -48,7 +49,7 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
             siteKeys: ["${graphQLOptions.siteKey}"],
             language: "${graphQLOptions.language}",
             workspace: ${graphQLOptions.workspace}
-            ${graphQLOptions.nodeType ? `filters: { nodeType: { type: "${graphQLOptions.nodeType}" } }` : ''}
+            ${filters(request, queryConfig, graphQLOptions)}
             ) {
 
             results(size: ${graphQLOptions.resultsPerPage},

@@ -1,6 +1,6 @@
 {
   "name": "@jahia/search-ui-jahia-connector",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A Search UI connector for Jahia GraphQL Search API",
   "license": "MIT",
   "main": "dist",
