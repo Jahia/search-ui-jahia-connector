@@ -62,6 +62,5 @@ export default function facets(request, queryConfig) {
             }
         });
     });
-    console.log(`${facetInputs.join(',')}`);
     return `${facetInputs.join(',')}`;
 }
