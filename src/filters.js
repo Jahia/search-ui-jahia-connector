@@ -52,9 +52,6 @@ export default function filters(request, queryConfig, graphQLOptions) {
     if (filters.length === 0) {
         return '';
     }
-    console.log(
-        `filters: ${filters.join(',')}`
-    );
 
     return `filters: ${filters.join(',')}`;
 }
