@@ -23,7 +23,7 @@ const queryConfig = {
             type: 'value',
             size: 10,
             minDoc: 1,
-            disjunctive: true
+            disjunctive: false
         },
         'jgql:lastModified': {
             type: 'date_range',
@@ -119,7 +119,7 @@ const adaptedDefaultRequest = print(parse(`{
                   industry: property(name: "industryCat")
                 }
             }
-            jgql_tags: termFacet(field: "jgql:tags", disjunctive: true, max: 10, minDocCount: 1) {
+            jgql_tags: termFacet(field: "jgql:tags", disjunctive: false, max: 10, minDocCount: 1) {
                 data {
                     value
                     count
@@ -158,7 +158,7 @@ const adaptedNodeTypeFilterRequest = print(parse(`{
                   industry: property(name: "industryCat")
                 }
             }
-            jgql_tags: termFacet(field: "jgql:tags", disjunctive: true, max: 10, minDocCount: 1) {
+            jgql_tags: termFacet(field: "jgql:tags", disjunctive: false, max: 10, minDocCount: 1) {
                 data {
                     value
                     count
@@ -208,7 +208,7 @@ const adaptedFilteredRequest = print(parse(`{
                   industry: property(name: "industryCat")
                 }
             }
-            jgql_tags: termFacet(field: "jgql:tags", disjunctive: true, max: 10, minDocCount: 1) {
+            jgql_tags: termFacet(field: "jgql:tags", disjunctive: false, max: 10, minDocCount: 1) {
                 data {
                     value
                     count
