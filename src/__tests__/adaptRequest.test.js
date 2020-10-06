@@ -69,7 +69,7 @@ const requestWithFilters = {
     filters: [
         {
             field: 'jgql:tags',
-            values: ['cluster'],
+            values: ['Action','Adventure'],
             type: 'all'
         },
         {
@@ -187,7 +187,7 @@ const adaptedFilteredRequest = print(parse(`{
                 custom:{
                     term:{
                         operation:AND
-                        terms:[{field:"jgql:tags",value:"cluster"}]
+                        terms:[{field:"jgql:tags",value:"Action"},{field:"jgql:tags",value:"Adventure"}]
                     },
                     dateRange:{operation:AND, ranges:[{field:"jgql:lastModified",after:"now-1y",before:"now"}]},
                     numberRange:{operation:AND, ranges:[{field:"popularity",gte:"500.0",lt:"1000.0"}]}

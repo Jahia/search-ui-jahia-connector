@@ -25,19 +25,24 @@ export default function filters(request, queryConfig, graphQLOptions) {
             if (facet === undefined) {
                 terms.push(`{field:"${filter.field}", value:"${filter.values[0]}"}`);
             } else {
-                let range;
                 switch (facet.type) {
                     case 'range':
-                        range = facet.ranges.find(range => range.name === filter.values[0]);
-                        numberRanges.push(`{field:"${filter.field}",gte:"${range.from}", lt:"${range.to}"}`);
+                        filter.values.forEach(value => {
+                            const range = facet.ranges.find(range => range.name === value);
+                            numberRanges.push(`{field:"${filter.field}",gte:"${range.from}", lt:"${range.to}"}`);
+                        });
                         break;
                     case 'date_range':
-                        range = facet.ranges.find(range => range.name === filter.values[0]);
-                        dateRanges.push(`{field:"${filter.field}",after:"${range.from}", before:"${range.to}"}`);
+                        filter.values.forEach(value => {
+                            const range = facet.ranges.find(range => range.name === value);
+                            dateRanges.push(`{field:"${filter.field}",after:"${range.from}", before:"${range.to}"}`);
+                        });
                         break;
                     case 'value':
                     default:
-                        terms.push(`{field:"${filter.field}", value:"${filter.values[0]}"}`);
+                        filter.values.forEach(value => {
+                            terms.push(`{field:"${filter.field}", value:"${value}"}`);
+                        });
                         break;
                 }
             }
