@@ -9,7 +9,8 @@ export default function treeFacetRequest(data, state, fieldName, requestOptions)
     };
     const facetInputs = [];
     data.forEach(facet => {
-        facetInputs.push(`${facet.value.replace(/[/-]/g, '_')}: treeFacet(field:"${fieldName}", rootPath: "${facet.value}" 
+        const facetAlias = facet.value.toLowerCase().replace(/[\s+/-]/g, '_');
+        facetInputs.push(`${facetAlias}: treeFacet(field:"${fieldName}", rootPath: "${facet.value}" 
                 ${facet.disjunctive ? `, disjunctive: ${facet.disjunctive},` : ''} ${facet.minDoc ? `, minDocCount: ${facet.facet.minDoc},` : ''}) {
                 field rootPath data{value,count}}`);
     });
@@ -40,7 +41,7 @@ export function prepareCategoryFacet(treeFacetResponse, pathFacetsData, category
         // We are working with root category if we get 2 elements by splitting on a forward slash
         const splittedPath = result.rootPath.split('/');
         const isRoot = splittedPath.length === 2;
-        const prettifiedPath = splittedPath[splittedPath.length - 1].replace(/[^a-zA-Z0-9]/g, '');
+        const prettifiedPath = splittedPath[splittedPath.length - 1].replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
         const correspondingCategory = categoryTitleData.find(category => {
             const lowerCaseTitle = category.value.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
             return lowerCaseTitle === prettifiedPath;
