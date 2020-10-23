@@ -21,7 +21,7 @@ const queryConfig = {
     facets: {
         'jgql:tags': {
             type: 'value',
-            size: 10,
+            max: 10,
             minDoc: 1,
             disjunctive: false
         },

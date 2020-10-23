@@ -483,31 +483,31 @@
       {
         "data":[
           {
-            "value":"/music",
+            "value":"/Music",
+            "count": 2
+          },
+          {
+            "value":"/Annual Filings",
             "count":2
           },
           {
-            "value":"/music/classical",
+            "value":"/Music/Classical",
             "count":2
           },
           {
-            "value":"/music/electronic",
+            "value":"/Music/Electronic",
             "count":2
           },
           {
-            "value":"/annual-filings",
+            "value":"/Music/Blues",
             "count":1
           },
           {
-            "value":"/music/blues",
+            "value":"/Music/Blues/Canadian Blues",
             "count":1
           },
           {
-            "value":"/music/blues/canadian_blues",
-            "count":1
-          },
-          {
-            "value":"/music/electronic/chiptune",
+            "value":"/Music/Electronic/Chiptune",
             "count":1
           }
         ],
