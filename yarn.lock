@@ -923,12 +923,6 @@
     eslint-plugin-react "^7.16.0"
     eslint-plugin-react-hooks "^2.2.0"
 
-"@jahia/search-ui-jahia-connector@../search-ui-jahia-connector":
-  version "2.0.4"
-  dependencies:
-    eslint-plugin-react-hooks "^4.1.2"
-    graphql "^14.5.4"
-
 "@jest/console@^24.7.1", "@jest/console@^24.9.0":
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/@jest/console/-/console-24.9.0.tgz#79b1bc06fb74a8cfb01cbdedf945584b1b9707f0"

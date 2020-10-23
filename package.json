@@ -55,7 +55,6 @@
     "rimraf": "^2.6.3"
   },
   "dependencies": {
-    "@jahia/search-ui-jahia-connector": "../search-ui-jahia-connector",
     "eslint-plugin-react-hooks": "^4.1.2",
     "graphql": "^14.5.4"
   }
