@@ -9,8 +9,9 @@ export default function treeFacetRequest(data, state, fieldName, requestOptions)
     };
     const facetInputs = [];
     data.forEach(facet => {
-        facetInputs.push(`${facet.value.replace(/[/-]/g, '_')}: treeFacet(field:"${fieldName}", rootPath: "${facet.value}" 
-                ${facet.disjunctive ? `, disjunctive: ${facet.disjunctive},` : ''} ${facet.minDoc ? `, minDocCount: ${facet.facet.minDoc},` : ''}) {
+        const facetAlias = facet.value.toLowerCase().replace(/\W/g, '_');
+        facetInputs.push(`${facetAlias}: treeFacet(field:"${fieldName}", rootPath: "${facet.value}" 
+                , disjunctive: true, max : 50, ${facet.minDoc ? `, minDocCount: ${facet.facet.minDoc},` : ''}) {
                 field rootPath data{value,count}}`);
     });
 
@@ -29,26 +30,51 @@ export default function treeFacetRequest(data, state, fieldName, requestOptions)
     }`));
 }
 
-export function prepareCategoryFacet(treeFacetResponse, pathFacetsData, categoryTitleData) {
-    const facetData = Object.values(treeFacetResponse);
-    const mappedFacetData = facetData.map(result => {
-        let childrenPathArray;
-        if (result.data) {
-            childrenPathArray = result.data.map(child => `${result.rootPath}/${child.value}`);
+const transformTreeFacetsToTreeComponentData = (result, categoryTitleData) => {
+    let childrenPathArray;
+    if (result.data) {
+        childrenPathArray = result.data.map(child => `${result.rootPath}/${child.value}`);
+    }
+
+    // We are working with root category if we get 2 elements by splitting on a forward slash
+    const splittedPath = result.rootPath.split('/');
+    const isRoot = splittedPath.length === 2;
+    const prettifiedPath = splittedPath[splittedPath.length - 1].replace(/\W/g, '').toLowerCase();
+    const correspondingCategory = categoryTitleData.find(category => {
+        const lowerCaseTitle = category.value.replace(/\W/g, '').toLowerCase();
+
+        return lowerCaseTitle === prettifiedPath;
+    });
+    return correspondingCategory ? {
+        path: result.rootPath,
+        isRoot: isRoot,
+        children: childrenPathArray,
+        title: correspondingCategory.value,
+        count: correspondingCategory.count
+    } : {};
+};
+
+const appendCategoryTitleAndCount = (pathFacetsData, mappedFacetData) => {
+    return pathFacetsData.reduce((accumulator, facet) => {
+        const correspondingData = mappedFacetData.find(data => facet.value === data.path);
+        if (correspondingData) {
+            accumulator = [...accumulator, {...facet, ...correspondingData}];
         }
 
-        // We are working with root category if we get 2 elements by splitting on a forward slash
-        const splittedPath = result.rootPath.split('/');
-        const isRoot = splittedPath.length === 2;
-        const prettifiedPath = splittedPath[splittedPath.length - 1].replace(/[^a-zA-Z0-9]/g, '');
-        const correspondingCategory = categoryTitleData.find(category => {
-            const lowerCaseTitle = category.value.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
-            return lowerCaseTitle === prettifiedPath;
+        return accumulator;
+    }, []);
+};
+
+export function prepareCategoryFacet(treeFacetResponse, pathFacetsData, categoryTitleData) {
+    const facetData = Object.values(treeFacetResponse);
+    // Filter tree facets that get removed by selections
+    const filteredTreeFacetData = facetData.filter(result => {
+        return categoryTitleData.find(category => {
+            return result.rootPath.toLowerCase().includes(category.value.toLowerCase());
         });
-        return {path: result.rootPath, isRoot: isRoot, children: childrenPathArray, title: correspondingCategory.value};
     });
-    return pathFacetsData.map(facet => {
-        const correspondingData = mappedFacetData.find(data => facet.value === data.path);
-        return {...facet, ...correspondingData};
+    const mappedFacetData = filteredTreeFacetData.map(result => {
+        return transformTreeFacetsToTreeComponentData(result, categoryTitleData);
     });
+    return appendCategoryTitleAndCount(pathFacetsData, mappedFacetData);
 }
