@@ -52,12 +52,12 @@ export default function facets(request, queryConfig) {
         Object.entries(facetGroup).forEach(([facetName, facet]) => {
             if (facetType === 'value') {
                 facetInputs.push(`${facetName.replace(/[:.]/g, '_')}: termFacet(field:"${facetName}", disjunctive: ${Boolean(facet.facet.disjunctive)} 
-                ${facet.facet.size ? `, max: ${facet.facet.size},` : ''} ${facet.facet.minDoc ? `, minDocCount: ${facet.facet.minDoc},` : ''}) {
+                ${facet.facet.max ? `, max: ${facet.facet.max},` : ''} ${facet.facet.minDoc ? `, minDocCount: ${facet.facet.minDoc},` : ''}) {
                 data{value,count}}`);
             } else if (facetType === 'date_range' || facetType === 'range') {
                 facetInputs.push(`${facetName.replace(/[:.]/g, '_')}:rangeFacet(field: "${facetName}", 
                 ranges:[${facet.facet.ranges.map(range => `${buildRangeValue(range)}`).join(',')}] 
-                ${facet.facet.size ? `, max: ${facet.facet.size},` : ''}) {
+                ${facet.facet.max ? `, max: ${facet.facet.max},` : ''}) {
                 data{name,count}}`);
             }
         });

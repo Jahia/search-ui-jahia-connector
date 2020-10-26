@@ -1,8 +1,10 @@
 import treeFacetHelper, {prepareCategoryFacet} from '../treeFacetHelper';
 import adaptedResponse from '../../resources/adaptedResponse';
-const treeFacetResponse = `{
+
+
+const treeFacetRequest = `{
   search(q: "", siteKeys: ["digitall"], language: "en", workspace: LIVE, filters: {nodeType: {type: "jnt:page"}}) {
-    _music: treeFacet(field: "jgql:categories_path.facet", rootPath: "/music") {
+    _music: treeFacet(field: "jgql:categories_path.facet", rootPath: "/Music", disjunctive: true, max: 50) {
       field
       rootPath
       data {
@@ -10,7 +12,7 @@ const treeFacetResponse = `{
         count
       }
     }
-    _music_classical: treeFacet(field: "jgql:categories_path.facet", rootPath: "/music/classical") {
+    _annual_filings: treeFacet(field: "jgql:categories_path.facet", rootPath: "/Annual Filings", disjunctive: true, max: 50) {
       field
       rootPath
       data {
@@ -18,7 +20,7 @@ const treeFacetResponse = `{
         count
       }
     }
-    _music_electronic: treeFacet(field: "jgql:categories_path.facet", rootPath: "/music/electronic") {
+    _music_classical: treeFacet(field: "jgql:categories_path.facet", rootPath: "/Music/Classical", disjunctive: true, max: 50) {
       field
       rootPath
       data {
@@ -26,7 +28,7 @@ const treeFacetResponse = `{
         count
       }
     }
-    _annual_filings: treeFacet(field: "jgql:categories_path.facet", rootPath: "/annual-filings") {
+    _music_electronic: treeFacet(field: "jgql:categories_path.facet", rootPath: "/Music/Electronic", disjunctive: true, max: 50) {
       field
       rootPath
       data {
@@ -34,7 +36,7 @@ const treeFacetResponse = `{
         count
       }
     }
-    _music_blues: treeFacet(field: "jgql:categories_path.facet", rootPath: "/music/blues") {
+    _music_blues: treeFacet(field: "jgql:categories_path.facet", rootPath: "/Music/Blues", disjunctive: true, max: 50) {
       field
       rootPath
       data {
@@ -42,7 +44,7 @@ const treeFacetResponse = `{
         count
       }
     }
-    _music_blues_canadian_blues: treeFacet(field: "jgql:categories_path.facet", rootPath: "/music/blues/canadian_blues") {
+    _music_blues_canadian_blues: treeFacet(field: "jgql:categories_path.facet", rootPath: "/Music/Blues/Canadian Blues", disjunctive: true, max: 50) {
       field
       rootPath
       data {
@@ -50,7 +52,7 @@ const treeFacetResponse = `{
         count
       }
     }
-    _music_electronic_chiptune: treeFacet(field: "jgql:categories_path.facet", rootPath: "/music/electronic/chiptune") {
+    _music_electronic_chiptune: treeFacet(field: "jgql:categories_path.facet", rootPath: "/Music/Electronic/Chiptune", disjunctive: true, max: 50) {
       field
       rootPath
       data {
@@ -63,99 +65,96 @@ const treeFacetResponse = `{
 `;
 const pathFacetsData = [
     {
-        "value": "/music",
+        "value": "/Annual Filings",
         "count": 2
     },
     {
-        "value": "/music/classical",
+        "value": "/Music",
         "count": 2
     },
     {
-        "value": "/music/electronic",
+        "value": "/Music/Classical",
         "count": 2
     },
     {
-        "value": "/annual-filings",
+        "value": "/Music/Electronic",
+        "count": 2
+    },
+    {
+        "value": "/Music/Blues",
         "count": 1
     },
     {
-        "value": "/music/blues",
+        "value": "/Music/Blues/Canadian Blues",
         "count": 1
     },
     {
-        "value": "/music/blues/canadian_blues",
-        "count": 1
-    },
-    {
-        "value": "/music/electronic/chiptune",
+        "value": "/Music/Electronic/Chiptune",
         "count": 1
     }
-];
+]
 const treeFacetSearchOutput = {
+    "_annual_filings": {
+        "field": "jgql:categories_path.facet",
+        "rootPath": "/Annual Filings",
+        "data": []
+    },
     "_music": {
         "field": "jgql:categories_path.facet",
-        "rootPath": "/music",
+        "rootPath": "/Music",
         "data": [
             {
-                "value": "classical",
+                "value": "Classical",
                 "count": 2
             },
             {
-                "value": "electronic",
-                "count": 2
-            },
-            {
-                "value": "blues",
+                "value": "Blues",
                 "count": 1
+            },
+            {
+                "value": "Electronic",
+                "count": 2
             }
         ]
     },
     "_music_classical": {
         "field": "jgql:categories_path.facet",
-        "rootPath": "/music/classical",
+        "rootPath": "/Music/Classical",
         "data": []
     },
     "_music_electronic": {
         "field": "jgql:categories_path.facet",
-        "rootPath": "/music/electronic",
+        "rootPath": "/Music/Electronic",
         "data": [
             {
-                "value": "chiptune",
+                "value": "Chiptune",
                 "count": 1
             }
         ]
     },
-    "_annual_filings": {
-        "field": "jgql:categories_path.facet",
-        "rootPath": "/annual-filings",
-        "data": []
-    },
     "_music_blues": {
         "field": "jgql:categories_path.facet",
-        "rootPath": "/music/blues",
+        "rootPath": "/Music/Blues",
         "data": [
             {
-                "value": "canadian_blues",
+                "value": "Canadian Blues",
                 "count": 1
             }
         ]
     },
     "_music_blues_canadian_blues": {
         "field": "jgql:categories_path.facet",
-        "rootPath": "/music/blues/canadian_blues",
+        "rootPath": "/Music/Blues/Canadian Blues",
         "data": []
     },
     "_music_electronic_chiptune": {
         "field": "jgql:categories_path.facet",
-        "rootPath": "/music/electronic/chiptune",
+        "rootPath": "/Music/Electronic/Chiptune",
         "data": []
     }
-};
+}
+
 const categoryTitleData = [
-    {
-        "value": "Categories",
-        "count": 3
-    },
     {
         "value": "Classical",
         "count": 2
@@ -170,7 +169,7 @@ const categoryTitleData = [
     },
     {
         "value": "Annual Filings",
-        "count": 1
+        "count": 2
     },
     {
         "value": "Blues",
@@ -206,18 +205,19 @@ describe('test tree facet helper methods', () => {
     describe('test if treeFacetHelper creates correct request from facet response', () => {
         it('creates correct request', () => {
             expect(treeFacetHelper(adaptedResponse.facets[facetName][0].data, state, facetName, requestOptions)).toEqual(
-               treeFacetResponse
+               treeFacetRequest
             );
         });
         it('prepare category facet returns consistent category information for treeview', () => {
             const facetsResponse = prepareCategoryFacet(treeFacetSearchOutput, pathFacetsData, categoryTitleData);
-            const musicObject = facetsResponse.find(facet => facet.path === '/music');
+            console.log(facetsResponse);
+            const musicObject = facetsResponse.find(facet => facet.path === '/Music');
             expect(musicObject.isRoot).toBeTruthy();
             expect(musicObject.title).toEqual('Music');
-            expect(musicObject.children).toEqual(['/music/classical', '/music/electronic', '/music/blues']);
-            expect(musicObject.value).toEqual('/music');
+            expect(musicObject.children).toEqual(['/Music/Classical', '/Music/Blues', '/Music/Electronic']);
+            expect(musicObject.value).toEqual('/Music');
             expect(musicObject.count).toEqual(2);
-            const canBluesObject = facetsResponse.find(facet => facet.path === '/music/blues/canadian_blues');
+            const canBluesObject = facetsResponse.find(facet => facet.path === '/Music/Blues/Canadian Blues');
             expect(canBluesObject.title).toEqual('Canadian Blues');
             expect(canBluesObject.children).toEqual([]);
             expect(canBluesObject.isRoot).toBeFalsy();

@@ -57,7 +57,7 @@ describe('#onSearch', () => {
             facets: {
                 'jgql:tags': {
                     type: 'value',
-                    size: 10,
+                    max: 10,
                     disjunctive: true
                 }
             }
