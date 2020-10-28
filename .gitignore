@@ -9,3 +9,4 @@
 *.ipr
 report.*
 yarn-error.log
+/coverage/

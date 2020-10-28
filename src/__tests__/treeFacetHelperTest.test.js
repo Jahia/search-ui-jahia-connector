@@ -1,5 +1,6 @@
 import treeFacetHelper, {prepareCategoryFacet} from '../treeFacetHelper';
 import adaptedResponse from '../../resources/adaptedResponse';
+import {print,parse} from 'graphql';
 
 
 const treeFacetRequest = `{
@@ -205,12 +206,11 @@ describe('test tree facet helper methods', () => {
     describe('test if treeFacetHelper creates correct request from facet response', () => {
         it('creates correct request', () => {
             expect(treeFacetHelper(adaptedResponse.facets[facetName][0].data, state, facetName, requestOptions)).toEqual(
-               treeFacetRequest
+                print(parse(treeFacetRequest))
             );
         });
         it('prepare category facet returns consistent category information for treeview', () => {
             const facetsResponse = prepareCategoryFacet(treeFacetSearchOutput, pathFacetsData, categoryTitleData);
-            console.log(facetsResponse);
             const musicObject = facetsResponse.find(facet => facet.path === '/Music');
             expect(musicObject.isRoot).toBeTruthy();
             expect(musicObject.title).toEqual('Music');
