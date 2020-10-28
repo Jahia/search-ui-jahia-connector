@@ -32,6 +32,7 @@ jobs:
 
       - run: yarn set version berry
       - run: yarn set version latest
+      - run: yarn install --check-cache
       - run:
           name: Run lint and build
           command: yarn build
