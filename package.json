@@ -1,6 +1,6 @@
 {
   "name": "@jahia/search-ui-jahia-connector",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "A Search UI connector for Jahia GraphQL Search API",
   "license": "MIT",
   "main": "dist",
@@ -22,40 +22,45 @@
     "build:analyze": "yarn build --analyze",
     "build:production": "yarn build -p",
     "build:production-analyze": "yarn build -p --analyze",
-    "test": "jest",
+    "test": "jest --coverage",
     "lint": "eslint --ext js .",
     "lint:fix": "eslint --ext js --fix ."
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint:fix"
+    }
   },
   "bugs": {
     "url": "https://github.com:Jahia/search-ui-jahia-connector.git/issues"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.0",
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-class-properties": "^7.5.0",
-    "@babel/plugin-transform-classes": "^7.4.4",
-    "@babel/plugin-transform-runtime": "^7.5.0",
-    "@babel/polyfill": "^7.4.4",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-typescript": "^7.3.3",
-    "@babel/runtime": "^7.5.4",
-    "@jahia/eslint-config": "^1.0.0-beta.20190920132338",
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-classes": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-typescript": "^7.12.1",
+    "@babel/runtime": "^7.12.1",
+    "@jahia/eslint-config": "^1.1.0",
     "axios": "^0.19.0",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^10.0.2",
-    "babel-jest": "^24.9.0",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.1",
     "babel-plugin-lodash": "^3.3.4",
-    "eslint": "^7.9.0",
-    "eslint-config-prettier": "^3.3.0",
-    "eslint-plugin-jest": "^22.9.0",
-    "eslint-plugin-react": "^7.14.2",
-    "jest": "^24.9.0",
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-jest": "^24.1.0",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "jest": "^26.6.1",
     "jest-teamcity-reporter": "github:mhodgson/jest-teamcity-reporter",
     "npm-run-all": "^4.1.5",
-    "rimraf": "^2.6.3"
+    "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "eslint-plugin-react-hooks": "^4.1.2",
-    "graphql": "^14.5.4"
+    "graphql": "^15.4.0"
   }
 }

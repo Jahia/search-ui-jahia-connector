@@ -94,7 +94,7 @@ const adaptedResponse = {
             link: {
                 raw: 'http://localhost/sites/digitall/home/demo-roles-and-users.html'
             },
-            "jgql_created": {
+            'jgql_created': {
                 raw: '2016-08-11T01:04:54.216Z'
             },
             title: {
@@ -146,7 +146,8 @@ const adaptedResponse = {
                     count: 1
                 }
             ],
-            field: 'jgql:tags'
+            field: 'jgql:tags',
+            type: 'value'
         }],
         'jgql:lastModified': [{
             data: [
@@ -159,7 +160,8 @@ const adaptedResponse = {
                     count: 1
                 }
             ],
-            field: 'jgql:lastModified'
+            field: 'jgql:lastModified',
+            type: 'range'
         }]
     }
 

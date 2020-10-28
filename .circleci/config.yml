@@ -29,31 +29,18 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
 
-      - run: yarn
+      - run: yarn set version berry
+      - run: yarn set version latest
       - run:
           name: Run lint and build
           command: yarn build
 
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
       - *persist-workspace
   test:
     <<: *defaults
     steps:
       - *attach-workspace
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
 
       - run:
           name: Run tests
@@ -64,11 +51,6 @@ jobs:
     <<: *defaults
     steps:
       - *attach-workspace
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPMJS_TOKEN" > ~/source/.npmrc

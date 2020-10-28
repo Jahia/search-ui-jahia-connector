@@ -9,7 +9,9 @@ export function getFacets(facets, queryConfig) {
             normalizedFacets[facetName] = [];
             const facetResponse = facets[facetName.replace(/[.:]/g, '_')];
             facetResponse.field = facetName;
+            facetResponse.type = facet.type;
             if (facet.type === 'date_range' || facet.type === 'range') {
+                facetResponse.type = 'range';
                 facetResponse.data = facetResponse.data.map(entry => ({count: entry.count, value: entry.name}));
             }
 
