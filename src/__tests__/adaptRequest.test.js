@@ -36,6 +36,14 @@ const queryConfig = {
             disjunctive: true,
             ranges: [{from: '0.0', to: '500.0', name: '< 500'},
                 {from: '500.0', to: '1000.0', name: '> 500 < 1000'}]
+        },
+        'jgql:categories_path': {
+            type: 'value',
+            max: 50,
+            minDoc: 1,
+            disjunctive: true,
+            rootPath:"",
+            hierarchical: true
         }
     },
     // eslint-disable-next-line camelcase
@@ -81,6 +89,11 @@ const requestWithFilters = {
             field: 'popularity',
             values: ['> 500 < 1000'],
             type: 'all'
+        },
+        {
+            field: 'jgql:categories_path',
+            values: ['reg:markets[^/]*/.*'],
+            type: 'any'
         }
     ]
 };
@@ -124,7 +137,17 @@ const adaptedDefaultRequest = print(parse(`{
                     value
                     count
                 }
-            }
+            },
+            jgql_categories_path: treeFacet(field: "jgql:categories_path", rootPath:"", disjunctive: true, max: 50, minDocCount: 1) {
+                data {
+                    value
+                    count
+                    key
+                    hasChildren
+                    rootPath
+                    filter
+                }
+            },
             jgql_lastModified: rangeFacet(field: "jgql:lastModified", ranges: [{name: "last year", from: "now-1y", to: "now"},
                                                             {name: "last 5 years", from: "now-5y", to: "now-1y"}]) {
                 data {
@@ -163,6 +186,16 @@ const adaptedNodeTypeFilterRequest = print(parse(`{
                     value
                     count
                 }
+            },
+            jgql_categories_path: treeFacet(field: "jgql:categories_path", rootPath:"", disjunctive: true, max: 50, minDocCount: 1) {
+                data {
+                    value
+                    count
+                    key
+                    hasChildren
+                    rootPath
+                    filter
+                }
             }
             jgql_lastModified: rangeFacet(field: "jgql:lastModified", ranges: [{name: "last year", from: "now-1y", to: "now"},
                                                             {name: "last 5 years", from: "now-5y", to: "now-1y"}]) {
@@ -189,6 +222,10 @@ const adaptedFilteredRequest = print(parse(`{
                         operation:AND
                         terms:[{field:"jgql:tags",value:"Action"},{field:"jgql:tags",value:"Adventure"}]
                     },
+                    term:{
+                        operation:OR
+                        terms:[{field:"jgql:categories_path",value:"reg:markets[^/]*/.*"}]
+                    }
                     dateRange:{operation:AND, ranges:[{field:"jgql:lastModified",after:"now-1y",before:"now"}]},
                     numberRange:{operation:AND, ranges:[{field:"popularity",gte:"500.0",lt:"1000.0"}]}
                 }
@@ -212,6 +249,16 @@ const adaptedFilteredRequest = print(parse(`{
                 data {
                     value
                     count
+                }
+            },
+            jgql_categories_path: treeFacet(field: "jgql:categories_path", rootPath:"", disjunctive: true, max: 50, minDocCount: 1) {
+                data {
+                    value
+                    count
+                    key
+                    hasChildren
+                    rootPath
+                    filter
                 }
             }
             jgql_lastModified: rangeFacet(field: "jgql:lastModified", ranges: [{name: "last year", from: "now-1y", to: "now"},

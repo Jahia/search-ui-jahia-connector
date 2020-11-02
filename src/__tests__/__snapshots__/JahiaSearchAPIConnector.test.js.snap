@@ -331,6 +331,7 @@ Object {
           },
         ],
         "field": "jgql:tags",
+        "type": "value",
       },
     ],
   },
