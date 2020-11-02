@@ -23,7 +23,8 @@ export default function filters(request, queryConfig, graphQLOptions) {
         request.filters.forEach(filter => {
             const facet = queryConfig.facets[filter.field];
             if (facet === undefined) {
-                terms.push(`{field:"${filter.field}", value:"${filter.values[0]}"}`);
+                terms[filter.field] = {type: filter.type, terms: []};
+                terms[filter.field].terms.push(`{field:"${filter.field}", value:"${filter.values[0]}"}`);
             } else {
                 switch (facet.type) {
                     case 'range':
