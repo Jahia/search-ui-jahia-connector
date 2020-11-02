@@ -93,7 +93,7 @@ const requestWithFilters = {
         {
             field: 'jgql:categories_path',
             values: ['reg:markets[^/]*/.*'],
-            type: 'all'
+            type: 'any'
         }
     ]
 };
@@ -223,7 +223,7 @@ const adaptedFilteredRequest = print(parse(`{
                         terms:[{field:"jgql:tags",value:"Action"},{field:"jgql:tags",value:"Adventure"}]
                     },
                     term:{
-                        operation:AND
+                        operation:OR
                         terms:[{field:"jgql:categories_path",value:"reg:markets[^/]*/.*"}]
                     }
                     dateRange:{operation:AND, ranges:[{field:"jgql:lastModified",after:"now-1y",before:"now"}]},

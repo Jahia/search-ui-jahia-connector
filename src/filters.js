@@ -5,7 +5,7 @@ export default function filters(request, queryConfig, graphQLOptions) {
     }
 
     function getTerms(terms) {
-        return Object.keys(terms).map(value => `term: {operation: AND, terms:[${terms[value].join(',')}]}`).join(',');
+        return Object.keys(terms).map(value => `term: {operation: ${terms[value].type === 'any' ? 'OR' : 'AND'}, terms:[${terms[value].terms.join(',')}]}`).join(',');
     }
 
     function getDateRange(dateRanges) {
@@ -55,10 +55,10 @@ export default function filters(request, queryConfig, graphQLOptions) {
                         filter.values.forEach(value => {
                             let term = terms[filter.field];
                             if (term === undefined) {
-                                term = [];
+                                term = {type: filter.type, terms: []};
                             }
 
-                            term.push(`{field:"${filter.field}", value:"${value}"}`);
+                            term.terms.push(`{field:"${filter.field}", value:"${value}"}`);
                             terms[filter.field] = term;
                         });
                         break;
