@@ -51,12 +51,18 @@ export default function facets(request, queryConfig) {
     Object.entries(processedFacets).forEach(([facetType, facetGroup]) => {
         Object.entries(facetGroup).forEach(([facetName, facet]) => {
             if (facetType === 'value') {
-                facetInputs.push(`${facetName.replace(/[:.]/g, '_')}: termFacet(field:"${facetName}", disjunctive: ${Boolean(facet.facet.disjunctive)} 
+                if (facet.facet.hierarchical === true) {
+                    facetInputs.push(`${facetName.replace(/[:.]/g, '_')}: treeFacet(field:"${facetName}", rootPath: "${facet.facet.rootPath}", disjunctive: ${Boolean(facet.facet.disjunctive)} 
+                ${facet.facet.max ? `, max: ${facet.facet.max},` : ''} ${facet.facet.minDoc ? `, minDocCount: ${facet.facet.minDoc},` : ''}) {
+                data{value,count,key,hasChildren,rootPath,filter}}`);
+                } else {
+                    facetInputs.push(`${facetName.replace(/[:.]/g, '_')}: termFacet(field:"${facetName}", disjunctive: ${Boolean(facet.facet.disjunctive)} 
                 ${facet.facet.max ? `, max: ${facet.facet.max},` : ''} ${facet.facet.minDoc ? `, minDocCount: ${facet.facet.minDoc},` : ''}) {
                 data{value,count}}`);
+                }
             } else if (facetType === 'date_range' || facetType === 'range') {
                 facetInputs.push(`${facetName.replace(/[:.]/g, '_')}:rangeFacet(field: "${facetName}", 
-                ranges:[${facet.facet.ranges.map(range => `${buildRangeValue(range)}`).join(',')}] 
+               ranges:[${facet.facet.ranges.map(range => `${buildRangeValue(range)}`).join(',')}] 
                 ${facet.facet.max ? `, max: ${facet.facet.max},` : ''}) {
                 data{name,count}}`);
             }

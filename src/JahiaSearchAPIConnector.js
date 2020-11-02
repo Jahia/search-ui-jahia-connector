@@ -2,7 +2,6 @@ import request from './request';
 import adaptRequest from './adaptRequest';
 import adaptResponse from './adaptResponse';
 import Constants from './constants';
-import treeFacetHelper, {prepareCategoryFacet} from './treeFacetHelper';
 
 class JahiaSearchAPIConnector {
     /**
@@ -46,28 +45,7 @@ class JahiaSearchAPIConnector {
         };
         const query = adaptRequest(requestOptions, state, queryConfig);
         const responseJson = await request(this.apiToken, this.baseURL, 'POST', query);
-        const adaptedResponse = adaptResponse(responseJson, state.resultsPerPage, queryConfig);
-        if (adaptedResponse.facets) {
-            await this.processTreeFacets(adaptedResponse, state, requestOptions);
-        }
-
-        return adaptedResponse;
-    }
-
-    async processTreeFacets(adaptedResponse, state, requestOptions) {
-        const fieldName = 'jgql:categories_path.facet';
-        const pathFacets = adaptedResponse.facets[fieldName];
-        if (!pathFacets) {
-            return;
-        }
-
-        const pathFacetsData = pathFacets[0].data;
-        if (Array.isArray(pathFacetsData) && pathFacetsData.length) {
-            const categoryTitleData = adaptedResponse.facets['jcr:categories.keyword'][0].data;
-            const treeFacetRequest = treeFacetHelper(pathFacetsData, state, fieldName, requestOptions);
-            const treeFacetJson = await request(this.apiToken, this.baseURL, 'POST', treeFacetRequest);
-            adaptedResponse.facets[fieldName][0].data = prepareCategoryFacet(treeFacetJson.data.search, pathFacetsData, categoryTitleData);
-        }
+        return adaptResponse(responseJson, state.resultsPerPage, queryConfig);
     }
 
     async onAutocomplete({searchTerm}, queryConfig) {

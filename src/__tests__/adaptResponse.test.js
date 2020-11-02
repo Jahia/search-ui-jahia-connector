@@ -24,6 +24,19 @@ const queryConfig = {
             disjunctive: true,
             ranges: [{from: 'now-1y', to: 'now', name: 'last year'},
                 {from: 'now-5y', to: 'now-1y', name: 'last 5 years'}]
+        },
+        'popularity': {
+            type: 'range',
+            disjunctive: true,
+            ranges: [{from: '0.0', to: '500.0', name: '< 500'},
+                {from: '500.0', to: '1000.0', name: '> 500 < 1000'}]
+        },
+        'jgql:categories_path': {
+            type: 'hierarchical',
+            max: 50,
+            minDoc: 1,
+            disjunctive: true,
+            rootPath:""
         }
     }
 };
@@ -81,6 +94,40 @@ const response = {
                     {
                         name: 'last year',
                         count: 1
+                    }
+                ]
+            },
+            'popularity': {
+                data: [
+                    {
+                        name: '< 500',
+                        count: 432
+                    },
+                    {
+                        name: '> 500 < 1000',
+                        count: 345
+                    }
+                ]
+            },
+            "jgql_categories_path": {
+                "data": [
+                    {
+                        "value": "Annual Filings",
+                        "count": 2,
+                        "hasChildren": false,
+                        "key": "annual-filings",
+                        "humanPath": "/Annual Filings",
+                        "rootPath": "/annual-filings",
+                        "filter": "reg:annual-filings[^/]*"
+                    },
+                    {
+                        "value": "Markets and Applications",
+                        "count": 1,
+                        "hasChildren": true,
+                        "key": "markets",
+                        "humanPath": "/Markets and Applications",
+                        "rootPath": "/markets",
+                        "filter": "reg:markets[^/]*/.*"
                     }
                 ]
             }
@@ -160,7 +207,46 @@ const adaptedResponse = {
                 }
             ],
             field: 'jgql:lastModified'
-        }]
+        }],
+        "popularity": [
+            {
+                "data": [
+                    {
+                        "count": 432,
+                        "value": "< 500"
+                    },
+                    {
+                        "count": 345,
+                        "value": "> 500 < 1000"
+                    }
+                ],
+                "field": "popularity"
+            }],
+        "jgql:categories_path": [
+            {
+                "data": [
+                    {
+                        "count": 2,
+                        "filter": "reg:annual-filings[^/]*",
+                        "hasChildren": false,
+                        "humanPath": "/Annual Filings",
+                        "key": "annual-filings",
+                        "rootPath": "/annual-filings",
+                        "value": "Annual Filings"
+                    },
+                    {
+                        "count": 1,
+                        "filter": "reg:markets[^/]*/.*",
+                        "hasChildren": true,
+                        "humanPath": "/Markets and Applications",
+                        "key": "markets",
+                        "rootPath": "/markets",
+                        "value": "Markets and Applications"
+                    }
+                ],
+                "field": "jgql:categories_path"
+            }
+        ]
     }
 
 };
@@ -199,13 +285,13 @@ const adaptedEmptyResponse = {
 describe('adaptResponse', () => {
     describe('adaptResponse', () => {
         it('adapts response', () => {
-            expect(adaptResponse(response, 10, queryConfig)).toEqual(
+            expect(adaptResponse(response, 10, queryConfig)).toMatchObject(
                 adaptedResponse
             );
         });
 
         it('adapts empty response', () => {
-            expect(adaptResponse(emptyResponse, 10, queryConfig)).toEqual(
+            expect(adaptResponse(emptyResponse, 10, queryConfig)).toMatchObject(
                 adaptedEmptyResponse
             );
         });
