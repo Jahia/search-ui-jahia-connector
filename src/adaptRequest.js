@@ -45,7 +45,7 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
 
     return print(parse(`query {
         search(
-            q: "${graphQLOptions.searchTerm}",
+            q: "${graphQLOptions.searchTerm !== undefined ? graphQLOptions.searchTerm.replace(/\\/g, '\\\\') : ''}",
             siteKeys: ["${graphQLOptions.siteKey}"],
             language: "${graphQLOptions.language}",
             workspace: ${graphQLOptions.workspace}

@@ -65,6 +65,50 @@ describe('#onSearch', () => {
         const response = await subject({state: {}, queryConfig: queryConfig});
         expect(response).toMatchSnapshot();
     });
+
+    it('will not break on special character at the end', async () => {
+        let queryConfig = {
+            // eslint-disable-next-line camelcase
+            result_fields: [
+                new Field(FieldType.HIT, 'link'),
+                new Field(FieldType.HIT, 'displayableName', 'title'),
+                new Field(FieldType.HIT, 'excerpt', null, true),
+                new Field(FieldType.HIT, 'score'),
+                new Field(FieldType.NODE, 'jgql:created', 'created')
+            ],
+            facets: {
+                'jgql:tags': {
+                    type: 'value',
+                    max: 10,
+                    disjunctive: true
+                }
+            }
+        };
+        const response = await subject({state: {searchTerm:'di\\'}, queryConfig: queryConfig});
+        expect(response).toMatchSnapshot();
+    });
+
+    it('will not break on special character in the middle', async () => {
+        let queryConfig = {
+            // eslint-disable-next-line camelcase
+            result_fields: [
+                new Field(FieldType.HIT, 'link'),
+                new Field(FieldType.HIT, 'displayableName', 'title'),
+                new Field(FieldType.HIT, 'excerpt', null, true),
+                new Field(FieldType.HIT, 'score'),
+                new Field(FieldType.NODE, 'jgql:created', 'created')
+            ],
+            facets: {
+                'jgql:tags': {
+                    type: 'value',
+                    max: 10,
+                    disjunctive: true
+                }
+            }
+        };
+        const response = await subject({state: {searchTerm:'di\\g\\it'}, queryConfig: queryConfig});
+        expect(response).toMatchSnapshot();
+    });
 });
 
 describe('#onAutocomplete', () => {
