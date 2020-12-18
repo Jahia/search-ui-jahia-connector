@@ -19,6 +19,19 @@ const buildFields = fields => {
     return fieldsConcatenated;
 };
 
+function htmlEscape(str) {
+    if (str) {
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\\/g, '\\\\');
+    }
+
+    return '';
+}
 /**
  * Adapt the request from Search UI to Jahia Augmented Search
  * @param {RequestOptions} requestOptions the options for this request
@@ -45,7 +58,7 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
 
     return print(parse(`query {
         search(
-            q: "${graphQLOptions.searchTerm !== undefined ? graphQLOptions.searchTerm.replace(/\\/g, '\\\\') : ''}",
+            q: "${graphQLOptions.searchTerm !== undefined ? htmlEscape(graphQLOptions.searchTerm) : ''}",
             siteKeys: ["${graphQLOptions.siteKey}"],
             language: "${graphQLOptions.language}",
             workspace: ${graphQLOptions.workspace}
