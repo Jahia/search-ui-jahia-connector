@@ -3,7 +3,6 @@ import {parse, print} from 'graphql';
 import sort from './sort';
 import facets from './facets';
 import filters from './filters';
-import * as _ from 'lodash';
 
 const buildFields = fields => {
     const fieldsConcatenated = {
@@ -20,8 +19,8 @@ const buildFields = fields => {
     return fieldsConcatenated;
 };
 
-function htmlEscape(str){
-    if (!_.isEmpty(str)) {
+function htmlEscape(str) {
+    if (str) {
         return String(str)
             .replace(/&/g, '&amp;')
             .replace(/"/g, '&quot;')
