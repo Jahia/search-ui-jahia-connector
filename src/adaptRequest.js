@@ -32,6 +32,7 @@ function htmlEscape(str) {
 
     return '';
 }
+
 /**
  * Adapt the request from Search UI to Jahia Augmented Search
  * @param {RequestOptions} requestOptions the options for this request
