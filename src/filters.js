@@ -5,15 +5,18 @@ export default function filters(request, queryConfig, graphQLOptions) {
     }
 
     function getTerms(terms) {
-        return Object.keys(terms).map(value => `term: {operation: ${terms[value].type === 'any' ? 'OR' : 'AND'}, terms:[${terms[value].terms.join(',')}]}`).join(',');
+        let termsArray = Object.keys(terms).map(value => `{operation: ${terms[value].type === 'any' ? 'OR' : 'AND'}, terms:[${terms[value].terms.join(',')}]}`).join(',');
+        return `term: [${termsArray}]`;
     }
 
     function getDateRange(dateRanges) {
-        return Object.keys(dateRanges).map(value => `dateRange: {operation: AND, ranges:[${dateRanges[value].join(',')}]}`).join(',');
+        let dateRangesArray = Object.keys(dateRanges).map(value => `{operation: AND, ranges:[${dateRanges[value].join(',')}]}`).join(',');
+        return `dateRange: [${dateRangesArray}]`;
     }
 
     function getNumberRange(numberRanges) {
-        return Object.keys(numberRanges).map(value => `numberRange: {operation: AND, ranges:[${numberRanges[value].join(',')}]}`).join(',');
+        let numberRangesArray = Object.keys(numberRanges).map(value => `{operation: AND, ranges:[${numberRanges[value].join(',')}]}`).join(',');
+        return `numberRange: [${numberRangesArray}]`;
     }
 
     if (request.filters !== undefined && request.filters.length > 0) {

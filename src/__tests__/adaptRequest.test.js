@@ -218,16 +218,15 @@ const adaptedFilteredRequest = print(parse(`{
       search (q: "test", siteKeys: ["academy"], language: "en", workspace: LIVE,
             filters:{
                 custom:{
-                    term:{
+                    term:[{
                         operation:AND
-                        terms:[{field:"jgql:tags",value:"Action"},{field:"jgql:tags",value:"Adventure"}]
-                    },
-                    term:{
+                        terms:[{field:"jgql:tags",value:"Action"},{field:"jgql:tags",value:"Adventure"}]}, 
+                        {
                         operation:OR
                         terms:[{field:"jgql:categories_path",value:"reg:markets[^/]*/.*"}]
-                    }
-                    dateRange:{operation:AND, ranges:[{field:"jgql:lastModified",after:"now-1y",before:"now"}]},
-                    numberRange:{operation:AND, ranges:[{field:"popularity",gte:"500.0",lt:"1000.0"}]}
+                    }]
+                    dateRange:[{operation:AND, ranges:[{field:"jgql:lastModified",after:"now-1y",before:"now"}]}],
+                    numberRange:[{operation:AND, ranges:[{field:"popularity",gte:"500.0",lt:"1000.0"}]}]
                 }
             }
       ) {
