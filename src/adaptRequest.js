@@ -62,7 +62,8 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
             q: "${graphQLOptions.searchTerm !== undefined ? htmlEscape(graphQLOptions.searchTerm) : ''}",
             siteKeys: ["${graphQLOptions.siteKey}"],
             language: "${graphQLOptions.language}",
-            workspace: ${graphQLOptions.workspace}
+            workspace: ${graphQLOptions.workspace},
+            functionScoreId: "${graphQLOptions.functionScore}",
             ${filters(request, queryConfig, graphQLOptions)}
             ) {
 
