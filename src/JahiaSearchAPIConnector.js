@@ -12,6 +12,7 @@ class JahiaSearchAPIConnector {
      * @param  {string} language Language in which search will be performed
      * @param  {string} workspace Workspace in which search will be performed
      * @param  {string} nodeType The node type that should be searched for
+     * @param  {string} functionScore The function score id that should be used to score the hits
      */
     constructor({
         apiToken,
@@ -19,7 +20,8 @@ class JahiaSearchAPIConnector {
         siteKey,
         language = Constants.LANGUAGE,
         workspace = Constants.WORKSPACE,
-        nodeType
+        nodeType,
+        functionScore = ''
     }) {
         if (!apiToken || !baseURL || !siteKey) {
             throw new Error(
@@ -33,6 +35,7 @@ class JahiaSearchAPIConnector {
         this.language = language;
         this.workspace = workspace;
         this.nodeType = nodeType;
+        this.functionScore = functionScore;
     }
 
     async onSearch(state, queryConfig) {
@@ -41,7 +44,8 @@ class JahiaSearchAPIConnector {
             siteKey: this.siteKey,
             language: this.language,
             workspace: this.workspace,
-            nodeType: this.nodeType
+            nodeType: this.nodeType,
+            functionScore: this.functionScore
         };
         const query = adaptRequest(requestOptions, state, queryConfig);
         const responseJson = await request(this.apiToken, this.baseURL, 'POST', query);
@@ -60,7 +64,8 @@ class JahiaSearchAPIConnector {
                 siteKey: this.siteKey,
                 language: this.language,
                 workspace: this.workspace,
-                nodeType: this.nodeType
+                nodeType: this.nodeType,
+                functionScore: this.functionScore
             };
             const query = adaptRequest(requestOptions,
                 {searchTerm},

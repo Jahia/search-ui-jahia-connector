@@ -21,7 +21,8 @@ describe('Sort parameters tests', function () {
         siteKey: 'fake',
         language: 'fake',
         workspace: 'fake',
-        nodeType: 'fake'
+        nodeType: 'fake',
+        functionScore: 'fake'
     };
 
     it('Query without sort', function () {

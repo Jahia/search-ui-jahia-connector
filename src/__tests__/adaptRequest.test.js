@@ -6,15 +6,16 @@ import filters from '../filters';
 const defaultRequestOptions = {
     siteKey: 'academy',
     language: 'en',
-    workspace: 'LIVE'
+    workspace: 'LIVE',
+    functionScore: ''
 };
 
 const nodeTypeRequestOptions = {
     siteKey: 'academy',
     language: 'en',
     workspace: 'LIVE',
-    nodeType: 'jnt:page'
-
+    nodeType: 'jnt:page',
+    functionScore: ''
 };
 
 const queryConfig = {
@@ -117,7 +118,7 @@ const defaultRequest = {
 };
 
 const adaptedDefaultRequest = print(parse(`{
-      search (q: "test", siteKeys: ["academy"], language: "en", workspace: LIVE) {
+      search (q: "test", siteKeys: ["academy"], language: "en", workspace: LIVE, functionScoreId: "") {
             results (size: 10, page: 3, sortBy: {dir: ASC, field: "title"}) {
                 totalHits
                 took
@@ -166,7 +167,7 @@ const adaptedDefaultRequest = print(parse(`{
 }`));
 
 const adaptedNodeTypeFilterRequest = print(parse(`{
-      search (q: "test", siteKeys: ["academy"], language: "en", workspace: LIVE, filters: {nodeType: {type: "jnt:page"}}) {
+      search (q: "test", siteKeys: ["academy"], language: "en", workspace: LIVE, functionScoreId: "", filters: {nodeType: {type: "jnt:page"}}) {
             results (size: 10, page: 3, sortBy: {dir: ASC, field: "title"}) {
                 totalHits
                 took
@@ -215,7 +216,7 @@ const adaptedNodeTypeFilterRequest = print(parse(`{
 }`));
 
 const adaptedFilteredRequest = print(parse(`{
-      search (q: "test", siteKeys: ["academy"], language: "en", workspace: LIVE,
+      search (q: "test", siteKeys: ["academy"], language: "en", workspace: LIVE, functionScoreId: ""
             filters:{
                 custom:{
                     term:[{
