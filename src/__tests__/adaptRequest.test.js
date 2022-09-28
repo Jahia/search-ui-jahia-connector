@@ -60,6 +60,7 @@ const queryConfig = {
 };
 
 const requestWithFilters = {
+    nodeType: 'jnt:page',
     searchTerm: 'test',
     resultsPerPage: 10,
     current: 4,
@@ -218,6 +219,7 @@ const adaptedNodeTypeFilterRequest = print(parse(`{
 const adaptedFilteredRequest = print(parse(`{
       search (q: "test", siteKeys: ["academy"], language: "en", workspace: LIVE, functionScoreId: ""
             filters:{
+                nodeType: {type: "jnt:page"}
                 custom:{
                     term:[{
                         operation:AND
