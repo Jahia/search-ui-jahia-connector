@@ -1,7 +1,7 @@
 export default function filters(request, queryConfig, graphQLOptions) {
     const filters = [];
     if (graphQLOptions.nodeType) {
-        filters.push(`{nodeType:{type: "${graphQLOptions.nodeType}"}}`);
+        filters.push(`nodeType:{type: "${graphQLOptions.nodeType}"}`);
     }
 
     function getTerms(terms) {
@@ -69,16 +69,16 @@ export default function filters(request, queryConfig, graphQLOptions) {
                 }
             }
         });
-        filters.push(`{custom:{
+        filters.push(`custom:{
         ${Object.keys(terms).length > 0 ? getTerms(terms) : ''}
         ${Object.keys(dateRanges).length > 0 ? getDateRange(dateRanges) : ''}
         ${Object.keys(numberRanges).length > 0 ? getNumberRange(numberRanges) : ''}
-        }}`);
+        }`);
     }
 
     if (filters.length === 0) {
         return '';
     }
 
-    return `filters: ${filters.join(',')}`;
+    return `filters: {${filters.join(',')}}`;
 }
