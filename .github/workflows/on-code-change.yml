@@ -28,6 +28,7 @@ jobs:
         node-version: '10.x'
     - name: test with yarn
       run: |
+        yarn install
         yarn test
   publish:
     name: Publish to npm
@@ -41,5 +42,6 @@ jobs:
         node-version: '10.x'
     - name: Publish to npm
       run: |
+        yarn install
         echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
         yarn publish --access public
