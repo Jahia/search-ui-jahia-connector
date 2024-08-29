@@ -8,22 +8,23 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@v1
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
         node-version: '10.x'
     - name: Install & build with yarn
       run: |
         yarn install
         yarn build
+    - 
   test:
     name: Run integration tests
     runs-on: ubuntu-latest
     needs: build
     
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@v1
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
         node-version: '10.x'
     - name: test with yarn
@@ -35,8 +36,8 @@ jobs:
     needs: test
     
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@v1
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
         node-version: '10.x'
     - name: Publish to npm
