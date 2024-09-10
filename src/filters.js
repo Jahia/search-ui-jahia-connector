@@ -38,7 +38,7 @@ export default function filters(request, queryConfig, graphQLOptions) {
                                 numberRange = [];
                             }
 
-                            numberRange.push(`{field:"${filter.field}",gte:"${range.from}", lt:"${range.to}"}`);
+                            numberRange.push(`{field:"${filter.field}",gte:${range.from}, lt:${range.to}}`);
                             numberRanges[filter.field] = numberRange;
                         });
                         break;
