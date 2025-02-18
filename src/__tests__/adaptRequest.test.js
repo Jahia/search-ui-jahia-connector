@@ -229,7 +229,7 @@ const adaptedFilteredRequest = print(parse(`{
                         terms:[{field:"jgql:categories_path",value:"reg:markets[^/]*/.*"}]
                     }]
                     dateRange:[{operation:AND, ranges:[{field:"jgql:lastModified",after:"now-1y",before:"now"}]}],
-                    numberRange:[{operation:AND, ranges:[{field:"popularity",gte:"500.0",lt:"1000.0"}]}]
+                    numberRange:[{operation:AND, ranges:[{field:"popularity",gte:500.0,lt:1000.0}]}]
                 }
             }
       ) {
