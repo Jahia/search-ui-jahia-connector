@@ -1,16 +1,17 @@
 {
   "name": "@jahia/search-ui-jahia-connector",
   "version": "2.0.16",
+  "type": "commonjs",
   "description": "A Search UI connector for Jahia GraphQL Search API",
   "license": "MIT",
-  "main": "dist",
-  "module": "jahia",
+  "main": "dist/index.js",
   "author": "Jahia Team",
   "sideEffects": false,
   "directories": {
     "test": "__tests__",
     "lib": "dist"
   },
+  "files": ["dist"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com:Jahia/search-ui-jahia-connector.git"
