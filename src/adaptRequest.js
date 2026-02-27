@@ -59,7 +59,7 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
 
     return print(parse(`query {
         search(
-            q: "${graphQLOptions.searchTerm !== undefined ? htmlEscape(graphQLOptions.searchTerm) : ''}",
+            q: "${graphQLOptions.searchTerm === undefined ? '' : htmlEscape(graphQLOptions.searchTerm)}",
             siteKeys: ["${graphQLOptions.siteKey}"],
             language: "${graphQLOptions.language}",
             workspace: ${graphQLOptions.workspace},
