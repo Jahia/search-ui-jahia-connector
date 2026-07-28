@@ -1,8 +1,8 @@
-import adaptResponse from '../adaptResponse';
-import {Field, FieldType} from '../field';
+import adaptResponse from '../adaptResponse.js';
+import {Field, FieldType} from '../field.js';
 
 const queryConfig = {
-    // eslint-disable-next-line camelcase
+     
     result_fields: [
         new Field(FieldType.HIT, 'link'),
         new Field(FieldType.HIT, 'displayableName', 'title'),

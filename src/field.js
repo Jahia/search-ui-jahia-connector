@@ -1,3 +1,9 @@
+/**
+ * The kind of field being requested — one of the FieldType values.
+ * @typedef {'hit'|'node'|'refValue'|'refPath'} FieldTypeValue
+ */
+
+/** @type {{HIT: FieldTypeValue, NODE: FieldTypeValue, REFERENCE_AS_VALUE: FieldTypeValue, REFERENCE_AS_PATH: FieldTypeValue}} */
 const FieldType = {
     HIT: 'hit',
     NODE: 'node',
@@ -8,10 +14,14 @@ const FieldType = {
 class Field {
     /**
      * Field allows you define the data you want to receive from your searches
-     * @param {FieldType} type The type of field (ESHit or JCR)
+     *
+     * `type` is a FieldType *value* (e.g. FieldType.HIT), not the FieldType object — documenting it
+     * as `{FieldType}` made the generated .d.ts demand the whole object and reject correct calls.
+     *
+     * @param {FieldTypeValue} type The type of field (ESHit or JCR)
      * @param {string} name  field name that should be returned in the response
-     * @param {string} alias optional, define an alias for this field
-     * @param {boolean} useSnippet configure if value is html based (snippet) or plain text (raw)
+     * @param {string} [alias] optional, define an alias for this field
+     * @param {boolean} [useSnippet] configure if value is html based (snippet) or plain text (raw)
      */
     constructor(type, name, alias, useSnippet = false) {
         this.type = type;
@@ -37,7 +47,8 @@ class Field {
     }
 
     resolveResponseField(hit, result) {
-        let property = null;
+        // No initialiser: every switch branch (including default) assigns before use.
+        let property;
         switch (this.type) {
             case FieldType.NODE:
             case FieldType.REFERENCE_AS_PATH:

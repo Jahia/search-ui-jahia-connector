@@ -1,0 +1,28 @@
+{
+  // The sources are plain modern ESM JavaScript. tsc is used as the build tool — it emits the
+  // published ESM and, thanks to allowJs + declaration, generates .d.ts from the existing JSDoc so
+  // consumers get types without the sources being rewritten in TypeScript.
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],           // DOM: the connector uses fetch / Headers
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+
+    "allowJs": true,                    // sources are .js
+    "checkJs": false,                   // don't type-check JS: that's a separate, larger job
+    "declaration": true,                // emit .d.ts inferred from JSDoc
+    "declarationMap": true,
+    "sourceMap": true,
+
+    "rootDir": "src",
+    "outDir": "dist",
+
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true,       // keep import/export exactly as written — no CJS interop rewriting
+    "resolveJsonModule": true
+  },
+  "include": ["src/**/*.js"],
+  "exclude": ["src/__tests__/**", "dist", "node_modules"]
+}

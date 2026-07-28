@@ -1,9 +1,14 @@
-import adaptRequest from '../adaptRequest';
-import {Field, FieldType} from '../field';
+import adaptRequest from '../adaptRequest.js';
+import {Field, FieldType} from '../field.js';
+
+// Module-scoped rather than assigned onto `global`: the specs referenced these as bare identifiers,
+// which only worked because they were implicit globals. Still reset before each test, so the
+// isolation is unchanged.
+let queryConfig;
+let state;
 
 beforeEach(() => {
-    global.queryConfig = {
-        // eslint-disable-next-line camelcase
+    queryConfig = {
         result_fields: [
             new Field(FieldType.HIT, 'link'),
             new Field(FieldType.HIT, 'displayableName', 'title'),
@@ -13,7 +18,7 @@ beforeEach(() => {
         ],
         facets: {}
     };
-    global.state = {};
+    state = {};
 });
 
 describe('Sort parameters tests', function () {

@@ -1,8 +1,8 @@
-import {Field, FieldType} from './field';
+import {Field, FieldType} from './field.js';
 import {parse, print} from 'graphql';
-import sort from './sort';
-import facets from './facets';
-import filters from './filters';
+import sort from './sort.js';
+import facets from './facets.js';
+import filters from './filters.js';
 
 const buildFields = fields => {
     const fieldsConcatenated = {

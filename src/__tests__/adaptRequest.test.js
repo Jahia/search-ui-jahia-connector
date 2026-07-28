@@ -1,7 +1,6 @@
-import adaptRequest from '../adaptRequest';
-import {Field, FieldType} from '../field';
+import adaptRequest from '../adaptRequest.js';
+import {Field, FieldType} from '../field.js';
 import {parse, print} from 'graphql';
-import filters from '../filters';
 
 const defaultRequestOptions = {
     siteKey: 'academy',
@@ -47,7 +46,7 @@ const queryConfig = {
             hierarchical: true
         }
     },
-    // eslint-disable-next-line camelcase
+     
     result_fields: [
         new Field(FieldType.HIT, 'link'),
         new Field(FieldType.HIT, 'displayableName', 'title'),
@@ -66,7 +65,7 @@ const requestWithFilters = {
     current: 4,
     sortDirection: 'asc',
     sortField: 'title',
-    // eslint-disable-next-line camelcase
+     
     result_fields: [
         new Field(FieldType.HIT, 'link'),
         new Field(FieldType.HIT, 'displayableName', 'title'),
@@ -106,7 +105,7 @@ const defaultRequest = {
     current: 4,
     sortDirection: 'asc',
     sortField: 'title',
-    // eslint-disable-next-line camelcase
+     
     result_fields: [
         new Field(FieldType.HIT, 'link'),
         new Field(FieldType.HIT, 'displayableName', 'title'),
