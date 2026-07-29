@@ -1,9 +1,8 @@
-import adaptRequest from '../adaptRequest';
-import {Field, FieldType} from '../field';
+import adaptRequest from '../adaptRequest.js';
+import {Field, FieldType} from '../field.js';
 
 beforeEach(() => {
     global.queryConfig = {
-        // eslint-disable-next-line camelcase
         result_fields: [
             new Field(FieldType.HIT, 'link'),
             new Field(FieldType.HIT, 'displayableName', 'title'),

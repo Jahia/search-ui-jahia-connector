@@ -1,4 +1,4 @@
-import {getFacets, getResults} from './responseAdapters';
+import {getFacets, getResults} from './responseAdapters.js';
 
 export default function adaptResponse(response, resultsPerPage, queryConfig) {
     const requestId = '';

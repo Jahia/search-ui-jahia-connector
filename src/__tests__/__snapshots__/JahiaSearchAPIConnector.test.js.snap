@@ -1,305 +1,305 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`#onAutocomplete will correctly format an API response 1`] = `
-Object {
-  "autocompletedResults": Array [
-    Object {
-      "created": Object {
+exports[`#onAutocomplete > will correctly format an API response 1`] = `
+{
+  "autocompletedResults": [
+    {
+      "created": {
         "raw": "2020-09-23T21:09:44.886Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "72ec4bf1-1ea3-4704-ac10-a1c4488fc1fa",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/search-results.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Search Results",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-07T23:46:37.268Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "16d88584-0fbc-4bd8-a521-c5f16a29e46d",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/newsroom.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Newsroom",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:48:15.587Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "76674c64-b416-4f22-841e-6b597a562cb6",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/about/history.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "History",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-15T17:33:19.501Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "8c1ef957-a3ff-416f-bdbb-36af02ea6576",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/investors/events.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Events",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T20:00:41.972Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "03e87822-02c3-476a-a6d8-3079678d163a",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/investors/contacts.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Contacts",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2020-09-23T21:09:44.884Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "b0719a5e-c305-47f7-9ee0-d088a4563047",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Home",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-08-11T01:04:54.216Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "df03c642-20cf-422e-830c-d9cc550266e3",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/demo-roles-and-users.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Demo Roles and Users",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:47:36.255Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "5600dfa5-22aa-4ba7-995c-265285b482b8",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/about.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "About",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:49:45.308Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "f082f32c-8e9b-454f-b05c-9c23ade267fd",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/corporate-responsibility.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Corporate Responsibility",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:50:14.491Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "b0d5dfb2-d4af-422f-a3c0-ddd8d8142c70",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/our-companies.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Our Companies",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:50:45.737Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "beed98bd-41c4-4a44-b9e9-54bb062d8352",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/newsroom/news-entry.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "News Entry",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-15T17:28:34.127Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "c8e0c2ec-be1f-4378-8df6-c2a92bc5aa27",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/newsroom/all-news.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "All News",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:51:21.187Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "496d07c2-8a25-4daf-988f-1ce04b826a69",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/investors.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Investors",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-12T22:14:03.248Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "a39f719c-f0f0-4991-9077-02617ed5189c",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/investors/press-releases-entry.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Press Releases Entry",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:48:26.398Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "9f7d5c51-a19f-412a-a8e2-882650c8eb82",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/about/leadership.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Leadership",
       },
     },
@@ -307,25 +307,25 @@ Object {
 }
 `;
 
-exports[`#onAutocomplete will not return anything for suggestions 1`] = `Object {}`;
+exports[`#onAutocomplete > will not return anything for suggestions 1`] = `{}`;
 
-exports[`#onAutocompleteResultClick will call the API with the correct body params 1`] = `undefined`;
+exports[`#onAutocompleteResultClick > will call the API with the correct body params 1`] = `undefined`;
 
-exports[`#onSearch will correctly format an API response 1`] = `
-Object {
-  "facets": Object {
-    "jgql:tags": Array [
-      Object {
-        "data": Array [
-          Object {
+exports[`#onSearch > will correctly format an API response 1`] = `
+{
+  "facets": {
+    "jgql:tags": [
+      {
+        "data": [
+          {
             "count": 1,
             "value": "food",
           },
-          Object {
+          {
             "count": 1,
             "value": "health",
           },
-          Object {
+          {
             "count": 1,
             "value": "movies",
           },
@@ -336,636 +336,304 @@ Object {
     ],
   },
   "requestId": "",
-  "results": Array [
-    Object {
-      "created": Object {
+  "results": [
+    {
+      "created": {
         "raw": "2020-09-23T21:09:44.886Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "72ec4bf1-1ea3-4704-ac10-a1c4488fc1fa",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/search-results.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Search Results",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-07T23:46:37.268Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "16d88584-0fbc-4bd8-a521-c5f16a29e46d",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/newsroom.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Newsroom",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:48:15.587Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "76674c64-b416-4f22-841e-6b597a562cb6",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/about/history.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "History",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-15T17:33:19.501Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "8c1ef957-a3ff-416f-bdbb-36af02ea6576",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/investors/events.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Events",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T20:00:41.972Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "03e87822-02c3-476a-a6d8-3079678d163a",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/investors/contacts.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Contacts",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2020-09-23T21:09:44.884Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "b0719a5e-c305-47f7-9ee0-d088a4563047",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Home",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-08-11T01:04:54.216Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "df03c642-20cf-422e-830c-d9cc550266e3",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/demo-roles-and-users.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Demo Roles and Users",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:47:36.255Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "5600dfa5-22aa-4ba7-995c-265285b482b8",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/about.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "About",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:49:45.308Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "f082f32c-8e9b-454f-b05c-9c23ade267fd",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/corporate-responsibility.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Corporate Responsibility",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:50:14.491Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "b0d5dfb2-d4af-422f-a3c0-ddd8d8142c70",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/our-companies.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Our Companies",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:50:45.737Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "beed98bd-41c4-4a44-b9e9-54bb062d8352",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/newsroom/news-entry.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "News Entry",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-15T17:28:34.127Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "c8e0c2ec-be1f-4378-8df6-c2a92bc5aa27",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/newsroom/all-news.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "All News",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:51:21.187Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "496d07c2-8a25-4daf-988f-1ce04b826a69",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/investors.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Investors",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-12T22:14:03.248Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "a39f719c-f0f0-4991-9077-02617ed5189c",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/investors/press-releases-entry.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Press Releases Entry",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:48:26.398Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "9f7d5c51-a19f-412a-a8e2-882650c8eb82",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/about/leadership.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
-        "raw": "Leadership",
-      },
-    },
-  ],
-  "totalPages": NaN,
-  "totalResults": 15,
-}
-`;
-
-exports[`#onSearch will not break on special character at the end 1`] = `
-Object {
-  "facets": Object {
-    "jgql:tags": Array [
-      Object {
-        "data": Array [
-          Object {
-            "count": 1,
-            "value": "food",
-          },
-          Object {
-            "count": 1,
-            "value": "health",
-          },
-          Object {
-            "count": 1,
-            "value": "movies",
-          },
-        ],
-        "field": "jgql:tags",
-        "type": "value",
-      },
-    ],
-  },
-  "requestId": "",
-  "results": Array [
-    Object {
-      "created": Object {
-        "raw": "2020-09-23T21:09:44.886Z",
-      },
-      "excerpt": Object {
-        "snippet": "",
-      },
-      "id": Object {
-        "raw": "72ec4bf1-1ea3-4704-ac10-a1c4488fc1fa",
-      },
-      "link": Object {
-        "raw": "http://localhost/sites/digitall/home/search-results.html",
-      },
-      "score": Object {
-        "raw": 1,
-      },
-      "title": Object {
-        "raw": "Search Results",
-      },
-    },
-    Object {
-      "created": Object {
-        "raw": "2016-01-07T23:46:37.268Z",
-      },
-      "excerpt": Object {
-        "snippet": "",
-      },
-      "id": Object {
-        "raw": "16d88584-0fbc-4bd8-a521-c5f16a29e46d",
-      },
-      "link": Object {
-        "raw": "http://localhost/sites/digitall/home/newsroom.html",
-      },
-      "score": Object {
-        "raw": 1,
-      },
-      "title": Object {
-        "raw": "Newsroom",
-      },
-    },
-    Object {
-      "created": Object {
-        "raw": "2016-01-06T17:48:15.587Z",
-      },
-      "excerpt": Object {
-        "snippet": "",
-      },
-      "id": Object {
-        "raw": "76674c64-b416-4f22-841e-6b597a562cb6",
-      },
-      "link": Object {
-        "raw": "http://localhost/sites/digitall/home/about/history.html",
-      },
-      "score": Object {
-        "raw": 1,
-      },
-      "title": Object {
-        "raw": "History",
-      },
-    },
-    Object {
-      "created": Object {
-        "raw": "2016-01-15T17:33:19.501Z",
-      },
-      "excerpt": Object {
-        "snippet": "",
-      },
-      "id": Object {
-        "raw": "8c1ef957-a3ff-416f-bdbb-36af02ea6576",
-      },
-      "link": Object {
-        "raw": "http://localhost/sites/digitall/home/investors/events.html",
-      },
-      "score": Object {
-        "raw": 1,
-      },
-      "title": Object {
-        "raw": "Events",
-      },
-    },
-    Object {
-      "created": Object {
-        "raw": "2016-01-06T20:00:41.972Z",
-      },
-      "excerpt": Object {
-        "snippet": "",
-      },
-      "id": Object {
-        "raw": "03e87822-02c3-476a-a6d8-3079678d163a",
-      },
-      "link": Object {
-        "raw": "http://localhost/sites/digitall/home/investors/contacts.html",
-      },
-      "score": Object {
-        "raw": 1,
-      },
-      "title": Object {
-        "raw": "Contacts",
-      },
-    },
-    Object {
-      "created": Object {
-        "raw": "2020-09-23T21:09:44.884Z",
-      },
-      "excerpt": Object {
-        "snippet": "",
-      },
-      "id": Object {
-        "raw": "b0719a5e-c305-47f7-9ee0-d088a4563047",
-      },
-      "link": Object {
-        "raw": "http://localhost/sites/digitall/home.html",
-      },
-      "score": Object {
-        "raw": 1,
-      },
-      "title": Object {
-        "raw": "Home",
-      },
-    },
-    Object {
-      "created": Object {
-        "raw": "2016-08-11T01:04:54.216Z",
-      },
-      "excerpt": Object {
-        "snippet": "",
-      },
-      "id": Object {
-        "raw": "df03c642-20cf-422e-830c-d9cc550266e3",
-      },
-      "link": Object {
-        "raw": "http://localhost/sites/digitall/home/demo-roles-and-users.html",
-      },
-      "score": Object {
-        "raw": 1,
-      },
-      "title": Object {
-        "raw": "Demo Roles and Users",
-      },
-    },
-    Object {
-      "created": Object {
-        "raw": "2016-01-06T17:47:36.255Z",
-      },
-      "excerpt": Object {
-        "snippet": "",
-      },
-      "id": Object {
-        "raw": "5600dfa5-22aa-4ba7-995c-265285b482b8",
-      },
-      "link": Object {
-        "raw": "http://localhost/sites/digitall/home/about.html",
-      },
-      "score": Object {
-        "raw": 1,
-      },
-      "title": Object {
-        "raw": "About",
-      },
-    },
-    Object {
-      "created": Object {
-        "raw": "2016-01-06T17:49:45.308Z",
-      },
-      "excerpt": Object {
-        "snippet": "",
-      },
-      "id": Object {
-        "raw": "f082f32c-8e9b-454f-b05c-9c23ade267fd",
-      },
-      "link": Object {
-        "raw": "http://localhost/sites/digitall/home/corporate-responsibility.html",
-      },
-      "score": Object {
-        "raw": 1,
-      },
-      "title": Object {
-        "raw": "Corporate Responsibility",
-      },
-    },
-    Object {
-      "created": Object {
-        "raw": "2016-01-06T17:50:14.491Z",
-      },
-      "excerpt": Object {
-        "snippet": "",
-      },
-      "id": Object {
-        "raw": "b0d5dfb2-d4af-422f-a3c0-ddd8d8142c70",
-      },
-      "link": Object {
-        "raw": "http://localhost/sites/digitall/home/our-companies.html",
-      },
-      "score": Object {
-        "raw": 1,
-      },
-      "title": Object {
-        "raw": "Our Companies",
-      },
-    },
-    Object {
-      "created": Object {
-        "raw": "2016-01-06T17:50:45.737Z",
-      },
-      "excerpt": Object {
-        "snippet": "",
-      },
-      "id": Object {
-        "raw": "beed98bd-41c4-4a44-b9e9-54bb062d8352",
-      },
-      "link": Object {
-        "raw": "http://localhost/sites/digitall/home/newsroom/news-entry.html",
-      },
-      "score": Object {
-        "raw": 1,
-      },
-      "title": Object {
-        "raw": "News Entry",
-      },
-    },
-    Object {
-      "created": Object {
-        "raw": "2016-01-15T17:28:34.127Z",
-      },
-      "excerpt": Object {
-        "snippet": "",
-      },
-      "id": Object {
-        "raw": "c8e0c2ec-be1f-4378-8df6-c2a92bc5aa27",
-      },
-      "link": Object {
-        "raw": "http://localhost/sites/digitall/home/newsroom/all-news.html",
-      },
-      "score": Object {
-        "raw": 1,
-      },
-      "title": Object {
-        "raw": "All News",
-      },
-    },
-    Object {
-      "created": Object {
-        "raw": "2016-01-06T17:51:21.187Z",
-      },
-      "excerpt": Object {
-        "snippet": "",
-      },
-      "id": Object {
-        "raw": "496d07c2-8a25-4daf-988f-1ce04b826a69",
-      },
-      "link": Object {
-        "raw": "http://localhost/sites/digitall/home/investors.html",
-      },
-      "score": Object {
-        "raw": 1,
-      },
-      "title": Object {
-        "raw": "Investors",
-      },
-    },
-    Object {
-      "created": Object {
-        "raw": "2016-01-12T22:14:03.248Z",
-      },
-      "excerpt": Object {
-        "snippet": "",
-      },
-      "id": Object {
-        "raw": "a39f719c-f0f0-4991-9077-02617ed5189c",
-      },
-      "link": Object {
-        "raw": "http://localhost/sites/digitall/home/investors/press-releases-entry.html",
-      },
-      "score": Object {
-        "raw": 1,
-      },
-      "title": Object {
-        "raw": "Press Releases Entry",
-      },
-    },
-    Object {
-      "created": Object {
-        "raw": "2016-01-06T17:48:26.398Z",
-      },
-      "excerpt": Object {
-        "snippet": "",
-      },
-      "id": Object {
-        "raw": "9f7d5c51-a19f-412a-a8e2-882650c8eb82",
-      },
-      "link": Object {
-        "raw": "http://localhost/sites/digitall/home/about/leadership.html",
-      },
-      "score": Object {
-        "raw": 1,
-      },
-      "title": Object {
+      "title": {
         "raw": "Leadership",
       },
     },
@@ -975,21 +643,21 @@ Object {
 }
 `;
 
-exports[`#onSearch will not break on special character in the middle 1`] = `
-Object {
-  "facets": Object {
-    "jgql:tags": Array [
-      Object {
-        "data": Array [
-          Object {
+exports[`#onSearch > will not break on special character at the end 1`] = `
+{
+  "facets": {
+    "jgql:tags": [
+      {
+        "data": [
+          {
             "count": 1,
             "value": "food",
           },
-          Object {
+          {
             "count": 1,
             "value": "health",
           },
-          Object {
+          {
             "count": 1,
             "value": "movies",
           },
@@ -1000,304 +668,636 @@ Object {
     ],
   },
   "requestId": "",
-  "results": Array [
-    Object {
-      "created": Object {
+  "results": [
+    {
+      "created": {
         "raw": "2020-09-23T21:09:44.886Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "72ec4bf1-1ea3-4704-ac10-a1c4488fc1fa",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/search-results.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Search Results",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-07T23:46:37.268Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "16d88584-0fbc-4bd8-a521-c5f16a29e46d",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/newsroom.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Newsroom",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:48:15.587Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "76674c64-b416-4f22-841e-6b597a562cb6",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/about/history.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "History",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-15T17:33:19.501Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "8c1ef957-a3ff-416f-bdbb-36af02ea6576",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/investors/events.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Events",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T20:00:41.972Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "03e87822-02c3-476a-a6d8-3079678d163a",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/investors/contacts.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Contacts",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2020-09-23T21:09:44.884Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "b0719a5e-c305-47f7-9ee0-d088a4563047",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Home",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-08-11T01:04:54.216Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "df03c642-20cf-422e-830c-d9cc550266e3",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/demo-roles-and-users.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Demo Roles and Users",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:47:36.255Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "5600dfa5-22aa-4ba7-995c-265285b482b8",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/about.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "About",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:49:45.308Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "f082f32c-8e9b-454f-b05c-9c23ade267fd",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/corporate-responsibility.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Corporate Responsibility",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:50:14.491Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "b0d5dfb2-d4af-422f-a3c0-ddd8d8142c70",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/our-companies.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Our Companies",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:50:45.737Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "beed98bd-41c4-4a44-b9e9-54bb062d8352",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/newsroom/news-entry.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "News Entry",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-15T17:28:34.127Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "c8e0c2ec-be1f-4378-8df6-c2a92bc5aa27",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/newsroom/all-news.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "All News",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:51:21.187Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "496d07c2-8a25-4daf-988f-1ce04b826a69",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/investors.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Investors",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-12T22:14:03.248Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "a39f719c-f0f0-4991-9077-02617ed5189c",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/investors/press-releases-entry.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
         "raw": "Press Releases Entry",
       },
     },
-    Object {
-      "created": Object {
+    {
+      "created": {
         "raw": "2016-01-06T17:48:26.398Z",
       },
-      "excerpt": Object {
+      "excerpt": {
         "snippet": "",
       },
-      "id": Object {
+      "id": {
         "raw": "9f7d5c51-a19f-412a-a8e2-882650c8eb82",
       },
-      "link": Object {
+      "link": {
         "raw": "http://localhost/sites/digitall/home/about/leadership.html",
       },
-      "score": Object {
+      "score": {
         "raw": 1,
       },
-      "title": Object {
+      "title": {
+        "raw": "Leadership",
+      },
+    },
+  ],
+  "totalPages": NaN,
+  "totalResults": 15,
+}
+`;
+
+exports[`#onSearch > will not break on special character in the middle 1`] = `
+{
+  "facets": {
+    "jgql:tags": [
+      {
+        "data": [
+          {
+            "count": 1,
+            "value": "food",
+          },
+          {
+            "count": 1,
+            "value": "health",
+          },
+          {
+            "count": 1,
+            "value": "movies",
+          },
+        ],
+        "field": "jgql:tags",
+        "type": "value",
+      },
+    ],
+  },
+  "requestId": "",
+  "results": [
+    {
+      "created": {
+        "raw": "2020-09-23T21:09:44.886Z",
+      },
+      "excerpt": {
+        "snippet": "",
+      },
+      "id": {
+        "raw": "72ec4bf1-1ea3-4704-ac10-a1c4488fc1fa",
+      },
+      "link": {
+        "raw": "http://localhost/sites/digitall/home/search-results.html",
+      },
+      "score": {
+        "raw": 1,
+      },
+      "title": {
+        "raw": "Search Results",
+      },
+    },
+    {
+      "created": {
+        "raw": "2016-01-07T23:46:37.268Z",
+      },
+      "excerpt": {
+        "snippet": "",
+      },
+      "id": {
+        "raw": "16d88584-0fbc-4bd8-a521-c5f16a29e46d",
+      },
+      "link": {
+        "raw": "http://localhost/sites/digitall/home/newsroom.html",
+      },
+      "score": {
+        "raw": 1,
+      },
+      "title": {
+        "raw": "Newsroom",
+      },
+    },
+    {
+      "created": {
+        "raw": "2016-01-06T17:48:15.587Z",
+      },
+      "excerpt": {
+        "snippet": "",
+      },
+      "id": {
+        "raw": "76674c64-b416-4f22-841e-6b597a562cb6",
+      },
+      "link": {
+        "raw": "http://localhost/sites/digitall/home/about/history.html",
+      },
+      "score": {
+        "raw": 1,
+      },
+      "title": {
+        "raw": "History",
+      },
+    },
+    {
+      "created": {
+        "raw": "2016-01-15T17:33:19.501Z",
+      },
+      "excerpt": {
+        "snippet": "",
+      },
+      "id": {
+        "raw": "8c1ef957-a3ff-416f-bdbb-36af02ea6576",
+      },
+      "link": {
+        "raw": "http://localhost/sites/digitall/home/investors/events.html",
+      },
+      "score": {
+        "raw": 1,
+      },
+      "title": {
+        "raw": "Events",
+      },
+    },
+    {
+      "created": {
+        "raw": "2016-01-06T20:00:41.972Z",
+      },
+      "excerpt": {
+        "snippet": "",
+      },
+      "id": {
+        "raw": "03e87822-02c3-476a-a6d8-3079678d163a",
+      },
+      "link": {
+        "raw": "http://localhost/sites/digitall/home/investors/contacts.html",
+      },
+      "score": {
+        "raw": 1,
+      },
+      "title": {
+        "raw": "Contacts",
+      },
+    },
+    {
+      "created": {
+        "raw": "2020-09-23T21:09:44.884Z",
+      },
+      "excerpt": {
+        "snippet": "",
+      },
+      "id": {
+        "raw": "b0719a5e-c305-47f7-9ee0-d088a4563047",
+      },
+      "link": {
+        "raw": "http://localhost/sites/digitall/home.html",
+      },
+      "score": {
+        "raw": 1,
+      },
+      "title": {
+        "raw": "Home",
+      },
+    },
+    {
+      "created": {
+        "raw": "2016-08-11T01:04:54.216Z",
+      },
+      "excerpt": {
+        "snippet": "",
+      },
+      "id": {
+        "raw": "df03c642-20cf-422e-830c-d9cc550266e3",
+      },
+      "link": {
+        "raw": "http://localhost/sites/digitall/home/demo-roles-and-users.html",
+      },
+      "score": {
+        "raw": 1,
+      },
+      "title": {
+        "raw": "Demo Roles and Users",
+      },
+    },
+    {
+      "created": {
+        "raw": "2016-01-06T17:47:36.255Z",
+      },
+      "excerpt": {
+        "snippet": "",
+      },
+      "id": {
+        "raw": "5600dfa5-22aa-4ba7-995c-265285b482b8",
+      },
+      "link": {
+        "raw": "http://localhost/sites/digitall/home/about.html",
+      },
+      "score": {
+        "raw": 1,
+      },
+      "title": {
+        "raw": "About",
+      },
+    },
+    {
+      "created": {
+        "raw": "2016-01-06T17:49:45.308Z",
+      },
+      "excerpt": {
+        "snippet": "",
+      },
+      "id": {
+        "raw": "f082f32c-8e9b-454f-b05c-9c23ade267fd",
+      },
+      "link": {
+        "raw": "http://localhost/sites/digitall/home/corporate-responsibility.html",
+      },
+      "score": {
+        "raw": 1,
+      },
+      "title": {
+        "raw": "Corporate Responsibility",
+      },
+    },
+    {
+      "created": {
+        "raw": "2016-01-06T17:50:14.491Z",
+      },
+      "excerpt": {
+        "snippet": "",
+      },
+      "id": {
+        "raw": "b0d5dfb2-d4af-422f-a3c0-ddd8d8142c70",
+      },
+      "link": {
+        "raw": "http://localhost/sites/digitall/home/our-companies.html",
+      },
+      "score": {
+        "raw": 1,
+      },
+      "title": {
+        "raw": "Our Companies",
+      },
+    },
+    {
+      "created": {
+        "raw": "2016-01-06T17:50:45.737Z",
+      },
+      "excerpt": {
+        "snippet": "",
+      },
+      "id": {
+        "raw": "beed98bd-41c4-4a44-b9e9-54bb062d8352",
+      },
+      "link": {
+        "raw": "http://localhost/sites/digitall/home/newsroom/news-entry.html",
+      },
+      "score": {
+        "raw": 1,
+      },
+      "title": {
+        "raw": "News Entry",
+      },
+    },
+    {
+      "created": {
+        "raw": "2016-01-15T17:28:34.127Z",
+      },
+      "excerpt": {
+        "snippet": "",
+      },
+      "id": {
+        "raw": "c8e0c2ec-be1f-4378-8df6-c2a92bc5aa27",
+      },
+      "link": {
+        "raw": "http://localhost/sites/digitall/home/newsroom/all-news.html",
+      },
+      "score": {
+        "raw": 1,
+      },
+      "title": {
+        "raw": "All News",
+      },
+    },
+    {
+      "created": {
+        "raw": "2016-01-06T17:51:21.187Z",
+      },
+      "excerpt": {
+        "snippet": "",
+      },
+      "id": {
+        "raw": "496d07c2-8a25-4daf-988f-1ce04b826a69",
+      },
+      "link": {
+        "raw": "http://localhost/sites/digitall/home/investors.html",
+      },
+      "score": {
+        "raw": 1,
+      },
+      "title": {
+        "raw": "Investors",
+      },
+    },
+    {
+      "created": {
+        "raw": "2016-01-12T22:14:03.248Z",
+      },
+      "excerpt": {
+        "snippet": "",
+      },
+      "id": {
+        "raw": "a39f719c-f0f0-4991-9077-02617ed5189c",
+      },
+      "link": {
+        "raw": "http://localhost/sites/digitall/home/investors/press-releases-entry.html",
+      },
+      "score": {
+        "raw": 1,
+      },
+      "title": {
+        "raw": "Press Releases Entry",
+      },
+    },
+    {
+      "created": {
+        "raw": "2016-01-06T17:48:26.398Z",
+      },
+      "excerpt": {
+        "snippet": "",
+      },
+      "id": {
+        "raw": "9f7d5c51-a19f-412a-a8e2-882650c8eb82",
+      },
+      "link": {
+        "raw": "http://localhost/sites/digitall/home/about/leadership.html",
+      },
+      "score": {
+        "raw": 1,
+      },
+      "title": {
         "raw": "Leadership",
       },
     },
