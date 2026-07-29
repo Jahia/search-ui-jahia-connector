@@ -1,6 +1,7 @@
 import adaptRequest from '../adaptRequest.js';
 import {Field, FieldType} from '../field.js';
 import {parse, print} from 'graphql';
+import {searchTermArgOf} from './helpers.js';
 
 const defaultRequestOptions = {
     siteKey: 'academy',
@@ -294,5 +295,165 @@ describe('adaptRequest', () => {
         expect(adaptRequest(defaultRequestOptions, requestWithFilters, queryConfig)).toEqual(
             adaptedFilteredRequest
         );
+    });
+});
+
+/**
+ * Characterization tests added ahead of a rewrite: they record what the current implementation does,
+ * not what it ought to do. Cases marked KNOWN BUG pin behaviour we believe is wrong — a rewrite that
+ * fixes one SHOULD fail here, and the expectation should then be updated deliberately rather than
+ * the test deleted.
+ */
+
+const noFieldsQueryConfig = {result_fields: []};
+
+describe('adaptRequest — search term escaping', () => {
+    const q = (searchTerm, request = {}) =>
+        searchTermArgOf(adaptRequest(defaultRequestOptions, {...request, searchTerm}, noFieldsQueryConfig));
+
+    it('emits an empty q for an undefined search term', () => {
+        expect(searchTermArgOf(adaptRequest(defaultRequestOptions, {}, noFieldsQueryConfig))).toMatchInlineSnapshot(`"q: """`);
+    });
+
+    it('emits an empty q for an empty search term', () => {
+        expect(q('')).toMatchInlineSnapshot(`"q: """`);
+    });
+
+    // KNOWN BUG: htmlEscape guards on truthiness, so any falsy-but-meaningful term is discarded.
+    // A numeric search term of 0 searches for nothing rather than for "0".
+    it('discards a search term of 0 (KNOWN BUG)', () => {
+        expect(q(0)).toMatchInlineSnapshot(`"q: """`);
+    });
+
+    it('escapes ampersands, quotes, apostrophes and angle brackets as HTML entities', () => {
+        expect(q('a&b"c\'d<e>f')).toMatchInlineSnapshot(`"q: "a&amp;b&quot;c&#39;d&lt;e&gt;f""`);
+    });
+
+    it('doubles a trailing backslash', () => {
+        expect(q('di\\')).toMatchInlineSnapshot(`"q: "di\\\\""`);
+    });
+
+    it('doubles an embedded backslash', () => {
+        expect(q('di\\g\\it')).toMatchInlineSnapshot(`"q: "di\\\\g\\\\it""`);
+    });
+
+    it('escapes in a fixed order, so an entity typed by the user is double-escaped', () => {
+        expect(q('&lt;')).toMatchInlineSnapshot(`"q: "&amp;lt;""`);
+    });
+
+    it('leaves other characters alone', () => {
+        expect(q('café (résumé) 50% #1')).toMatchInlineSnapshot(`"q: "café (résumé) 50% #1""`);
+    });
+
+    // KNOWN BUG: newlines are not escaped, and a literal newline is illegal inside a GraphQL string
+    // literal, so the query fails to parse. Pasting multi-line text into a search box throws out of
+    // adaptRequest rather than searching.
+    it('throws on a search term containing a newline (KNOWN BUG)', () => {
+        expect(() => adaptRequest(defaultRequestOptions, {searchTerm: 'multi\nline'}, noFieldsQueryConfig))
+            .toThrow('Syntax Error: Unterminated string.');
+    });
+});
+
+describe('adaptRequest — result_fields resolution', () => {
+    it('ignores entries that are not Field instances', () => {
+        expect(adaptRequest(
+            defaultRequestOptions,
+            {},
+            {result_fields: {notAField: 'link', alsoNot: null, real: new Field(FieldType.HIT, 'link')}}
+        )).toMatchInlineSnapshot(`
+          "{
+            search(
+              q: ""
+              siteKeys: ["academy"]
+              language: "en"
+              workspace: LIVE
+              functionScoreId: ""
+            ) {
+              results(size: 5, page: 0) {
+                totalHits
+                took
+                hits {
+                  id
+                  link
+                }
+              }
+            }
+          }"
+        `);
+    });
+
+    it('reads result_fields from the results wrapper when the config has one', () => {
+        expect(adaptRequest(
+            defaultRequestOptions,
+            {},
+            {results: {result_fields: [new Field(FieldType.HIT, 'link')]}}
+        )).toMatchInlineSnapshot(`
+          "{
+            search(
+              q: ""
+              siteKeys: ["academy"]
+              language: "en"
+              workspace: LIVE
+              functionScoreId: ""
+            ) {
+              results(size: 5, page: 0) {
+                totalHits
+                took
+                hits {
+                  id
+                  link
+                }
+              }
+            }
+          }"
+        `);
+    });
+
+    it('defaults to 5 results on page 0 when the request sets no paging', () => {
+        expect(adaptRequest(defaultRequestOptions, {}, noFieldsQueryConfig)).toMatchInlineSnapshot(`
+          "{
+            search(
+              q: ""
+              siteKeys: ["academy"]
+              language: "en"
+              workspace: LIVE
+              functionScoreId: ""
+            ) {
+              results(size: 5, page: 0) {
+                totalHits
+                took
+                hits {
+                  id
+                }
+              }
+            }
+          }"
+        `);
+    });
+
+    it('lets the request override the request options', () => {
+        expect(adaptRequest(
+            {...defaultRequestOptions, resultsPerPage: 20},
+            {resultsPerPage: 3, current: 2},
+            noFieldsQueryConfig
+        )).toMatchInlineSnapshot(`
+          "{
+            search(
+              q: ""
+              siteKeys: ["academy"]
+              language: "en"
+              workspace: LIVE
+              functionScoreId: ""
+            ) {
+              results(size: 3, page: 1) {
+                totalHits
+                took
+                hits {
+                  id
+                }
+              }
+            }
+          }"
+        `);
     });
 });

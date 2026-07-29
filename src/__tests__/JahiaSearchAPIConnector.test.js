@@ -181,4 +181,37 @@ describe('#onAutocompleteResultClick', () => {
 
         expect(response).toMatchSnapshot();
     });
+
+    // Characterization: the unsupported-feature warnings are the only observable effect of these two
+    // methods beyond their return value, so a rewrite has to preserve them.
+    it('warns that tags are unsupported when tags are passed', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+        subject({query: 'test', documentId: '12345', tags: '12345'});
+        expect(warn).toHaveBeenCalledWith(
+            'search-ui-jahia-connector: Site Search does not support tags on autocompleteClick'
+        );
+    });
+
+    it('stays silent when no tags are passed', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+        expect(subject({query: 'test', documentId: '12345'})).toBeUndefined();
+        expect(warn).not.toHaveBeenCalled();
+    });
+});
+
+describe('unsupported autocomplete features', () => {
+    it('warns about query suggestions and returns an empty object with no results config', async () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+        const connector = new JahiaSearchAPIConnector(params);
+        const response = await connector.onAutocomplete({searchTerm: 'test'}, {suggestions: {}});
+        expect(warn).toHaveBeenCalledWith(
+            'search-ui-jahia-connector: Site Search does support query suggestions on autocomplete'
+        );
+        expect(response).toEqual({});
+    });
+
+    it('returns an empty object when the query config has neither suggestions nor results', async () => {
+        const connector = new JahiaSearchAPIConnector(params);
+        await expect(connector.onAutocomplete({searchTerm: 'test'}, {})).resolves.toEqual({});
+    });
 });
