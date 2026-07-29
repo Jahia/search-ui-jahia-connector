@@ -5,6 +5,6 @@ const Constants = {
         INCLUDE_SUB_NODES: false
     },
     LANGUAGE: 'en'
-};
+} as const;
 
 export default Constants;

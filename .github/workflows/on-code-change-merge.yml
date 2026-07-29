@@ -18,6 +18,10 @@ jobs:
         run: |
           yarn install
           yarn build
+      # `yarn build` only compiles the sources. This also type-checks the specs, which the build
+      # config excludes.
+      - name: Typecheck
+        run: yarn typecheck
 
   test:
     name: Run integration tests

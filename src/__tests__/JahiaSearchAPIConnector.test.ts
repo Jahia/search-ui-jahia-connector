@@ -1,9 +1,12 @@
-import JahiaSearchAPIConnector from '..';
+// Explicit `../index.js`: the bare `..` directory import only ever resolved because Vitest is
+// lenient about it — NodeNext, which the package publishes under, is not.
+import JahiaSearchAPIConnector from '../index.js';
 
-import exampleAPIResponse from '../../resources/example-response.json';
+import exampleAPIResponse from '../../resources/example-response.json' with {type: 'json'};
 import {Field, FieldType} from '../field.js';
+import type {QueryConfig, RequestState} from '../types.js';
 
-function fetchResponse(response) {
+function fetchResponse(response: unknown) {
     return Promise.resolve({
         status: 200,
         json: () => Promise.resolve(response)
@@ -11,11 +14,13 @@ function fetchResponse(response) {
 }
 
 beforeEach(() => {
-    global.Headers = vi.fn();
+    global.Headers = vi.fn() as unknown as typeof Headers;
     global.fetch = vi.fn().mockReturnValue(fetchResponse(exampleAPIResponse));
 });
 
-const apiToken = 12345;
+// A number rather than a string: the constructor only checks the token for truthiness, and this
+// pins that it is passed through untouched.
+const apiToken = 12345 as unknown as string;
 const baseURL = 'http://localhost:8080';
 const siteKey = 'localhost';
 
@@ -32,12 +37,14 @@ it('can be initialized', () => {
 
 it('can not be initialized', () => {
     expect(() => {
-        new JahiaSearchAPIConnector('', '', '');
+        // Three positional empty strings rather than an options object: the constructor destructures
+        // its first argument, so every required option comes out undefined and it throws.
+        new JahiaSearchAPIConnector('' as unknown as {apiToken: string; baseURL: string; siteKey: string});
     }).toThrow();
 });
 
 describe('#onSearch', () => {
-    function subject({state, queryConfig = {}}) {
+    function subject({state, queryConfig = {}}: {state: RequestState; queryConfig?: QueryConfig}) {
         const connector = new JahiaSearchAPIConnector({
             ...params
         });
@@ -45,7 +52,7 @@ describe('#onSearch', () => {
     }
 
     it('will correctly format an API response', async () => {
-        let queryConfig = {
+        const queryConfig: QueryConfig = {
              
             result_fields: [
                 new Field(FieldType.HIT, 'link'),
@@ -67,7 +74,7 @@ describe('#onSearch', () => {
     });
 
     it('will not break on special character at the end', async () => {
-        let queryConfig = {
+        const queryConfig: QueryConfig = {
              
             result_fields: [
                 new Field(FieldType.HIT, 'link'),
@@ -89,7 +96,7 @@ describe('#onSearch', () => {
     });
 
     it('will not break on special character in the middle', async () => {
-        let queryConfig = {
+        const queryConfig: QueryConfig = {
              
             result_fields: [
                 new Field(FieldType.HIT, 'link'),
@@ -115,14 +122,14 @@ describe('#onAutocomplete', () => {
     function subject({
         state,
         queryConfig
-    }) {
+    }: {state: RequestState; queryConfig: QueryConfig}) {
         const connector = new JahiaSearchAPIConnector({
             ...params
         });
         return connector.onAutocomplete(state, queryConfig);
     }
 
-    let config = {
+    const config: QueryConfig = {
         results: {
              
             result_fields: [
@@ -163,7 +170,7 @@ describe('#onAutocomplete', () => {
 });
 
 describe('#onAutocompleteResultClick', () => {
-    function subject(clickData) {
+    function subject(clickData: {query: string; documentId: string; tags?: string}) {
         const connector = new JahiaSearchAPIConnector(params);
         return connector.onAutocompleteResultClick(clickData);
     }

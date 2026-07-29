@@ -2,7 +2,7 @@ import request from '../request.js';
 
 const responseJson = {};
 
-function fetchResponse(response, statusCode) {
+function fetchResponse(response: unknown, statusCode: number) {
     return Promise.resolve({
         status: statusCode,
         json: () => {
@@ -15,16 +15,18 @@ function fetchResponse(response, statusCode) {
     });
 }
 
+// The stubs are far narrower than the real globals — just the `status` and `json()` that `request`
+// reads — so each assignment is cast rather than fully modelled.
 beforeEach(() => {
-    global.Headers = vi.fn();
+    global.Headers = vi.fn() as unknown as typeof Headers;
     global.fetch = vi.fn().mockReturnValue(fetchResponse(responseJson, 200));
 });
 
-function respondWithSuccess(json) {
+function respondWithSuccess(json?: unknown) {
     global.fetch = vi.fn().mockReturnValue(fetchResponse(json, 200));
 }
 
-function respondWithError(json) {
+function respondWithError(json?: unknown) {
     global.fetch = vi.fn().mockReturnValue(fetchResponse(json, 401));
 }
 
@@ -46,7 +48,7 @@ it('will return undefined on successful request without json', async () => {
 
 it('will throw with status on unsuccessful request without json', async () => {
     respondWithError();
-    let error;
+    let error: unknown;
 
     try {
         error = await subject();
@@ -54,12 +56,12 @@ it('will throw with status on unsuccessful request without json', async () => {
         error = e;
     }
 
-    expect(error.message).toEqual('401');
+    expect((error as Error).message).toEqual('401');
 });
 
 it('will throw with message on unsuccessful request with json and message', async () => {
     respondWithError({error: 'I am a server error message'});
-    let error;
+    let error: unknown;
 
     try {
         error = await subject();
@@ -67,12 +69,12 @@ it('will throw with message on unsuccessful request with json and message', asyn
         error = e;
     }
 
-    expect(error.message).toEqual('I am a server error message');
+    expect((error as Error).message).toEqual('I am a server error message');
 });
 
 it('will throw with message on unsuccessful request with json but no message', async () => {
     respondWithError({});
-    let error;
+    let error: unknown;
 
     try {
         error = await subject();
@@ -80,5 +82,5 @@ it('will throw with message on unsuccessful request with json but no message', a
         error = e;
     }
 
-    expect(error.message).toEqual('401');
+    expect((error as Error).message).toEqual('401');
 });

@@ -9,10 +9,10 @@ import {parse, print} from 'graphql';
  */
 
 /** Normalize an argument-list fragment, as returned by `filters()`. */
-export const normalizeArgs = fragment => print(parse(`query { search(q: "" ${fragment}) { totalHits } }`));
+export const normalizeArgs = (fragment: string): string => print(parse(`query { search(q: "" ${fragment}) { totalHits } }`));
 
 /** Normalize a selection-set fragment, as returned by `facets()`. */
-export const normalizeSelections = fragment => print(parse(`query { search { totalHits ${fragment} } }`));
+export const normalizeSelections = (fragment: string): string => print(parse(`query { search { totalHits ${fragment} } }`));
 
 /** Pull the `q:` argument out of a printed query, to assert on search-term escaping. */
-export const searchTermArgOf = query => query.match(/q: "[^\n]*/)[0];
+export const searchTermArgOf = (query: string): string => query.match(/q: "[^\n]*/)![0];

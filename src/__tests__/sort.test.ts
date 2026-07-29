@@ -1,11 +1,12 @@
 import adaptRequest from '../adaptRequest.js';
 import {Field, FieldType} from '../field.js';
+import type {QueryConfig, RequestOptions, RequestState} from '../types.js';
 
 // Module-scoped rather than assigned onto `global`: the specs referenced these as bare identifiers,
 // which only worked because they were implicit globals. Still reset before each test, so the
 // isolation is unchanged.
-let queryConfig;
-let state;
+let queryConfig: QueryConfig;
+let state: RequestState;
 
 beforeEach(() => {
     queryConfig = {
@@ -22,7 +23,7 @@ beforeEach(() => {
 });
 
 describe('Sort parameters tests', function () {
-    const requestOptions = {
+    const requestOptions: RequestOptions = {
         siteKey: 'fake',
         language: 'fake',
         workspace: 'fake',

@@ -42,9 +42,13 @@ The following configuration is required in order for the custom request/response
 | **apiToken***   | <code>string</code> | [Jahia GraphQL API token](https://academy.jahia.com/documentation/developer/dx/7.3/headless-development-with-dx/headless-react-graphql-app-tutorial#Setting_up_authorization) |
 | **baseURL***   | <code>string</code> | URL for Jahia server |
 | **siteKey***   | <code>string</code> | Identifies which site search will be performed in |
-| **language***  | <code>string</code> | The language in which to perform the search |
-| **workspace*** | <code>string</code> | Specifies which workspace to perform search in `LIVE` or `DEFAULT` |
-| **nodeType***  | <code>string</code> | Indexed document type to filter by (defaults to `jnt:page`) |
+| **language**  | <code>string</code> | The language in which to perform the search (defaults to `en`) |
+| **workspace** | <code>string</code> | Specifies which workspace to perform search in `LIVE` or `DEFAULT` (defaults to `LIVE`) |
+| **nodeType**  | <code>string</code> | Indexed document type to filter by. Unset by default, meaning every type is searched |
+| **functionScore**  | <code>string</code> | Id of the function score used to score the hits |
+
+> Only the parameters marked `*` are required; the others fall back to the defaults above. This
+> matches the shipped `JahiaSearchAPIConnectorOptions` type.
 
 
 #### Result Field Configuration
@@ -182,3 +186,37 @@ let config = {
     }
 ```
 At this point you should have all bricks necessary to successfully use Jahia's Search UI Connector.
+
+## TypeScript
+
+The package is written in TypeScript and ships its own declarations — no `@types/` package is
+needed. Everything in the examples above type-checks as written.
+
+The shapes used in configuration are exported, so you can annotate your own config and have a typo
+caught at build time rather than in a failed query:
+
+```typescript
+import JahiaSearchAPIConnector, {Field, FieldType} from '@jahia/search-ui-jahia-connector';
+import type {
+    FacetConfig,
+    JahiaSearchAPIConnectorOptions,
+    QueryConfig,
+    AdaptedResponse
+} from '@jahia/search-ui-jahia-connector';
+
+const facets: Record<string, FacetConfig> = {
+    'jcr:keywords': {type: 'value', disjunctive: true},
+    // A range facet without `ranges` is rejected here rather than at query time
+    'jcr:lastModified': {
+        type: 'date_range',
+        disjunctive: true,
+        ranges: [{name: 'Last week', from: 'now-1w', to: 'now'}]
+    }
+};
+
+const config: QueryConfig = {
+    result_fields: [new Field(FieldType.HIT, 'link')],
+    facets
+};
+```
+

@@ -1,0 +1,16 @@
+{
+  // Build config: the published ESM plus its .d.ts. Specs are excluded, and so are the Vitest
+  // globals they rely on — the sources must not depend on them.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    // No declarationMap: only `dist` is published, so the maps would point at sources that are not
+    // there.
+    "rootDir": "src",
+    "outDir": "dist",
+    "types": []
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/__tests__/**", "dist", "node_modules"]
+}

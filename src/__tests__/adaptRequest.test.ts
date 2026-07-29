@@ -2,15 +2,16 @@ import adaptRequest from '../adaptRequest.js';
 import {Field, FieldType} from '../field.js';
 import {parse, print} from 'graphql';
 import {searchTermArgOf} from './helpers.js';
+import type {QueryConfig, RequestOptions, RequestState} from '../types.js';
 
-const defaultRequestOptions = {
+const defaultRequestOptions: RequestOptions = {
     siteKey: 'academy',
     language: 'en',
     workspace: 'LIVE',
     functionScore: ''
 };
 
-const nodeTypeRequestOptions = {
+const nodeTypeRequestOptions: RequestOptions = {
     siteKey: 'academy',
     language: 'en',
     workspace: 'LIVE',
@@ -18,7 +19,7 @@ const nodeTypeRequestOptions = {
     functionScore: ''
 };
 
-const queryConfig = {
+const queryConfig: QueryConfig = {
     facets: {
         'jgql:tags': {
             type: 'value',
@@ -59,7 +60,7 @@ const queryConfig = {
     ]
 };
 
-const requestWithFilters = {
+const requestWithFilters: RequestState & QueryConfig & {nodeType: string} = {
     nodeType: 'jnt:page',
     searchTerm: 'test',
     resultsPerPage: 10,
@@ -100,7 +101,7 @@ const requestWithFilters = {
     ]
 };
 
-const defaultRequest = {
+const defaultRequest: RequestState & QueryConfig = {
     searchTerm: 'test',
     resultsPerPage: 10,
     current: 4,
@@ -305,11 +306,13 @@ describe('adaptRequest', () => {
  * the test deleted.
  */
 
-const noFieldsQueryConfig = {result_fields: []};
+const noFieldsQueryConfig: QueryConfig = {result_fields: []};
 
 describe('adaptRequest — search term escaping', () => {
-    const q = (searchTerm, request = {}) =>
-        searchTermArgOf(adaptRequest(defaultRequestOptions, {...request, searchTerm}, noFieldsQueryConfig));
+    // `searchTerm` is deliberately looser than RequestState declares: one case below passes a
+    // number, to pin how a falsy-but-meaningful term is handled.
+    const q = (searchTerm: unknown, request: RequestState = {}) =>
+        searchTermArgOf(adaptRequest(defaultRequestOptions, {...request, searchTerm} as RequestState, noFieldsQueryConfig));
 
     it('emits an empty q for an undefined search term', () => {
         expect(searchTermArgOf(adaptRequest(defaultRequestOptions, {}, noFieldsQueryConfig))).toMatchInlineSnapshot(`"q: """`);

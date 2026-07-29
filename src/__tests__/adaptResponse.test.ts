@@ -1,7 +1,8 @@
 import adaptResponse from '../adaptResponse.js';
 import {Field, FieldType} from '../field.js';
+import type {FacetConfig, QueryConfig, SearchResponse} from '../types.js';
 
-const queryConfig = {
+const queryConfig: QueryConfig = {
      
     result_fields: [
         new Field(FieldType.HIT, 'link'),
@@ -31,16 +32,18 @@ const queryConfig = {
             ranges: [{from: '0.0', to: '500.0', name: '< 500'},
                 {from: '500.0', to: '1000.0', name: '> 500 < 1000'}]
         },
+        // Not a facet type the connector knows: 'hierarchical' is expressed as a value facet with
+        // `hierarchical: true`. Kept as-is, and cast, to pin how an unrecognised type is normalized.
         'jgql:categories_path': {
             type: 'hierarchical',
             max: 50,
             minDoc: 1,
             disjunctive: true,
             rootPath:""
-        }
+        } as unknown as FacetConfig
     }
 };
-const response = {
+const response: SearchResponse = {
     data: {
         search: {
             results: {
@@ -250,7 +253,7 @@ const adaptedResponse = {
     }
 
 };
-const emptyResponse = {
+const emptyResponse: SearchResponse = {
     data: {
         search: {
             results: {

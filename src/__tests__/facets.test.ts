@@ -1,5 +1,6 @@
 import facets from '../facets.js';
 import {normalizeSelections} from './helpers.js';
+import type {FacetConfig, QueryConfig} from '../types.js';
 
 /**
  * Characterization tests for `facets()`, written ahead of a rewrite: they record what the current
@@ -28,7 +29,7 @@ describe('facets', () => {
         // inconsistency with filters(), which treats an unknown type as a value facet: a typo in a
         // facet type yields filtering with no corresponding facet.
         it('silently drops a facet with an unrecognised type', () => {
-            expect(facets({}, {facets: {weird: {type: 'not-a-real-type'}}})).toBe('');
+            expect(facets({}, {facets: {weird: {type: 'not-a-real-type'} as unknown as FacetConfig}})).toBe('');
         });
     });
 
@@ -192,7 +193,7 @@ describe('facets', () => {
         });
 
         it('only treats hierarchical === true as a tree facet', () => {
-            expect(normalizeSelections(facets({}, {facets: {c: {type: 'value', hierarchical: 'yes'}}}))).toMatchInlineSnapshot(`
+            expect(normalizeSelections(facets({}, {facets: {c: {type: 'value', hierarchical: 'yes'} as unknown as FacetConfig}}))).toMatchInlineSnapshot(`
               "{
                 search {
                   totalHits
@@ -368,7 +369,7 @@ describe('facets', () => {
         });
 
         it('ignores request filters entirely', () => {
-            const config = {facets: {'jgql:tags': {type: 'value', max: 10}}};
+            const config: QueryConfig = {facets: {'jgql:tags': {type: 'value', max: 10}}};
             const withFilters = facets({filters: [{field: 'jgql:tags', values: ['Action'], type: 'all'}]}, config);
             expect(withFilters).toBe(facets({}, config));
         });

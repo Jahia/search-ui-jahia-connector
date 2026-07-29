@@ -1,5 +1,6 @@
 import filters from '../filters.js';
 import {normalizeArgs} from './helpers.js';
+import type {FacetConfig, QueryConfig} from '../types.js';
 
 /**
  * Characterization tests for `filters()`, written ahead of a rewrite: they record what the current
@@ -8,7 +9,7 @@ import {normalizeArgs} from './helpers.js';
  * then be updated deliberately rather than the test deleted.
  */
 
-const rangeFacetConfig = {
+const rangeFacetConfig: QueryConfig = {
     facets: {
         popularity: {
             type: 'range',
@@ -20,7 +21,7 @@ const rangeFacetConfig = {
     }
 };
 
-const dateRangeFacetConfig = {
+const dateRangeFacetConfig: QueryConfig = {
     facets: {
         'jgql:lastModified': {
             type: 'date_range',
@@ -32,7 +33,7 @@ const dateRangeFacetConfig = {
     }
 };
 
-const valueFacetConfig = {facets: {'jgql:tags': {type: 'value'}}};
+const valueFacetConfig: QueryConfig = {facets: {'jgql:tags': {type: 'value'}}};
 
 describe('filters', () => {
     describe('no filters produced', () => {
@@ -192,7 +193,7 @@ describe('filters', () => {
         it('treats an unrecognised facet type as a value facet', () => {
             expect(normalizeArgs(filters(
                 {filters: [{field: 'weird', values: ['x', 'y'], type: 'any'}]},
-                {facets: {weird: {type: 'not-a-real-type'}}},
+                {facets: {weird: {type: 'not-a-real-type'} as unknown as FacetConfig}},
                 {}
             ))).toMatchInlineSnapshot(`
               "{
@@ -346,7 +347,7 @@ describe('filters', () => {
 
     describe('the custom block', () => {
         // The three sub-keys are emitted independently; each combination is a distinct branch.
-        const config = {
+        const config: QueryConfig = {
             facets: {
                 ...valueFacetConfig.facets,
                 ...rangeFacetConfig.facets,

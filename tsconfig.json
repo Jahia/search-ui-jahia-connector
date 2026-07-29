@@ -1,26 +1,29 @@
 {
-  // The sources are plain modern ESM JavaScript. tsc is used as the build tool — it emits the
-  // published ESM and, thanks to allowJs + declaration, generates .d.ts from the existing JSDoc so
-  // consumers get types without the sources being rewritten in TypeScript.
+  // Type-checking config: covers the sources *and* the specs. `tsconfig.build.json` narrows this to
+  // the sources and turns on emit — see the `typecheck` and `build` scripts.
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["ES2022", "DOM"],           // DOM: the connector uses fetch / Headers
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
 
-    "allowJs": true,                    // sources are .js
-    "checkJs": false,                   // don't type-check JS: that's a separate, larger job
-    "declaration": true,                // emit .d.ts inferred from JSDoc
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitOverride": true,
 
-    "rootDir": "src",
-    "outDir": "dist",
+    "noEmit": true,
 
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "verbatimModuleSyntax": true,       // keep import/export exactly as written — no CJS interop rewriting
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+
+    // vitest/globals: the specs use describe/it/expect/vi as globals.
+    // node: the specs stub `global.fetch` / `global.Headers`.
+    "types": ["vitest/globals", "node"]
   },
-  "include": ["src/**/*.js"],
-  "exclude": ["src/__tests__/**", "dist", "node_modules"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["dist", "node_modules"]
 }

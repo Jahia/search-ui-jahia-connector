@@ -3,9 +3,15 @@ import {parse, print} from 'graphql';
 import sort from './sort.js';
 import facets from './facets.js';
 import filters from './filters.js';
+import type {QueryConfig, RequestOptions, RequestState} from './types.js';
 
-const buildFields = fields => {
-    const fieldsConcatenated = {
+interface ConcatenatedFields {
+    hitFields: string;
+    nodeFields: string;
+}
+
+const buildFields = (fields: Field[]): ConcatenatedFields => {
+    const fieldsConcatenated: ConcatenatedFields = {
         hitFields: '',
         nodeFields: ''
     };
@@ -19,7 +25,7 @@ const buildFields = fields => {
     return fieldsConcatenated;
 };
 
-function htmlEscape(str) {
+function htmlEscape(str: string | undefined): string {
     if (str) {
         return String(str)
             .replace(/&/g, '&amp;')
@@ -35,27 +41,29 @@ function htmlEscape(str) {
 
 /**
  * Adapt the request from Search UI to Jahia Augmented Search
- * @param {RequestOptions} requestOptions the options for this request
- * @param {any} request the state of the current request
- * @param {any} queryConfig the query configuration as defined when initializing the App
- * @returns {string} the graphql query to be excuted on a Jahia backend
+ * @param requestOptions the options for this request
+ * @param request the state of the current request
+ * @param queryConfig the query configuration as defined when initializing the App
+ * @returns the graphql query to be executed on a Jahia backend
  */
-export default function adaptRequest(requestOptions, request, queryConfig) {
+export default function adaptRequest(
+    requestOptions: RequestOptions,
+    request: RequestState,
+    queryConfig: QueryConfig
+): string {
     const graphQLOptions = {
         resultsPerPage: 5,
         current: 1,
         ...requestOptions,
         ...request
     };
-    const resultFields = 'results' in queryConfig ? queryConfig.results.result_fields : queryConfig.result_fields;
-    const resolvedRequestFields = buildFields(Object.keys(resultFields).reduce((acc, curr) => {
-        const field = resultFields[curr];
-        if (field instanceof Field) {
-            acc.push(field);
-        }
-
-        return acc;
-    }, []));
+    // Non-null: `in` proves the key is present but does not un-optional the declared type.
+    const resultFields = 'results' in queryConfig ? queryConfig.results!.result_fields : queryConfig.result_fields;
+    // Non-null: a config with no result_fields at all throws here, unchanged. Object.values covers
+    // both shapes the config may take — the array used in practice, and a plain record — in the same
+    // order the original's Object.keys walk did.
+    const declaredFields: unknown[] = Object.values(resultFields!);
+    const resolvedRequestFields = buildFields(declaredFields.filter((field): field is Field => field instanceof Field));
 
     return print(parse(`query {
         search(

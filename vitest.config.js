@@ -6,7 +6,7 @@ export default defineConfig({
     // (Jest's `jest`) likewise. Enabling globals keeps the specs unchanged apart from jest.fn -> vi.fn.
     globals: true,
     environment: 'node',
-    include: ['src/**/__tests__/**/*.test.js'],
+    include: ['src/**/__tests__/**/*.test.ts'],
     // Carried over from the Jest config: every spec re-stubs global fetch/Headers in beforeEach,
     // so mock state must not leak between tests.
     clearMocks: true,

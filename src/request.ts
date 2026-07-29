@@ -1,4 +1,9 @@
-export default async function request(apiToken, baseURL, method, query) {
+export default async function request<T = unknown>(
+    apiToken: string,
+    baseURL: string,
+    method: string,
+    query: string
+): Promise<T> {
     const headers = new Headers({
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiToken}`,
@@ -16,7 +21,7 @@ export default async function request(apiToken, baseURL, method, query) {
         }
     );
 
-    let json;
+    let json: unknown;
     try {
         json = await response.json();
     } catch (error) {
@@ -24,9 +29,12 @@ export default async function request(apiToken, baseURL, method, query) {
     }
 
     if (response.status >= 200 && response.status < 300) {
-        return json;
+        // The body may have failed to parse; a 2xx with an unparseable body resolves to undefined,
+        // unchanged from the JS implementation.
+        return json as T;
     }
 
-    const message = json && json.error ? json.error : response.status;
-    throw new Error(message);
+    const serverError = (json as {error?: string} | undefined)?.error;
+    const message = serverError ? serverError : response.status;
+    throw new Error(String(message));
 }

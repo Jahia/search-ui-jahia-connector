@@ -1,37 +1,39 @@
-/**
- * The kind of field being requested — one of the FieldType values.
- * @typedef {'hit'|'node'|'refValue'|'refPath'} FieldTypeValue
- */
+import type {ResultField, SearchHit, SearchResult} from './types.js';
 
-/** @type {{HIT: FieldTypeValue, NODE: FieldTypeValue, REFERENCE_AS_VALUE: FieldTypeValue, REFERENCE_AS_PATH: FieldTypeValue}} */
 const FieldType = {
     HIT: 'hit',
     NODE: 'node',
     REFERENCE_AS_VALUE: 'refValue',
     REFERENCE_AS_PATH: 'refPath'
-};
+} as const;
+
+/** The kind of field being requested — one of the {@link FieldType} values. */
+type FieldTypeValue = (typeof FieldType)[keyof typeof FieldType];
 
 class Field {
+    type: FieldTypeValue;
+    name: string;
+    /** `null` is accepted alongside omission: the alias is only ever tested for truthiness. */
+    alias?: string | null;
+    useSnippet: boolean;
+
     /**
      * Field allows you define the data you want to receive from your searches
      *
-     * `type` is a FieldType *value* (e.g. FieldType.HIT), not the FieldType object — documenting it
-     * as `{FieldType}` made the generated .d.ts demand the whole object and reject correct calls.
-     *
-     * @param {FieldTypeValue} type The type of field (ESHit or JCR)
-     * @param {string} name  field name that should be returned in the response
-     * @param {string} [alias] optional, define an alias for this field
-     * @param {boolean} [useSnippet] configure if value is html based (snippet) or plain text (raw)
+     * @param type The type of field (ESHit or JCR)
+     * @param name field name that should be returned in the response
+     * @param alias optional, define an alias for this field
+     * @param useSnippet configure if value is html based (snippet) or plain text (raw)
      */
-    constructor(type, name, alias, useSnippet = false) {
+    constructor(type: FieldTypeValue, name: string, alias?: string | null, useSnippet = false) {
         this.type = type;
         this.name = name;
         this.alias = alias;
         this.useSnippet = useSnippet;
     }
 
-    resolveRequestField() {
-        let fieldTemplate;
+    resolveRequestField(): string {
+        let fieldTemplate: string;
         switch (this.type) {
             case FieldType.REFERENCE_AS_VALUE:
             case FieldType.REFERENCE_AS_PATH:
@@ -46,9 +48,9 @@ class Field {
         return fieldTemplate;
     }
 
-    resolveResponseField(hit, result) {
+    resolveResponseField(hit: SearchHit, result: SearchResult): void {
         // No initialiser: every switch branch (including default) assigns before use.
-        let property;
+        let property: unknown;
         switch (this.type) {
             case FieldType.NODE:
             case FieldType.REFERENCE_AS_PATH:
@@ -60,7 +62,7 @@ class Field {
                 property = hit[this.name.replace(':', '_')];
         }
 
-        const field = {};
+        const field: ResultField = {};
         if (this.useSnippet) {
             field.snippet = property;
         } else {
@@ -72,3 +74,4 @@ class Field {
 }
 
 export {Field, FieldType};
+export type {FieldTypeValue};
