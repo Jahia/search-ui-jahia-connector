@@ -1,4 +1,4 @@
-export default async function request(apiToken, baseURL, method, query) {
+export default async function request(apiToken, baseURL, query) {
     const headers = new Headers({
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiToken}`,
@@ -7,7 +7,7 @@ export default async function request(apiToken, baseURL, method, query) {
     const response = await fetch(
         `${baseURL}/modules/graphql`,
         {
-            method,
+            method: 'POST',
             headers,
             body: JSON.stringify({
                 query
