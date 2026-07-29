@@ -4,6 +4,13 @@ import adaptResponse from './adaptResponse.js';
 import Constants from './constants.js';
 
 /**
+ * @typedef {import('./types.js').RequestState} RequestState
+ * @typedef {import('./types.js').QueryConfig} QueryConfig
+ * @typedef {import('./types.js').ResponseState} ResponseState
+ * @typedef {import('./types.js').AutocompleteResponseState} AutocompleteResponseState
+ */
+
+/**
  * Options accepted by the JahiaSearchAPIConnector constructor.
  *
  * Declared as a named type rather than with dotted "options.x" param tags: the constructor's
@@ -52,6 +59,13 @@ class JahiaSearchAPIConnector {
         this.functionScore = functionScore;
     }
 
+    /**
+     * Run a search. Called by Search UI with its request state and the searchQuery configuration.
+     *
+     * @param {RequestState} state
+     * @param {QueryConfig} queryConfig
+     * @returns {Promise<ResponseState>}
+     */
     async onSearch(state, queryConfig) {
         // Console.log("state",state,"query config", queryConfig);
         let requestOptions = {
@@ -66,6 +80,14 @@ class JahiaSearchAPIConnector {
         return adaptResponse(responseJson, state.resultsPerPage, queryConfig);
     }
 
+    /**
+     * Run an autocomplete query. Only the result section is honoured — suggestions are not supported
+     * by the Jahia API, and asking for them warns and yields nothing.
+     *
+     * @param {RequestState} state
+     * @param {QueryConfig} queryConfig the autocompleteQuery configuration
+     * @returns {Promise<AutocompleteResponseState>}
+     */
     async onAutocomplete({searchTerm}, queryConfig) {
         if (queryConfig.suggestions) {
             console.warn(
@@ -94,6 +116,13 @@ class JahiaSearchAPIConnector {
         return {};
     }
 
+    /**
+     * Called by Search UI when an autocomplete result is clicked. Nothing is reported back to Jahia;
+     * the hook exists to satisfy the Search UI connector contract.
+     *
+     * @param {{documentId?: string, requestId?: string, tags?: string[]}} clickParams
+     * @returns {void}
+     */
     onAutocompleteResultClick({tags}) {
         if (tags) {
             console.warn(

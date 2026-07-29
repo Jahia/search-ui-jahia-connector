@@ -34,10 +34,22 @@ function htmlEscape(str) {
 }
 
 /**
+ * The part of the connector's configuration that varies per request. Was referenced by the JSDoc
+ * below without ever being declared, which emitted a .d.ts naming a type that does not exist.
+ *
+ * @typedef {Object} RequestOptions
+ * @property {string} siteKey
+ * @property {string} [language]
+ * @property {string} [workspace]
+ * @property {string} [nodeType]
+ * @property {string} [functionScore]
+ */
+
+/**
  * Adapt the request from Search UI to Jahia Augmented Search
  * @param {RequestOptions} requestOptions the options for this request
- * @param {any} request the state of the current request
- * @param {any} queryConfig the query configuration as defined when initializing the App
+ * @param {import('./types.js').RequestState} request the state of the current request
+ * @param {import('./types.js').QueryConfig} queryConfig the query configuration as defined when initializing the App
  * @returns {string} the graphql query to be excuted on a Jahia backend
  */
 export default function adaptRequest(requestOptions, request, queryConfig) {

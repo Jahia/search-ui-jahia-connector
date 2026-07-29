@@ -11,6 +11,9 @@
     "allowJs": true,                    // sources are .js
     "checkJs": false,                   // don't type-check JS: that's a separate, larger job
     "declaration": true,                // emit .d.ts inferred from JSDoc
+    "strict": true,                     // no type-checking to fail (checkJs is off), but it keeps
+                                        // null and undefined in the emitted declarations instead of
+                                        // silently widening optionals to their bare type
 
     "rootDir": "src",
     "outDir": "dist",

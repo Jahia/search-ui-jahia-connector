@@ -20,7 +20,8 @@ class Field {
      *
      * @param {FieldTypeValue} type The type of field (ESHit or JCR)
      * @param {string} name  field name that should be returned in the response
-     * @param {string} [alias] optional, define an alias for this field
+     * @param {string|null} [alias] optional, define an alias for this field — the README passes null
+     * to reach the useSnippet argument, so null is accepted as "no alias" alongside undefined
      * @param {boolean} [useSnippet] configure if value is html based (snippet) or plain text (raw)
      */
     constructor(type, name, alias, useSnippet = false) {
@@ -30,6 +31,10 @@ class Field {
         this.useSnippet = useSnippet;
     }
 
+    /**
+     * The fragment of the GraphQL query that asks for this field.
+     * @returns {string}
+     */
     resolveRequestField() {
         let fieldTemplate;
         switch (this.type) {
@@ -46,6 +51,13 @@ class Field {
         return fieldTemplate;
     }
 
+    /**
+     * Copy this field out of a raw hit and onto the result Search UI renders, under its alias.
+     *
+     * @param {Record<string, any>} hit one hit of the GraphQL response
+     * @param {import('./types.js').SearchResult} result mutated in place
+     * @returns {void}
+     */
     resolveResponseField(hit, result) {
         // No initialiser: every switch branch (including default) assigns before use.
         let property;

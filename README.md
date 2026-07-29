@@ -34,6 +34,25 @@ The following functionality is currently implemented:
 * onAutocomplete
 * Sort
 
+#### TypeScript
+The package ships its own declarations — nothing to install. The sources are JavaScript; the types are
+generated from their JSDoc, so they describe exactly what the connector reads and returns.
+
+Every shape of the contract can be named from the package root:
+
+```typescript
+import JahiaSearchAPIConnector, {Field, FieldType} from '@jahia/search-ui-jahia-connector';
+import type {
+    JahiaSearchAPIConnectorOptions, FieldTypeValue,
+    RequestState, QueryConfig, ResponseState, AutocompleteResponseState,
+    SearchResult, ResultField, SearchFilter,
+    FacetConfig, FacetRange, FacetResult, FacetResultEntry
+} from '@jahia/search-ui-jahia-connector';
+```
+
+`ResponseState.totalPages`, `totalResults` and `facets` are optional: no results means no totals, and
+`facets` only comes back when the query asked for some.
+
 #### Options
 The following configuration is required in order for the custom request/response adaptors to work
 
