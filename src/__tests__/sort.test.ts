@@ -58,4 +58,20 @@ describe('Sort parameters tests', function () {
         const query = adaptRequest(requestOptions, state, queryConfig);
         expect(query).toMatchSnapshot();
     });
+
+    // `dir` is a GraphQL enum, so it is the one part of the sort that still goes into the document
+    // rather than into a variable. It is checked instead: a direction that is not a bare enum name
+    // is rejected here rather than concatenated into the query.
+    it('rejects a sort direction that is not a GraphQL enum value', function () {
+        state.sortDirection = 'asc} evil {';
+        state.sortField = 'jcr:title';
+        expect(() => adaptRequest(requestOptions, state, queryConfig))
+            .toThrow('sortDirection must be a GraphQL enum value');
+    });
+
+    it('accepts a direction the backend may still reject, without guessing the schema', function () {
+        state.sortDirection = 'sideways';
+        state.sortField = 'jcr:title';
+        expect(adaptRequest(requestOptions, state, queryConfig).query).toContain('dir: SIDEWAYS');
+    });
 });

@@ -75,8 +75,8 @@ class JahiaSearchAPIConnector {
             nodeType: this.nodeType,
             functionScore: this.functionScore
         };
-        const query = adaptRequest(requestOptions, state, queryConfig);
-        const responseJson = await request<SearchResponse>(this.apiToken, this.baseURL, 'POST', query);
+        const graphQLRequest = adaptRequest(requestOptions, state, queryConfig);
+        const responseJson = await request<SearchResponse>(this.apiToken, this.baseURL, 'POST', graphQLRequest);
         return adaptResponse(responseJson, state.resultsPerPage, queryConfig);
     }
 
@@ -95,12 +95,12 @@ class JahiaSearchAPIConnector {
                 nodeType: this.nodeType,
                 functionScore: this.functionScore
             };
-            const query = adaptRequest(requestOptions,
+            const graphQLRequest = adaptRequest(requestOptions,
                 {searchTerm},
                 queryConfig
             );
 
-            return request<SearchResponse>(this.apiToken, this.baseURL, 'POST', query).then(json => ({
+            return request<SearchResponse>(this.apiToken, this.baseURL, 'POST', graphQLRequest).then(json => ({
                 autocompletedResults: adaptResponse(json, queryConfig.results!.resultsPerPage, queryConfig).results
             }));
         }

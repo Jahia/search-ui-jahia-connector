@@ -7,6 +7,12 @@ import type {Field} from './field.js';
  * its whole request state and query config to the connector, and only a subset of each is used.
  */
 
+/** A GraphQL document and the values it needs, as posted to the API. */
+export interface GraphQLRequest {
+    query: string;
+    variables: Record<string, unknown>;
+}
+
 /** A single value on an adapted result, as consumed by Search UI's View components. */
 export interface ResultField {
     raw?: unknown;

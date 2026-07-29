@@ -1,16 +1,17 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`Sort parameters tests > Query with incorrect sort direction 1`] = `
-"{
+{
+  "query": "query ($created_name: String!, $q: String!, $siteKey: String!, $language: String!, $functionScoreId: String!, $nodeType: String!, $size: Int!, $page: Int!) {
   search(
-    q: ""
-    siteKeys: ["fake"]
-    language: "fake"
+    q: $q
+    siteKeys: [$siteKey]
+    language: $language
     workspace: fake
-    functionScoreId: "fake"
-    filters: { nodeType: { type: "fake" } }
+    functionScoreId: $functionScoreId
+    filters: { nodeType: { type: $nodeType } }
   ) {
-    results(size: 5, page: 0) {
+    results(size: $size, page: $page) {
       totalHits
       took
       hits {
@@ -19,24 +20,36 @@ exports[`Sort parameters tests > Query with incorrect sort direction 1`] = `
         displayableName
         excerpt
         score
-        created: property(name: "jcr:created")
+        created: property(name: $created_name)
       }
     }
   }
-}"
+}",
+  "variables": {
+    "created_name": "jcr:created",
+    "functionScoreId": "fake",
+    "language": "fake",
+    "nodeType": "fake",
+    "page": 0,
+    "q": "",
+    "siteKey": "fake",
+    "size": 5,
+  },
+}
 `;
 
 exports[`Sort parameters tests > Query with incorrect sort field 1`] = `
-"{
+{
+  "query": "query ($created_name: String!, $q: String!, $siteKey: String!, $language: String!, $functionScoreId: String!, $nodeType: String!, $size: Int!, $page: Int!) {
   search(
-    q: ""
-    siteKeys: ["fake"]
-    language: "fake"
+    q: $q
+    siteKeys: [$siteKey]
+    language: $language
     workspace: fake
-    functionScoreId: "fake"
-    filters: { nodeType: { type: "fake" } }
+    functionScoreId: $functionScoreId
+    filters: { nodeType: { type: $nodeType } }
   ) {
-    results(size: 5, page: 0) {
+    results(size: $size, page: $page) {
       totalHits
       took
       hits {
@@ -45,24 +58,36 @@ exports[`Sort parameters tests > Query with incorrect sort field 1`] = `
         displayableName
         excerpt
         score
-        created: property(name: "jcr:created")
+        created: property(name: $created_name)
       }
     }
   }
-}"
+}",
+  "variables": {
+    "created_name": "jcr:created",
+    "functionScoreId": "fake",
+    "language": "fake",
+    "nodeType": "fake",
+    "page": 0,
+    "q": "",
+    "siteKey": "fake",
+    "size": 5,
+  },
+}
 `;
 
 exports[`Sort parameters tests > Query with sort 1`] = `
-"{
+{
+  "query": "query ($created_name: String!, $q: String!, $siteKey: String!, $language: String!, $functionScoreId: String!, $nodeType: String!, $size: Int!, $page: Int!, $sortField: String!) {
   search(
-    q: ""
-    siteKeys: ["fake"]
-    language: "fake"
+    q: $q
+    siteKeys: [$siteKey]
+    language: $language
     workspace: fake
-    functionScoreId: "fake"
-    filters: { nodeType: { type: "fake" } }
+    functionScoreId: $functionScoreId
+    filters: { nodeType: { type: $nodeType } }
   ) {
-    results(size: 5, page: 0, sortBy: { dir: ASC, field: "jcr:title" }) {
+    results(size: $size, page: $page, sortBy: { dir: ASC, field: $sortField }) {
       totalHits
       took
       hits {
@@ -71,24 +96,37 @@ exports[`Sort parameters tests > Query with sort 1`] = `
         displayableName
         excerpt
         score
-        created: property(name: "jcr:created")
+        created: property(name: $created_name)
       }
     }
   }
-}"
+}",
+  "variables": {
+    "created_name": "jcr:created",
+    "functionScoreId": "fake",
+    "language": "fake",
+    "nodeType": "fake",
+    "page": 0,
+    "q": "",
+    "siteKey": "fake",
+    "size": 5,
+    "sortField": "jcr:title",
+  },
+}
 `;
 
 exports[`Sort parameters tests > Query without sort 1`] = `
-"{
+{
+  "query": "query ($created_name: String!, $q: String!, $siteKey: String!, $language: String!, $functionScoreId: String!, $nodeType: String!, $size: Int!, $page: Int!) {
   search(
-    q: ""
-    siteKeys: ["fake"]
-    language: "fake"
+    q: $q
+    siteKeys: [$siteKey]
+    language: $language
     workspace: fake
-    functionScoreId: "fake"
-    filters: { nodeType: { type: "fake" } }
+    functionScoreId: $functionScoreId
+    filters: { nodeType: { type: $nodeType } }
   ) {
-    results(size: 5, page: 0) {
+    results(size: $size, page: $page) {
       totalHits
       took
       hits {
@@ -97,9 +135,20 @@ exports[`Sort parameters tests > Query without sort 1`] = `
         displayableName
         excerpt
         score
-        created: property(name: "jcr:created")
+        created: property(name: $created_name)
       }
     }
   }
-}"
+}",
+  "variables": {
+    "created_name": "jcr:created",
+    "functionScoreId": "fake",
+    "language": "fake",
+    "nodeType": "fake",
+    "page": 0,
+    "q": "",
+    "siteKey": "fake",
+    "size": 5,
+  },
+}
 `;

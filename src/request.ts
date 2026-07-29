@@ -1,8 +1,10 @@
+import type {GraphQLRequest} from './types.js';
+
 export default async function request<T = unknown>(
     apiToken: string,
     baseURL: string,
     method: string,
-    query: string
+    graphQLRequest: GraphQLRequest
 ): Promise<T> {
     const headers = new Headers({
         'Content-Type': 'application/json',
@@ -14,9 +16,7 @@ export default async function request<T = unknown>(
         {
             method,
             headers,
-            body: JSON.stringify({
-                query
-            }),
+            body: JSON.stringify(graphQLRequest),
             credentials: 'include'
         }
     );

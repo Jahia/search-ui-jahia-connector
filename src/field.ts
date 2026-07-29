@@ -1,3 +1,4 @@
+import type {GraphQLVariables} from './graphql.js';
 import type {ResultField, SearchHit, SearchResult} from './types.js';
 
 const FieldType = {
@@ -32,13 +33,21 @@ class Field {
         this.useSnippet = useSnippet;
     }
 
-    resolveRequestField(): string {
+    /**
+     * The selection for this field.
+     *
+     * The response key is written into the document — a GraphQL alias cannot be a variable — so it
+     * has to be a bare name. Both it and the selected `name` come from the application's own field
+     * configuration rather than from anything a visitor types.
+     */
+    resolveRequestField(variables: GraphQLVariables): string {
+        const responseKey = this.alias ? this.alias : this.name.replace(':', '_');
         let fieldTemplate: string;
         switch (this.type) {
             case FieldType.REFERENCE_AS_VALUE:
             case FieldType.REFERENCE_AS_PATH:
             case FieldType.NODE:
-                fieldTemplate = `${this.alias ? this.alias : this.name.replace(':', '_')} : property(name: "${this.name}")`;
+                fieldTemplate = `${responseKey} : property(name: ${variables.add(`${responseKey}_name`, 'String!', this.name)})`;
                 break;
             case FieldType.HIT:
             default:

@@ -30,9 +30,17 @@ function respondWithError(json?: unknown) {
     global.fetch = vi.fn().mockReturnValue(fetchResponse(json, 401));
 }
 
+const graphQLRequest = {query: 'query ($q: String!) { search(q: $q) { totalHits } }', variables: {q: 'test'}};
+
 function subject() {
-    return request('engine', 'http://localhost:8080', 'GET', 'test');
+    return request('engine', 'http://localhost:8080', 'GET', graphQLRequest);
 }
+
+it('posts the document and its variables together', async () => {
+    respondWithSuccess(responseJson);
+    await subject();
+    expect(JSON.parse(vi.mocked(global.fetch).mock.calls[0][1]!.body as string)).toEqual(graphQLRequest);
+});
 
 it('will return json on successful request with json', async () => {
     respondWithSuccess(responseJson);

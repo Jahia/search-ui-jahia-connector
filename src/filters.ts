@@ -1,3 +1,4 @@
+import type {GraphQLVariables} from './graphql.js';
 import type {FacetConfig, FacetRange, QueryConfig, RequestState} from './types.js';
 
 interface TermGroup {
@@ -9,11 +10,12 @@ interface TermGroup {
 export default function filters(
     request: RequestState,
     queryConfig: QueryConfig,
-    graphQLOptions: {nodeType?: string}
+    graphQLOptions: {nodeType?: string},
+    variables: GraphQLVariables
 ): string {
     const filters: string[] = [];
     if (graphQLOptions.nodeType) {
-        filters.push(`nodeType:{type: "${graphQLOptions.nodeType}"}`);
+        filters.push(`nodeType:{type: ${variables.add('nodeType', 'String!', graphQLOptions.nodeType)}}`);
     }
 
     function getTerms(terms: Record<string, TermGroup>): string {
@@ -31,6 +33,11 @@ export default function filters(
         return `numberRange: [${numberRangesArray}]`;
     }
 
+    /** `{field: $x, value: $y}` — both sides parameterized, so neither reaches the document. */
+    function term(field: string, value: unknown): string {
+        return `{field:${variables.add(`${field}_field`, 'String!', field)}, value:${variables.add(`${field}_value`, 'String!', value)}}`;
+    }
+
     if (request.filters !== undefined && request.filters.length > 0) {
         const terms: Record<string, TermGroup> = {};
         const dateRanges: Record<string, string[]> = {};
@@ -41,7 +48,7 @@ export default function filters(
             const facet: FacetConfig | undefined = queryConfig.facets![filter.field];
             if (facet === undefined) {
                 terms[filter.field] = {type: filter.type, terms: []};
-                terms[filter.field].terms.push(`{field:"${filter.field}", value:"${filter.values[0]}"}`);
+                terms[filter.field].terms.push(term(filter.field, filter.values[0]));
             } else {
                 switch (facet.type) {
                     case 'range':
@@ -55,7 +62,12 @@ export default function filters(
                                 numberRange = [];
                             }
 
-                            numberRange.push(`{field:"${filter.field}",gte:${range.from}, lt:${range.to}}`);
+                            // gte/lt are numeric: the previous implementation interpolated the
+                            // configured bound unquoted, producing a Float literal, so the bound is
+                            // converted rather than sent as the string the config declares it as.
+                            numberRange.push(`{field:${variables.add(`${filter.field}_field`, 'String!', filter.field)}, ` +
+                                `gte:${variables.add(`${filter.field}_gte`, 'Float!', Number(range.from))}, ` +
+                                `lt:${variables.add(`${filter.field}_lt`, 'Float!', Number(range.to))}}`);
                             numberRanges[filter.field] = numberRange;
                         });
                         break;
@@ -68,20 +80,22 @@ export default function filters(
                                 dateRange = [];
                             }
 
-                            dateRange.push(`{field:"${filter.field}",after:"${range.from}", before:"${range.to}"}`);
+                            dateRange.push(`{field:${variables.add(`${filter.field}_field`, 'String!', filter.field)}, ` +
+                                `after:${variables.add(`${filter.field}_after`, 'String!', range.from)}, ` +
+                                `before:${variables.add(`${filter.field}_before`, 'String!', range.to)}}`);
                             dateRanges[filter.field] = dateRange;
                         });
                         break;
                     case 'value':
                     default:
                         filter.values.forEach(value => {
-                            let term: TermGroup | undefined = terms[filter.field];
-                            if (term === undefined) {
-                                term = {type: filter.type, terms: []};
+                            let group: TermGroup | undefined = terms[filter.field];
+                            if (group === undefined) {
+                                group = {type: filter.type, terms: []};
                             }
 
-                            term.terms.push(`{field:"${filter.field}", value:"${value}"}`);
-                            terms[filter.field] = term;
+                            group.terms.push(term(filter.field, value));
+                            terms[filter.field] = group;
                         });
                         break;
                 }

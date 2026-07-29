@@ -1,8 +1,8 @@
 import adaptRequest from '../adaptRequest.js';
 import {Field, FieldType} from '../field.js';
 import {parse, print} from 'graphql';
-import {searchTermArgOf} from './helpers.js';
-import type {QueryConfig, RequestOptions, RequestState} from '../types.js';
+import {assertEveryVariableIsUsed, inlineVariables} from './helpers.js';
+import type {FacetConfig, QueryConfig, RequestOptions, RequestState} from '../types.js';
 
 const defaultRequestOptions: RequestOptions = {
     siteKey: 'academy',
@@ -230,7 +230,11 @@ const adaptedFilteredRequest = print(parse(`{
                         terms:[{field:"jgql:categories_path",value:"reg:markets[^/]*/.*"}]
                     }]
                     dateRange:[{operation:AND, ranges:[{field:"jgql:lastModified",after:"now-1y",before:"now"}]}],
-                    numberRange:[{operation:AND, ranges:[{field:"popularity",gte:500.0,lt:1000.0}]}]
+                    # Was gte:500.0, lt:1000.0. The bounds are configured as the strings "500.0" and
+                    # "1000.0" and used to be interpolated raw, which happened to print as a Float
+                    # literal. They are now converted and sent as numbers, so 500.0 prints as 500 —
+                    # the same value for a Float argument.
+                    numberRange:[{operation:AND, ranges:[{field:"popularity",gte:500,lt:1000}]}]
                 }
             }
       ) {
@@ -283,87 +287,126 @@ const adaptedFilteredRequest = print(parse(`{
 
 describe('adaptRequest', () => {
     test('adapts default request', () => {
-        expect(adaptRequest(defaultRequestOptions, defaultRequest, queryConfig)).toEqual(
+        expect(inlineVariables(adaptRequest(defaultRequestOptions, defaultRequest, queryConfig))).toEqual(
             adaptedDefaultRequest
         );
     });
     test('adapts nodetype request', () => {
-        expect(adaptRequest(nodeTypeRequestOptions, defaultRequest, queryConfig)).toEqual(
+        expect(inlineVariables(adaptRequest(nodeTypeRequestOptions, defaultRequest, queryConfig))).toEqual(
             adaptedNodeTypeFilterRequest
         );
     });
     test('adapts filtered request', () => {
-        expect(adaptRequest(defaultRequestOptions, requestWithFilters, queryConfig)).toEqual(
+        expect(inlineVariables(adaptRequest(defaultRequestOptions, requestWithFilters, queryConfig))).toEqual(
             adaptedFilteredRequest
         );
     });
 });
 
-/**
- * Characterization tests added ahead of a rewrite: they record what the current implementation does,
- * not what it ought to do. Cases marked KNOWN BUG pin behaviour we believe is wrong — a rewrite that
- * fixes one SHOULD fail here, and the expectation should then be updated deliberately rather than
- * the test deleted.
- */
-
 const noFieldsQueryConfig: QueryConfig = {result_fields: []};
 
-describe('adaptRequest — search term escaping', () => {
-    // `searchTerm` is deliberately looser than RequestState declares: one case below passes a
-    // number, to pin how a falsy-but-meaningful term is handled.
+/**
+ * The search term used to be HTML-escaped and interpolated into the query text. That was the only
+ * barrier against a visitor's input reaching the document, and it leaked in both directions: it
+ * mangled ordinary searches, and it did not actually stop a newline from breaking the query.
+ *
+ * The term is now a variable, so it is sent exactly as typed and never appears in the document.
+ * Each case below replaces one that pinned the old escaping.
+ */
+describe('adaptRequest — the search term is sent as a variable', () => {
+    // `searchTerm` is deliberately looser than RequestState declares: one case passes a number.
     const q = (searchTerm: unknown, request: RequestState = {}) =>
-        searchTermArgOf(adaptRequest(defaultRequestOptions, {...request, searchTerm} as RequestState, noFieldsQueryConfig));
+        adaptRequest(defaultRequestOptions, {...request, searchTerm} as RequestState, noFieldsQueryConfig).variables.q;
 
-    it('emits an empty q for an undefined search term', () => {
-        expect(searchTermArgOf(adaptRequest(defaultRequestOptions, {}, noFieldsQueryConfig))).toMatchInlineSnapshot(`"q: """`);
+    it('searches for the empty string when the term is undefined', () => {
+        expect(adaptRequest(defaultRequestOptions, {}, noFieldsQueryConfig).variables.q).toBe('');
     });
 
-    it('emits an empty q for an empty search term', () => {
-        expect(q('')).toMatchInlineSnapshot(`"q: """`);
+    it('searches for the empty string when the term is empty', () => {
+        expect(q('')).toBe('');
     });
 
-    // KNOWN BUG: htmlEscape guards on truthiness, so any falsy-but-meaningful term is discarded.
-    // A numeric search term of 0 searches for nothing rather than for "0".
-    it('discards a search term of 0 (KNOWN BUG)', () => {
-        expect(q(0)).toMatchInlineSnapshot(`"q: """`);
+    // Was a KNOWN BUG: htmlEscape guarded on truthiness, so a numeric 0 searched for nothing.
+    it('searches for "0" when the term is the number 0', () => {
+        expect(q(0)).toBe('0');
     });
 
-    it('escapes ampersands, quotes, apostrophes and angle brackets as HTML entities', () => {
-        expect(q('a&b"c\'d<e>f')).toMatchInlineSnapshot(`"q: "a&amp;b&quot;c&#39;d&lt;e&gt;f""`);
+    // Was pinned as HTML-escaping. Escaping a search term was never right — a visitor looking for
+    // `a & b` was searching for `a &amp; b`.
+    it('leaves ampersands, quotes, apostrophes and angle brackets alone', () => {
+        expect(q('a&b"c\'d<e>f')).toBe('a&b"c\'d<e>f');
     });
 
-    it('doubles a trailing backslash', () => {
-        expect(q('di\\')).toMatchInlineSnapshot(`"q: "di\\\\""`);
+    it('leaves backslashes alone rather than doubling them', () => {
+        expect(q('di\\')).toBe('di\\');
+        expect(q('di\\g\\it')).toBe('di\\g\\it');
     });
 
-    it('doubles an embedded backslash', () => {
-        expect(q('di\\g\\it')).toMatchInlineSnapshot(`"q: "di\\\\g\\\\it""`);
-    });
-
-    it('escapes in a fixed order, so an entity typed by the user is double-escaped', () => {
-        expect(q('&lt;')).toMatchInlineSnapshot(`"q: "&amp;lt;""`);
+    it('does not double-escape an entity the visitor typed', () => {
+        expect(q('&lt;')).toBe('&lt;');
     });
 
     it('leaves other characters alone', () => {
-        expect(q('café (résumé) 50% #1')).toMatchInlineSnapshot(`"q: "café (résumé) 50% #1""`);
+        expect(q('café (résumé) 50% #1')).toBe('café (résumé) 50% #1');
     });
 
-    // KNOWN BUG: newlines are not escaped, and a literal newline is illegal inside a GraphQL string
-    // literal, so the query fails to parse. Pasting multi-line text into a search box throws out of
-    // adaptRequest rather than searching.
-    it('throws on a search term containing a newline (KNOWN BUG)', () => {
-        expect(() => adaptRequest(defaultRequestOptions, {searchTerm: 'multi\nline'}, noFieldsQueryConfig))
-            .toThrow('Syntax Error: Unterminated string.');
+    // Was a KNOWN BUG: a literal newline is illegal inside a GraphQL string, so pasting multi-line
+    // text into a search box threw out of adaptRequest instead of searching.
+    it('searches for a term containing a newline instead of throwing', () => {
+        expect(q('multi\nline')).toBe('multi\nline');
+    });
+
+    it('keeps the term out of the document, whatever it contains', () => {
+        const {query, variables} = adaptRequest(
+            defaultRequestOptions,
+            {searchTerm: '") {id} evil('},
+            noFieldsQueryConfig
+        );
+        expect(query).not.toContain('evil');
+        expect(variables.q).toBe('") {id} evil(');
+    });
+});
+
+describe('adaptRequest — the workspace enum', () => {
+    // `workspace` cannot be a variable without knowing the schema's enum type name, so it is the
+    // one connector option still written into the document — and therefore checked.
+    it('rejects a workspace that is not a GraphQL enum value', () => {
+        expect(() => adaptRequest(
+            {...defaultRequestOptions, workspace: 'LIVE) {id} evil('},
+            {},
+            noFieldsQueryConfig
+        )).toThrow('workspace must be a GraphQL enum value');
+    });
+});
+
+describe('adaptRequest — every declared variable is used', () => {
+    // A variable that is declared but never referenced makes the whole query invalid, and neither
+    // parse() nor a snapshot notices. These are the configurations most likely to regress it.
+    it.each([
+        ['default', defaultRequestOptions, defaultRequest, queryConfig],
+        ['nodeType filter', nodeTypeRequestOptions, defaultRequest, queryConfig],
+        ['request filters', defaultRequestOptions, requestWithFilters, queryConfig],
+        ['no fields', defaultRequestOptions, {}, noFieldsQueryConfig],
+        ['facet with an unrecognised type', defaultRequestOptions, {}, {
+            ...noFieldsQueryConfig,
+            facets: {weird: {type: 'not-a-real-type'} as unknown as FacetConfig}
+        }],
+        ['range facet carrying a minDoc it never sends', defaultRequestOptions, {}, {
+            ...noFieldsQueryConfig,
+            facets: {popularity: {type: 'range', minDoc: 1, ranges: [{name: 'r', from: '0', to: '1'}]} as FacetConfig}
+        }]
+    ])('%s', (_name, options, request, config) => {
+        expect(() => assertEveryVariableIsUsed(adaptRequest(options, request, config))).not.toThrow();
     });
 });
 
 describe('adaptRequest — result_fields resolution', () => {
     it('ignores entries that are not Field instances', () => {
-        expect(adaptRequest(
+        expect(inlineVariables(adaptRequest(
             defaultRequestOptions,
             {},
             {result_fields: {notAField: 'link', alsoNot: null, real: new Field(FieldType.HIT, 'link')}}
-        )).toMatchInlineSnapshot(`
+        ))).toMatchInlineSnapshot(`
           "{
             search(
               q: ""
@@ -386,11 +429,11 @@ describe('adaptRequest — result_fields resolution', () => {
     });
 
     it('reads result_fields from the results wrapper when the config has one', () => {
-        expect(adaptRequest(
+        expect(inlineVariables(adaptRequest(
             defaultRequestOptions,
             {},
             {results: {result_fields: [new Field(FieldType.HIT, 'link')]}}
-        )).toMatchInlineSnapshot(`
+        ))).toMatchInlineSnapshot(`
           "{
             search(
               q: ""
@@ -414,15 +457,16 @@ describe('adaptRequest — result_fields resolution', () => {
 
     it('defaults to 5 results on page 0 when the request sets no paging', () => {
         expect(adaptRequest(defaultRequestOptions, {}, noFieldsQueryConfig)).toMatchInlineSnapshot(`
-          "{
+          {
+            "query": "query ($q: String!, $siteKey: String!, $language: String!, $functionScoreId: String!, $size: Int!, $page: Int!) {
             search(
-              q: ""
-              siteKeys: ["academy"]
-              language: "en"
+              q: $q
+              siteKeys: [$siteKey]
+              language: $language
               workspace: LIVE
-              functionScoreId: ""
+              functionScoreId: $functionScoreId
             ) {
-              results(size: 5, page: 0) {
+              results(size: $size, page: $page) {
                 totalHits
                 took
                 hits {
@@ -430,16 +474,25 @@ describe('adaptRequest — result_fields resolution', () => {
                 }
               }
             }
-          }"
+          }",
+            "variables": {
+              "functionScoreId": "",
+              "language": "en",
+              "page": 0,
+              "q": "",
+              "siteKey": "academy",
+              "size": 5,
+            },
+          }
         `);
     });
 
     it('lets the request override the request options', () => {
-        expect(adaptRequest(
+        expect(inlineVariables(adaptRequest(
             {...defaultRequestOptions, resultsPerPage: 20},
             {resultsPerPage: 3, current: 2},
             noFieldsQueryConfig
-        )).toMatchInlineSnapshot(`
+        ))).toMatchInlineSnapshot(`
           "{
             search(
               q: ""

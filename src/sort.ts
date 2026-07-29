@@ -1,3 +1,4 @@
+import {enumValue, type GraphQLVariables} from './graphql.js';
 import type {RequestState} from './types.js';
 
 type SortedState = RequestState & {sortDirection: string; sortField: string};
@@ -14,10 +15,12 @@ function hasSortFields(state: RequestState | null): state is SortedState {
 }
 
 // Generate sort field
-export default function sort(state: RequestState | null): string {
+export default function sort(state: RequestState | null, variables: GraphQLVariables): string {
     if (!hasSortFields(state)) {
         return '';
     }
 
-    return `, sortBy: { dir: ${state.sortDirection.toUpperCase()}, field: "${state.sortField}"}`;
+    // `dir` is an enum, so it stays in the document and is validated instead of parameterized.
+    const dir = enumValue('sortDirection', state.sortDirection.toUpperCase());
+    return `, sortBy: { dir: ${dir}, field: ${variables.add('sortField', 'String!', state.sortField)}}`;
 }
