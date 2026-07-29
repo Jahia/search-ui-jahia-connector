@@ -4,10 +4,11 @@ import adaptResponse from './adaptResponse.js';
 import Constants from './constants.js';
 
 /**
- * @typedef {import('./types.js').RequestState} RequestState
- * @typedef {import('./types.js').QueryConfig} QueryConfig
- * @typedef {import('./types.js').ResponseState} ResponseState
- * @typedef {import('./types.js').AutocompleteResponseState} AutocompleteResponseState
+ * @typedef {import('@elastic/search-ui').RequestState} RequestState
+ * @typedef {import('./types.js').JahiaQueryConfig} JahiaQueryConfig
+ * @typedef {import('./types.js').JahiaAutocompleteQueryConfig} JahiaAutocompleteQueryConfig
+ * @typedef {import('./types.js').JahiaResponseState} JahiaResponseState
+ * @typedef {import('./types.js').JahiaAutocompleteResponseState} JahiaAutocompleteResponseState
  */
 
 /**
@@ -63,8 +64,8 @@ class JahiaSearchAPIConnector {
      * Run a search. Called by Search UI with its request state and the searchQuery configuration.
      *
      * @param {RequestState} state
-     * @param {QueryConfig} queryConfig
-     * @returns {Promise<ResponseState>}
+     * @param {JahiaQueryConfig} queryConfig
+     * @returns {Promise<JahiaResponseState>}
      */
     async onSearch(state, queryConfig) {
         // Console.log("state",state,"query config", queryConfig);
@@ -85,8 +86,8 @@ class JahiaSearchAPIConnector {
      * by the Jahia API, and asking for them warns and yields nothing.
      *
      * @param {RequestState} state
-     * @param {QueryConfig} queryConfig the autocompleteQuery configuration
-     * @returns {Promise<AutocompleteResponseState>}
+     * @param {JahiaAutocompleteQueryConfig} queryConfig the autocompleteQuery configuration
+     * @returns {Promise<JahiaAutocompleteResponseState>}
      */
     async onAutocomplete({searchTerm}, queryConfig) {
         if (queryConfig.suggestions) {
@@ -120,7 +121,14 @@ class JahiaSearchAPIConnector {
      * Called by Search UI when an autocomplete result is clicked. Nothing is reported back to Jahia;
      * the hook exists to satisfy the Search UI connector contract.
      *
-     * @param {{documentId?: string, requestId?: string, tags?: string[]}} clickParams
+     * @param {{
+     *     query?: string,
+     *     documentId?: string,
+     *     requestId?: string,
+     *     tags?: string[],
+     *     result?: import('@elastic/search-ui').SearchResult,
+     *     resultIndex?: number
+     * }} clickParams what Search UI's trackAutocompleteClickThrough action passes
      * @returns {void}
      */
     onAutocompleteResultClick({tags}) {

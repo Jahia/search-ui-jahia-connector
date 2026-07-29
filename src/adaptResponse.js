@@ -7,8 +7,8 @@ import {getFacets, getResults} from './responseAdapters.js';
  * @param {number|undefined} resultsPerPage page size the query was made with, used to derive
  * totalPages. Undefined when the request state left it out — the query then defaults to 5 but
  * totalPages comes out NaN, which is pre-existing behaviour, not something the types should hide
- * @param {import('./types.js').QueryConfig} queryConfig
- * @returns {import('./types.js').ResponseState}
+ * @param {import('./types.js').JahiaQueryConfig|import('./types.js').JahiaAutocompleteQueryConfig} queryConfig
+ * @returns {import('./types.js').JahiaResponseState}
  */
 export default function adaptResponse(response, resultsPerPage, queryConfig) {
     const requestId = '';

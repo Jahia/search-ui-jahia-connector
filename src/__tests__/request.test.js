@@ -29,7 +29,7 @@ function respondWithError(json) {
 }
 
 function subject() {
-    return request('engine', 'http://localhost:8080', 'GET', 'test');
+    return request('engine', 'http://localhost:8080', 'test');
 }
 
 it('will return json on successful request with json', async () => {

@@ -48,8 +48,8 @@ function htmlEscape(str) {
 /**
  * Adapt the request from Search UI to Jahia Augmented Search
  * @param {RequestOptions} requestOptions the options for this request
- * @param {import('./types.js').RequestState} request the state of the current request
- * @param {import('./types.js').QueryConfig} queryConfig the query configuration as defined when initializing the App
+ * @param {import('@elastic/search-ui').RequestState} request the state of the current request
+ * @param {import('./types.js').JahiaQueryConfig|import('./types.js').JahiaAutocompleteQueryConfig} queryConfig the query configuration as defined when initializing the App
  * @returns {string} the graphql query to be excuted on a Jahia backend
  */
 export default function adaptRequest(requestOptions, request, queryConfig) {

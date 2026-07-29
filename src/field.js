@@ -55,7 +55,7 @@ class Field {
      * Copy this field out of a raw hit and onto the result Search UI renders, under its alias.
      *
      * @param {Record<string, any>} hit one hit of the GraphQL response
-     * @param {import('./types.js').SearchResult} result mutated in place
+     * @param {import('@elastic/search-ui').SearchResult} result mutated in place
      * @returns {void}
      */
     resolveResponseField(hit, result) {
