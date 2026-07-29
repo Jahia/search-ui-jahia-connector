@@ -11,8 +11,6 @@
     "allowJs": true,                    // sources are .js
     "checkJs": false,                   // don't type-check JS: that's a separate, larger job
     "declaration": true,                // emit .d.ts inferred from JSDoc
-    "declarationMap": true,
-    "sourceMap": true,
 
     "rootDir": "src",
     "outDir": "dist",
