@@ -34,6 +34,38 @@ The following functionality is currently implemented:
 * onAutocomplete
 * Sort
 
+#### TypeScript
+The package ships its own declarations — nothing to install. The sources are JavaScript; the types are
+generated from their JSDoc.
+
+They are Search UI's types: `RequestState`, `Filter`, `SearchResult`, `FacetValue` and the rest come
+from `@elastic/search-ui` unchanged, which is why it is a peer dependency. Only what this connector
+genuinely does differently is declared here:
+
+```typescript
+import JahiaSearchAPIConnector, {Field, FieldType} from '@jahia/search-ui-jahia-connector';
+import type {
+    JahiaSearchAPIConnectorOptions, FieldTypeValue,
+    JahiaQueryConfig, JahiaAutocompleteQueryConfig, JahiaFacetConfiguration,
+    JahiaResponseState, JahiaAutocompleteResponseState,
+    JahiaFacet, JahiaFacetValue
+} from '@jahia/search-ui-jahia-connector';
+```
+
+* `JahiaQueryConfig` is Search UI's `QueryConfig` with `result_fields` as an array of `Field`
+  instances — Jahia needs to know whether a field comes off the ES hit or the JCR node — and with the
+  Jahia-only facet options (`disjunctive`, `hierarchical`, `rootPath`, `max`, `minDoc`).
+* `JahiaResponseState.totalPages`, `totalResults` and `facets` are optional: no results means no
+  totals, and `facets` only comes back when the query asked for some.
+
+Two mismatches with Search UI's own types are real, and typed honestly rather than cast away:
+
+1. The connector implements no `onResultClick`, so it does not satisfy Search UI's `APIConnector`
+   interface. Search UI throws if a result click is ever tracked; pass your own `onResultClick` to
+   `SearchProvider` if you use `trackClickThrough`.
+2. Search UI types `searchQuery.result_fields` as `Record<string, FieldConfiguration>`, so a
+   `Field[]` needs a cast where the config object is typed by Search UI.
+
 #### Options
 The following configuration is required in order for the custom request/response adaptors to work
 

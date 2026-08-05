@@ -1,18 +1,40 @@
-import request from './request';
-import adaptRequest from './adaptRequest';
-import adaptResponse from './adaptResponse';
-import Constants from './constants';
+import request from './request.js';
+import adaptRequest from './adaptRequest.js';
+import adaptResponse from './adaptResponse.js';
+import Constants from './constants.js';
+
+/**
+ * @typedef {import('@elastic/search-ui').RequestState} RequestState
+ * @typedef {import('./types.js').JahiaQueryConfig} JahiaQueryConfig
+ * @typedef {import('./types.js').JahiaAutocompleteQueryConfig} JahiaAutocompleteQueryConfig
+ * @typedef {import('./types.js').JahiaResponseState} JahiaResponseState
+ * @typedef {import('./types.js').JahiaAutocompleteResponseState} JahiaAutocompleteResponseState
+ */
+
+/**
+ * Options accepted by the JahiaSearchAPIConnector constructor.
+ *
+ * Declared as a named type rather than with dotted "options.x" param tags: the constructor's
+ * parameter is DESTRUCTURED, and TypeScript does not bind dotted param tags to a destructuring
+ * pattern — the properties come out as required "any". Listing them as separate top-level param
+ * tags is worse still: the whole options object is then typed as "string". Either way, correct call
+ * sites fail to type-check. (Note: avoid writing JSDoc tag names in prose here — TypeScript parses
+ * them, and an inline tag in this comment previously emitted a bogus exported type.)
+ *
+ * @typedef {Object} JahiaSearchAPIConnectorOptions
+ * @property {string} apiToken Credential found in your Jahia Tools
+ * @property {string} baseURL URL of your Jahia installation
+ * @property {string} siteKey The site search will be performed in
+ * @property {string} [language] Language in which search will be performed
+ * @property {string} [workspace] Workspace in which search will be performed
+ * @property {string} [nodeType] The node type that should be searched for
+ * @property {string} [functionScore] The function score id that should be used to score the hits
+ */
 
 class JahiaSearchAPIConnector {
     /**
      * Define the options available to initialize your JahiaSearchAPIConnector
-     * @param  {string} apiToken Credential found in your Jahia Tools
-     * @param  {string} baseURL  URL of your Jahia installation
-     * @param  {string} siteKey The site search will be performed in
-     * @param  {string} language Language in which search will be performed
-     * @param  {string} workspace Workspace in which search will be performed
-     * @param  {string} nodeType The node type that should be searched for
-     * @param  {string} functionScore The function score id that should be used to score the hits
+     * @param {JahiaSearchAPIConnectorOptions} options
      */
     constructor({
         apiToken,
@@ -38,6 +60,13 @@ class JahiaSearchAPIConnector {
         this.functionScore = functionScore;
     }
 
+    /**
+     * Run a search. Called by Search UI with its request state and the searchQuery configuration.
+     *
+     * @param {RequestState} state
+     * @param {JahiaQueryConfig} queryConfig
+     * @returns {Promise<JahiaResponseState>}
+     */
     async onSearch(state, queryConfig) {
         // Console.log("state",state,"query config", queryConfig);
         let requestOptions = {
@@ -48,10 +77,18 @@ class JahiaSearchAPIConnector {
             functionScore: this.functionScore
         };
         const query = adaptRequest(requestOptions, state, queryConfig);
-        const responseJson = await request(this.apiToken, this.baseURL, 'POST', query);
+        const responseJson = await request(this.apiToken, this.baseURL, query);
         return adaptResponse(responseJson, state.resultsPerPage, queryConfig);
     }
 
+    /**
+     * Run an autocomplete query. Only the result section is honoured — suggestions are not supported
+     * by the Jahia API, and asking for them warns and yields nothing.
+     *
+     * @param {RequestState} state
+     * @param {JahiaAutocompleteQueryConfig} queryConfig the autocompleteQuery configuration
+     * @returns {Promise<JahiaAutocompleteResponseState>}
+     */
     async onAutocomplete({searchTerm}, queryConfig) {
         if (queryConfig.suggestions) {
             console.warn(
@@ -72,7 +109,7 @@ class JahiaSearchAPIConnector {
                 queryConfig
             );
 
-            return request(this.apiToken, this.baseURL, 'POST', query).then(json => ({
+            return request(this.apiToken, this.baseURL, query).then(json => ({
                 autocompletedResults: adaptResponse(json, queryConfig.results.resultsPerPage, queryConfig).results
             }));
         }
@@ -80,6 +117,20 @@ class JahiaSearchAPIConnector {
         return {};
     }
 
+    /**
+     * Called by Search UI when an autocomplete result is clicked. Nothing is reported back to Jahia;
+     * the hook exists to satisfy the Search UI connector contract.
+     *
+     * @param {{
+     *     query?: string,
+     *     documentId?: string,
+     *     requestId?: string,
+     *     tags?: string[],
+     *     result?: import('@elastic/search-ui').SearchResult,
+     *     resultIndex?: number
+     * }} clickParams what Search UI's trackAutocompleteClickThrough action passes
+     * @returns {void}
+     */
     onAutocompleteResultClick({tags}) {
         if (tags) {
             console.warn(

@@ -1,3 +1,9 @@
+/**
+ * The kind of field being requested — one of the FieldType values.
+ * @typedef {'hit'|'node'|'refValue'|'refPath'} FieldTypeValue
+ */
+
+/** @type {{HIT: FieldTypeValue, NODE: FieldTypeValue, REFERENCE_AS_VALUE: FieldTypeValue, REFERENCE_AS_PATH: FieldTypeValue}} */
 const FieldType = {
     HIT: 'hit',
     NODE: 'node',
@@ -8,10 +14,15 @@ const FieldType = {
 class Field {
     /**
      * Field allows you define the data you want to receive from your searches
-     * @param {FieldType} type The type of field (ESHit or JCR)
+     *
+     * `type` is a FieldType *value* (e.g. FieldType.HIT), not the FieldType object — documenting it
+     * as `{FieldType}` made the generated .d.ts demand the whole object and reject correct calls.
+     *
+     * @param {FieldTypeValue} type The type of field (ESHit or JCR)
      * @param {string} name  field name that should be returned in the response
-     * @param {string} alias optional, define an alias for this field
-     * @param {boolean} useSnippet configure if value is html based (snippet) or plain text (raw)
+     * @param {string|null} [alias] optional, define an alias for this field — the README passes null
+     * to reach the useSnippet argument, so null is accepted as "no alias" alongside undefined
+     * @param {boolean} [useSnippet] configure if value is html based (snippet) or plain text (raw)
      */
     constructor(type, name, alias, useSnippet = false) {
         this.type = type;
@@ -20,6 +31,10 @@ class Field {
         this.useSnippet = useSnippet;
     }
 
+    /**
+     * The fragment of the GraphQL query that asks for this field.
+     * @returns {string}
+     */
     resolveRequestField() {
         let fieldTemplate;
         switch (this.type) {
@@ -36,8 +51,16 @@ class Field {
         return fieldTemplate;
     }
 
+    /**
+     * Copy this field out of a raw hit and onto the result Search UI renders, under its alias.
+     *
+     * @param {Record<string, any>} hit one hit of the GraphQL response
+     * @param {import('@elastic/search-ui').SearchResult} result mutated in place
+     * @returns {void}
+     */
     resolveResponseField(hit, result) {
-        let property = null;
+        // No initialiser: every switch branch (including default) assigns before use.
+        let property;
         switch (this.type) {
             case FieldType.NODE:
             case FieldType.REFERENCE_AS_PATH:

@@ -1,8 +1,8 @@
-import {Field, FieldType} from './field';
+import {Field, FieldType} from './field.js';
 import {parse, print} from 'graphql';
-import sort from './sort';
-import facets from './facets';
-import filters from './filters';
+import sort from './sort.js';
+import facets from './facets.js';
+import filters from './filters.js';
 
 const buildFields = fields => {
     const fieldsConcatenated = {
@@ -34,10 +34,22 @@ function htmlEscape(str) {
 }
 
 /**
+ * The part of the connector's configuration that varies per request. Was referenced by the JSDoc
+ * below without ever being declared, which emitted a .d.ts naming a type that does not exist.
+ *
+ * @typedef {Object} RequestOptions
+ * @property {string} siteKey
+ * @property {string} [language]
+ * @property {string} [workspace]
+ * @property {string} [nodeType]
+ * @property {string} [functionScore]
+ */
+
+/**
  * Adapt the request from Search UI to Jahia Augmented Search
  * @param {RequestOptions} requestOptions the options for this request
- * @param {any} request the state of the current request
- * @param {any} queryConfig the query configuration as defined when initializing the App
+ * @param {import('@elastic/search-ui').RequestState} request the state of the current request
+ * @param {import('./types.js').JahiaQueryConfig|import('./types.js').JahiaAutocompleteQueryConfig} queryConfig the query configuration as defined when initializing the App
  * @returns {string} the graphql query to be excuted on a Jahia backend
  */
 export default function adaptRequest(requestOptions, request, queryConfig) {

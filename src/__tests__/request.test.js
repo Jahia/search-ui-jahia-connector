@@ -1,4 +1,4 @@
-import request from '../request';
+import request from '../request.js';
 
 const responseJson = {};
 
@@ -16,20 +16,20 @@ function fetchResponse(response, statusCode) {
 }
 
 beforeEach(() => {
-    global.Headers = jest.fn();
-    global.fetch = jest.fn().mockReturnValue(fetchResponse(responseJson, 200));
+    global.Headers = vi.fn();
+    global.fetch = vi.fn().mockReturnValue(fetchResponse(responseJson, 200));
 });
 
 function respondWithSuccess(json) {
-    global.fetch = jest.fn().mockReturnValue(fetchResponse(json, 200));
+    global.fetch = vi.fn().mockReturnValue(fetchResponse(json, 200));
 }
 
 function respondWithError(json) {
-    global.fetch = jest.fn().mockReturnValue(fetchResponse(json, 401));
+    global.fetch = vi.fn().mockReturnValue(fetchResponse(json, 401));
 }
 
 function subject() {
-    return request('engine', 'http://localhost:8080', 'GET', 'test');
+    return request('engine', 'http://localhost:8080', 'test');
 }
 
 it('will return json on successful request with json', async () => {

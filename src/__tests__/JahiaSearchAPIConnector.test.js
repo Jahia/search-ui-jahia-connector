@@ -1,7 +1,7 @@
 import JahiaSearchAPIConnector from '..';
 
 import exampleAPIResponse from '../../resources/example-response.json';
-import {Field, FieldType} from '../field';
+import {Field, FieldType} from '../field.js';
 
 function fetchResponse(response) {
     return Promise.resolve({
@@ -11,8 +11,8 @@ function fetchResponse(response) {
 }
 
 beforeEach(() => {
-    global.Headers = jest.fn();
-    global.fetch = jest.fn().mockReturnValue(fetchResponse(exampleAPIResponse));
+    global.Headers = vi.fn();
+    global.fetch = vi.fn().mockReturnValue(fetchResponse(exampleAPIResponse));
 });
 
 const apiToken = 12345;
@@ -46,7 +46,6 @@ describe('#onSearch', () => {
 
     it('will correctly format an API response', async () => {
         let queryConfig = {
-            // eslint-disable-next-line camelcase
             result_fields: [
                 new Field(FieldType.HIT, 'link'),
                 new Field(FieldType.HIT, 'displayableName', 'title'),
@@ -68,7 +67,6 @@ describe('#onSearch', () => {
 
     it('will not break on special character at the end', async () => {
         let queryConfig = {
-            // eslint-disable-next-line camelcase
             result_fields: [
                 new Field(FieldType.HIT, 'link'),
                 new Field(FieldType.HIT, 'displayableName', 'title'),
@@ -90,7 +88,6 @@ describe('#onSearch', () => {
 
     it('will not break on special character in the middle', async () => {
         let queryConfig = {
-            // eslint-disable-next-line camelcase
             result_fields: [
                 new Field(FieldType.HIT, 'link'),
                 new Field(FieldType.HIT, 'displayableName', 'title'),
@@ -124,7 +121,6 @@ describe('#onAutocomplete', () => {
 
     let config = {
         results: {
-            // eslint-disable-next-line camelcase
             result_fields: [
                 new Field(FieldType.HIT, 'link'),
                 new Field(FieldType.HIT, 'displayableName', 'title'),
@@ -148,7 +144,6 @@ describe('#onAutocomplete', () => {
             state: {},
             queryConfig: {
                 suggestions: {},
-                // eslint-disable-next-line camelcase
                 result_fields: [
                     new Field(FieldType.HIT, 'link'),
                     new Field(FieldType.HIT, 'displayableName', 'title'),
