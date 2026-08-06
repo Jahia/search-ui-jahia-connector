@@ -54,6 +54,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chachalog/types@npm:^0.5.2":
+  version: 0.5.2
+  resolution: "@chachalog/types@npm:0.5.2"
+  checksum: 10c0/a5c971249adcd17db5cbd41710399113c90d0b29ae0b93fa9db57642613faf966d494c7dd24d6f08b68198d4f0642416af90c42032baa30ed6a400edee9d35eb
+  languageName: node
+  linkType: hard
+
 "@elastic/search-ui@npm:^1.24.2":
   version: 1.24.2
   resolution: "@elastic/search-ui@npm:1.24.2"
@@ -116,6 +123,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@jahia/search-ui-jahia-connector@workspace:."
   dependencies:
+    "@chachalog/types": "npm:^0.5.2"
     "@elastic/search-ui": "npm:^1.24.2"
     "@vitest/coverage-v8": "npm:^4.1.10"
     graphql: "npm:^17.0.2"
