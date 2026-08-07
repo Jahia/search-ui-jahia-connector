@@ -128,6 +128,7 @@ __metadata:
     "@vitest/coverage-v8": "npm:^4.1.10"
     graphql: "npm:^17.0.2"
     oxlint: "npm:^1.76.0"
+    pkg-pr-new: "npm:^0.0.86"
     typescript: "npm:^7.0.2"
     vitest: "npm:^4.1.10"
   peerDependencies:
@@ -1793,6 +1794,15 @@ __metadata:
   version: 4.0.5
   resolution: "picomatch@npm:4.0.5"
   checksum: 10c0/947bc6b6e1ff1e6c5aaf95b107a0839d12802f4f7b867663f67d47accba939ca1cb582cf99dfc30438efa1c4648ac5990967e783e8929c36b03e8440704ef1bd
+  languageName: node
+  linkType: hard
+
+"pkg-pr-new@npm:^0.0.86":
+  version: 0.0.86
+  resolution: "pkg-pr-new@npm:0.0.86"
+  bin:
+    pkg-pr-new: bin/cli.js
+  checksum: 10c0/83b5a885f23fd82a29dc4c4729b3c712feed7d206ee5cd640afb6bf38c37be6515e8fc0f0af19da4dda4a37f4eb65f0728e53846da75158e143bbd3b56e9f226
   languageName: node
   linkType: hard
 
