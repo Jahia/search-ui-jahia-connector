@@ -1,16 +1,17 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`Sort parameters tests > Query with incorrect sort direction 1`] = `
-"{
+{
+  "query": "query ($q: String!, $siteKeys: [String], $language: String, $workspace: Workspace, $functionScoreId: String, $filters: Inputfilter, $size: Int, $page: Int, $sortBy: [InputsortV2]) {
   search(
-    q: ""
-    siteKeys: ["fake"]
-    language: "fake"
-    workspace: fake
-    functionScoreId: "fake"
-    filters: { nodeType: { type: "fake" } }
+    q: $q
+    siteKeys: $siteKeys
+    language: $language
+    workspace: $workspace
+    functionScoreId: $functionScoreId
+    filters: $filters
   ) {
-    results(size: 5, page: 0) {
+    results(size: $size, page: $page, sortBy: $sortBy) {
       totalHits
       took
       hits {
@@ -23,20 +24,39 @@ exports[`Sort parameters tests > Query with incorrect sort direction 1`] = `
       }
     }
   }
-}"
+}",
+  "variables": {
+    "filters": {
+      "nodeType": {
+        "type": "fake",
+      },
+    },
+    "functionScoreId": "fake",
+    "language": "fake",
+    "page": 0,
+    "q": "",
+    "siteKeys": [
+      "fake",
+    ],
+    "size": 5,
+    "sortBy": undefined,
+    "workspace": "fake",
+  },
+}
 `;
 
 exports[`Sort parameters tests > Query with incorrect sort field 1`] = `
-"{
+{
+  "query": "query ($q: String!, $siteKeys: [String], $language: String, $workspace: Workspace, $functionScoreId: String, $filters: Inputfilter, $size: Int, $page: Int, $sortBy: [InputsortV2]) {
   search(
-    q: ""
-    siteKeys: ["fake"]
-    language: "fake"
-    workspace: fake
-    functionScoreId: "fake"
-    filters: { nodeType: { type: "fake" } }
+    q: $q
+    siteKeys: $siteKeys
+    language: $language
+    workspace: $workspace
+    functionScoreId: $functionScoreId
+    filters: $filters
   ) {
-    results(size: 5, page: 0) {
+    results(size: $size, page: $page, sortBy: $sortBy) {
       totalHits
       took
       hits {
@@ -49,20 +69,39 @@ exports[`Sort parameters tests > Query with incorrect sort field 1`] = `
       }
     }
   }
-}"
+}",
+  "variables": {
+    "filters": {
+      "nodeType": {
+        "type": "fake",
+      },
+    },
+    "functionScoreId": "fake",
+    "language": "fake",
+    "page": 0,
+    "q": "",
+    "siteKeys": [
+      "fake",
+    ],
+    "size": 5,
+    "sortBy": undefined,
+    "workspace": "fake",
+  },
+}
 `;
 
 exports[`Sort parameters tests > Query with sort 1`] = `
-"{
+{
+  "query": "query ($q: String!, $siteKeys: [String], $language: String, $workspace: Workspace, $functionScoreId: String, $filters: Inputfilter, $size: Int, $page: Int, $sortBy: [InputsortV2]) {
   search(
-    q: ""
-    siteKeys: ["fake"]
-    language: "fake"
-    workspace: fake
-    functionScoreId: "fake"
-    filters: { nodeType: { type: "fake" } }
+    q: $q
+    siteKeys: $siteKeys
+    language: $language
+    workspace: $workspace
+    functionScoreId: $functionScoreId
+    filters: $filters
   ) {
-    results(size: 5, page: 0, sortBy: { dir: ASC, field: "jcr:title" }) {
+    results(size: $size, page: $page, sortBy: $sortBy) {
       totalHits
       took
       hits {
@@ -75,20 +114,44 @@ exports[`Sort parameters tests > Query with sort 1`] = `
       }
     }
   }
-}"
+}",
+  "variables": {
+    "filters": {
+      "nodeType": {
+        "type": "fake",
+      },
+    },
+    "functionScoreId": "fake",
+    "language": "fake",
+    "page": 0,
+    "q": "",
+    "siteKeys": [
+      "fake",
+    ],
+    "size": 5,
+    "sortBy": [
+      {
+        "dir": "ASC",
+        "field": "jcr:title",
+      },
+    ],
+    "workspace": "fake",
+  },
+}
 `;
 
 exports[`Sort parameters tests > Query without sort 1`] = `
-"{
+{
+  "query": "query ($q: String!, $siteKeys: [String], $language: String, $workspace: Workspace, $functionScoreId: String, $filters: Inputfilter, $size: Int, $page: Int, $sortBy: [InputsortV2]) {
   search(
-    q: ""
-    siteKeys: ["fake"]
-    language: "fake"
-    workspace: fake
-    functionScoreId: "fake"
-    filters: { nodeType: { type: "fake" } }
+    q: $q
+    siteKeys: $siteKeys
+    language: $language
+    workspace: $workspace
+    functionScoreId: $functionScoreId
+    filters: $filters
   ) {
-    results(size: 5, page: 0) {
+    results(size: $size, page: $page, sortBy: $sortBy) {
       totalHits
       took
       hits {
@@ -101,5 +164,23 @@ exports[`Sort parameters tests > Query without sort 1`] = `
       }
     }
   }
-}"
+}",
+  "variables": {
+    "filters": {
+      "nodeType": {
+        "type": "fake",
+      },
+    },
+    "functionScoreId": "fake",
+    "language": "fake",
+    "page": 0,
+    "q": "",
+    "siteKeys": [
+      "fake",
+    ],
+    "size": 5,
+    "sortBy": undefined,
+    "workspace": "fake",
+  },
+}
 `;

@@ -1,22 +1,15 @@
+/**
+ * The value of the filters argument of search, bound as a variable.
+ *
+ * @param {import('@elastic/search-ui').RequestState} request
+ * @param {import('./types.js').JahiaQueryConfig} queryConfig
+ * @param {{nodeType?: string}} graphQLOptions
+ * @returns {Record<string, any>|undefined} undefined when nothing filters the search
+ */
 export default function filters(request, queryConfig, graphQLOptions) {
-    const filters = [];
+    const filters = {};
     if (graphQLOptions.nodeType) {
-        filters.push(`nodeType:{type: "${graphQLOptions.nodeType}"}`);
-    }
-
-    function getTerms(terms) {
-        let termsArray = Object.keys(terms).map(value => `{operation: ${terms[value].type === 'any' ? 'OR' : 'AND'}, terms:[${terms[value].terms.join(',')}]}`).join(',');
-        return `term: [${termsArray}]`;
-    }
-
-    function getDateRange(dateRanges) {
-        let dateRangesArray = Object.keys(dateRanges).map(value => `{operation: AND, ranges:[${dateRanges[value].join(',')}]}`).join(',');
-        return `dateRange: [${dateRangesArray}]`;
-    }
-
-    function getNumberRange(numberRanges) {
-        let numberRangesArray = Object.keys(numberRanges).map(value => `{operation: AND, ranges:[${numberRanges[value].join(',')}]}`).join(',');
-        return `numberRange: [${numberRangesArray}]`;
+        filters.nodeType = {type: graphQLOptions.nodeType};
     }
 
     if (request.filters !== undefined && request.filters.length > 0) {
@@ -26,8 +19,7 @@ export default function filters(request, queryConfig, graphQLOptions) {
         request.filters.forEach(filter => {
             const facet = queryConfig.facets[filter.field];
             if (facet === undefined) {
-                terms[filter.field] = {type: filter.type, terms: []};
-                terms[filter.field].terms.push(`{field:"${filter.field}", value:"${filter.values[0]}"}`);
+                terms[filter.field] = {type: filter.type, terms: [{field: filter.field, value: filter.values[0]}]};
             } else {
                 switch (facet.type) {
                     case 'range':
@@ -38,7 +30,7 @@ export default function filters(request, queryConfig, graphQLOptions) {
                                 numberRange = [];
                             }
 
-                            numberRange.push(`{field:"${filter.field}",gte:${range.from}, lt:${range.to}}`);
+                            numberRange.push({field: filter.field, gte: Number(range.from), lt: Number(range.to)});
                             numberRanges[filter.field] = numberRange;
                         });
                         break;
@@ -50,7 +42,7 @@ export default function filters(request, queryConfig, graphQLOptions) {
                                 dateRange = [];
                             }
 
-                            dateRange.push(`{field:"${filter.field}",after:"${range.from}", before:"${range.to}"}`);
+                            dateRange.push({field: filter.field, after: range.from, before: range.to});
                             dateRanges[filter.field] = dateRange;
                         });
                         break;
@@ -62,23 +54,33 @@ export default function filters(request, queryConfig, graphQLOptions) {
                                 term = {type: filter.type, terms: []};
                             }
 
-                            term.terms.push(`{field:"${filter.field}", value:"${value}"}`);
+                            term.terms.push({field: filter.field, value});
                             terms[filter.field] = term;
                         });
                         break;
                 }
             }
         });
-        filters.push(`custom:{
-        ${Object.keys(terms).length > 0 ? getTerms(terms) : ''}
-        ${Object.keys(dateRanges).length > 0 ? getDateRange(dateRanges) : ''}
-        ${Object.keys(numberRanges).length > 0 ? getNumberRange(numberRanges) : ''}
-        }`);
+
+        const custom = {};
+        if (Object.keys(terms).length > 0) {
+            custom.term = Object.values(terms).map(term => ({operation: term.type === 'any' ? 'OR' : 'AND', terms: term.terms}));
+        }
+
+        if (Object.keys(dateRanges).length > 0) {
+            custom.dateRange = Object.values(dateRanges).map(ranges => ({operation: 'AND', ranges}));
+        }
+
+        if (Object.keys(numberRanges).length > 0) {
+            custom.numberRange = Object.values(numberRanges).map(ranges => ({operation: 'AND', ranges}));
+        }
+
+        filters.custom = custom;
     }
 
-    if (filters.length === 0) {
-        return '';
+    if (Object.keys(filters).length === 0) {
+        return undefined;
     }
 
-    return `filters: {${filters.join(',')}}`;
+    return filters;
 }
