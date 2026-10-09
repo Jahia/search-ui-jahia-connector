@@ -268,4 +268,49 @@ describe('adaptRequest', () => {
             sortBy: [{dir: 'ASC', field: specialCharacters}]
         });
     });
+
+    test('sends an empty search term for a null one', () => {
+        const {variables} = adaptRequest(defaultRequestOptions, {searchTerm: null}, queryConfig);
+        expect(variables.q).toEqual('');
+    });
+    test('names no sort when the direction is null', () => {
+        const {variables} = adaptRequest(defaultRequestOptions, {sortField: 'title', sortDirection: null}, queryConfig);
+        expect(variables.sortBy).toBeUndefined();
+    });
+    test('sends filter fields and values as text', () => {
+        const {variables} = adaptRequest(defaultRequestOptions, {
+            filters: [{field: 'jgql:tags', values: [5, true], type: 'all'}, {field: 'author', values: [7], type: 'any'}]
+        }, queryConfig);
+        expect(variables.filters.custom.term).toEqual([
+            {operation: 'AND', terms: [{field: 'jgql:tags', value: '5'}, {field: 'jgql:tags', value: 'true'}]},
+            {operation: 'OR', terms: [{field: 'author', value: '7'}]}
+        ]);
+    });
+    test('filters without a facets configuration', () => {
+        const {variables} = adaptRequest(defaultRequestOptions, {
+            filters: [{field: 'author', values: ['alice'], type: 'all'}]
+        }, {result_fields: queryConfig.result_fields});
+        expect(variables.filters).toEqual({custom: {term: [{operation: 'AND', terms: [{field: 'author', value: 'alice'}]}]}});
+    });
+    test('leaves out a filter with no values and a range the configuration does not name', () => {
+        const {variables} = adaptRequest(defaultRequestOptions, {
+            filters: [{field: 'author', values: [], type: 'all'}, {field: 'popularity', values: ['no such range'], type: 'all'}]
+        }, queryConfig);
+        expect(variables.filters).toBeUndefined();
+    });
+    test('leaves out a range bound the configuration does not set', () => {
+        const config = {
+            result_fields: queryConfig.result_fields,
+            facets: {
+                popularity: {type: 'range', ranges: [{name: 'open', from: null, to: '10'}]},
+                'jgql:lastModified': {type: 'date_range', ranges: [{name: 'recent', from: 1690000000000}]}
+            }
+        };
+        const {variables} = adaptRequest(defaultRequestOptions, {
+            filters: [{field: 'popularity', values: ['open'], type: 'all'}, {field: 'jgql:lastModified', values: ['recent'], type: 'all'}]
+        }, config);
+        expect(variables.filters.custom.numberRange).toEqual([{operation: 'AND', ranges: [{field: 'popularity', gte: undefined, lt: 10}]}]);
+        expect(JSON.parse(JSON.stringify(variables.filters.custom.numberRange[0].ranges[0]))).toEqual({field: 'popularity', lt: 10});
+        expect(variables.filters.custom.dateRange).toEqual([{operation: 'AND', ranges: [{field: 'jgql:lastModified', after: '1690000000000', before: undefined}]}]);
+    });
 });

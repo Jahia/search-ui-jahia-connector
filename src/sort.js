@@ -1,5 +1,5 @@
 function invalidSortFields(qc) {
-    return qc === null || qc.sortDirection === '' || qc.sortDirection === undefined || qc.sortField === '' || qc.sortField === undefined;
+    return qc === null || qc === undefined || !qc.sortDirection || !qc.sortField;
 }
 
 /**
@@ -13,5 +13,5 @@ export default function (state) {
         return undefined;
     }
 
-    return [{dir: state.sortDirection.toUpperCase(), field: state.sortField}];
+    return [{dir: String(state.sortDirection).toUpperCase(), field: String(state.sortField)}];
 }

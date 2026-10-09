@@ -42,9 +42,9 @@ const buildFields = fields => {
 /**
  * Adapt the request from Search UI to Jahia Augmented Search.
  *
- * The document names what the query configuration asks for: the result fields and the facets. Every
- * value of the request state and of the connector options is bound as a variable, so the document
- * is the same for every request made on one configuration.
+ * The document names the result fields and the facets of the query configuration. The request
+ * values and the connector options travel as variables. One configuration therefore yields one
+ * document.
  *
  * @param {RequestOptions} requestOptions the options for this request
  * @param {import('@elastic/search-ui').RequestState} request the state of the current request
@@ -69,7 +69,7 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
     }, []));
 
     const variables = {
-        q: graphQLOptions.searchTerm === undefined ? '' : String(graphQLOptions.searchTerm),
+        q: graphQLOptions.searchTerm === undefined || graphQLOptions.searchTerm === null ? '' : String(graphQLOptions.searchTerm),
         siteKeys: [graphQLOptions.siteKey],
         language: graphQLOptions.language,
         workspace: graphQLOptions.workspace,
@@ -113,7 +113,7 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
                 }
             }
 
-            ${facets(request, queryConfig)}
+            ${facets(queryConfig)}
         }
     }`));
 
