@@ -108,6 +108,27 @@ describe('#onSearch', () => {
     });
 });
 
+describe('#onSearch request', () => {
+    it('sends the request values as variables', async () => {
+        const connector = new JahiaSearchAPIConnector({...params, language: 'fr', workspace: 'EDIT'});
+        await connector.onSearch({searchTerm: 'a "quoted" term', current: 2, resultsPerPage: 7, sortField: 'title', sortDirection: 'desc'},
+            {result_fields: [new Field(FieldType.HIT, 'link')], facets: {}});
+        const body = JSON.parse(global.fetch.mock.calls[0][1].body);
+        expect(body.query).toContain('$q: String!');
+        expect(body.query).not.toContain('quoted');
+        expect(body.variables).toEqual({
+            q: 'a "quoted" term',
+            siteKeys: ['localhost'],
+            language: 'fr',
+            workspace: 'EDIT',
+            functionScoreId: '',
+            size: 7,
+            page: 1,
+            sortBy: [{dir: 'DESC', field: 'title'}]
+        });
+    });
+});
+
 describe('#onAutocomplete', () => {
     function subject({
         state,

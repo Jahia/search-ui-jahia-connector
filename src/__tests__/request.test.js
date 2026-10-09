@@ -28,9 +28,23 @@ function respondWithError(json) {
     global.fetch = vi.fn().mockReturnValue(fetchResponse(json, 401));
 }
 
-function subject() {
-    return request('engine', 'http://localhost:8080', 'test');
+function subject(variables) {
+    return request('engine', 'http://localhost:8080', 'test', variables);
 }
+
+it('posts the query and its variables', async () => {
+    respondWithSuccess(responseJson);
+    await subject({q: 'a "quoted" term', size: 5});
+    const [url, init] = global.fetch.mock.calls[0];
+    expect(url).toEqual('http://localhost:8080/modules/graphql');
+    expect(JSON.parse(init.body)).toEqual({query: 'test', variables: {q: 'a "quoted" term', size: 5}});
+});
+
+it('posts an empty variables object when none are given', async () => {
+    respondWithSuccess(responseJson);
+    await subject();
+    expect(JSON.parse(global.fetch.mock.calls[0][1].body)).toEqual({query: 'test', variables: {}});
+});
 
 it('will return json on successful request with json', async () => {
     respondWithSuccess(responseJson);
