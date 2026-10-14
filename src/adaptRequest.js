@@ -19,20 +19,6 @@ const buildFields = fields => {
     return fieldsConcatenated;
 };
 
-function htmlEscape(str) {
-    if (str) {
-        return String(str)
-            .replace(/&/g, '&amp;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/\\/g, '\\\\');
-    }
-
-    return '';
-}
-
 /**
  * The part of the connector's configuration that varies per request. Was referenced by the JSDoc
  * below without ever being declared, which emitted a .d.ts naming a type that does not exist.
@@ -46,11 +32,24 @@ function htmlEscape(str) {
  */
 
 /**
- * Adapt the request from Search UI to Jahia Augmented Search
+ * A GraphQL request: the document, and the values it binds as variables.
+ *
+ * @typedef {Object} GraphQLRequest
+ * @property {string} query the document, in graphql print() form
+ * @property {Record<string, any>} variables the values of the document's variables
+ */
+
+/**
+ * Adapt the request from Search UI to Jahia Augmented Search.
+ *
+ * The document names the result fields and the facets of the query configuration. The request
+ * values and the connector options travel as variables. One configuration therefore yields one
+ * document.
+ *
  * @param {RequestOptions} requestOptions the options for this request
  * @param {import('@elastic/search-ui').RequestState} request the state of the current request
  * @param {import('./types.js').JahiaQueryConfig|import('./types.js').JahiaAutocompleteQueryConfig} queryConfig the query configuration as defined when initializing the App
- * @returns {string} the graphql query to be excuted on a Jahia backend
+ * @returns {GraphQLRequest} the graphql request to be executed on a Jahia backend
  */
 export default function adaptRequest(requestOptions, request, queryConfig) {
     const graphQLOptions = {
@@ -69,19 +68,41 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
         return acc;
     }, []));
 
-    return print(parse(`query {
+    const variables = {
+        q: graphQLOptions.searchTerm === undefined || graphQLOptions.searchTerm === null ? '' : String(graphQLOptions.searchTerm),
+        siteKeys: [graphQLOptions.siteKey],
+        language: graphQLOptions.language,
+        workspace: graphQLOptions.workspace,
+        functionScoreId: graphQLOptions.functionScore,
+        filters: filters(request, queryConfig, graphQLOptions),
+        size: graphQLOptions.resultsPerPage,
+        page: graphQLOptions.current - 1,
+        sortBy: sort(request)
+    };
+
+    const query = print(parse(`query (
+        $q: String!,
+        $siteKeys: [String],
+        $language: String,
+        $workspace: Workspace,
+        $functionScoreId: String,
+        $filters: Inputfilter,
+        $size: Int,
+        $page: Int,
+        $sortBy: [InputsortV2]
+    ) {
         search(
-            q: "${graphQLOptions.searchTerm === undefined ? '' : htmlEscape(graphQLOptions.searchTerm)}",
-            siteKeys: ["${graphQLOptions.siteKey}"],
-            language: "${graphQLOptions.language}",
-            workspace: ${graphQLOptions.workspace},
-            functionScoreId: "${graphQLOptions.functionScore}",
-            ${filters(request, queryConfig, graphQLOptions)}
+            q: $q,
+            siteKeys: $siteKeys,
+            language: $language,
+            workspace: $workspace,
+            functionScoreId: $functionScoreId,
+            filters: $filters
             ) {
 
-            results(size: ${graphQLOptions.resultsPerPage},
-                    page: ${graphQLOptions.current - 1}
-                    ${sort(request)}
+            results(size: $size,
+                    page: $page,
+                    sortBy: $sortBy
                     ) {
                 totalHits
                 took
@@ -92,7 +113,9 @@ export default function adaptRequest(requestOptions, request, queryConfig) {
                 }
             }
 
-            ${facets(request, queryConfig)}
+            ${facets(queryConfig)}
         }
     }`));
+
+    return {query, variables};
 }

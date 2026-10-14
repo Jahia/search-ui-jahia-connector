@@ -114,9 +114,9 @@ const defaultRequest = {
     ]
 };
 
-const adaptedDefaultRequest = print(parse(`{
-      search (q: "test", siteKeys: ["academy"], language: "en", workspace: LIVE, functionScoreId: "") {
-            results (size: 10, page: 3, sortBy: {dir: ASC, field: "title"}) {
+const expectedDocument = print(parse(`query ($q: String!, $siteKeys: [String], $language: String, $workspace: Workspace, $functionScoreId: String, $filters: Inputfilter, $size: Int, $page: Int, $sortBy: [InputsortV2]) {
+      search (q: $q, siteKeys: $siteKeys, language: $language, workspace: $workspace, functionScoreId: $functionScoreId, filters: $filters) {
+            results (size: $size, page: $page, sortBy: $sortBy) {
                 totalHits
                 took
                 hits {
@@ -163,133 +163,154 @@ const adaptedDefaultRequest = print(parse(`{
       }
 }`));
 
-const adaptedNodeTypeFilterRequest = print(parse(`{
-      search (q: "test", siteKeys: ["academy"], language: "en", workspace: LIVE, functionScoreId: "", filters: {nodeType: {type: "jnt:page"}}) {
-            results (size: 10, page: 3, sortBy: {dir: ASC, field: "title"}) {
-                totalHits
-                took
-                hits {
-                  id
-                  link
-                  displayableName
-                  excerpt
-                  score
-                  jgql_created: property(name: "jgql:created")
-                  logo: property(name: "logo")
-                  industry: property(name: "industryCat")
-                }
-            }
-            jgql_tags: termFacet(field: "jgql:tags", disjunctive: false, max: 10, minDocCount: 1) {
-                data {
-                    value
-                    count
-                }
-            },
-            jgql_categories_path: treeFacet(field: "jgql:categories_path", rootPath:"", disjunctive: true, max: 50, minDocCount: 1) {
-                data {
-                    value
-                    count
-                    key
-                    hasChildren
-                    rootPath
-                    filter
-                }
-            }
-            jgql_lastModified: rangeFacet(field: "jgql:lastModified", ranges: [{name: "last year", from: "now-1y", to: "now"},
-                                                            {name: "last 5 years", from: "now-5y", to: "now-1y"}]) {
-                data {
-                    name
-                    count
-                }
-            },
-            popularity: rangeFacet(field: "popularity", ranges: [{name: "< 500", from: "0.0", to: "500.0"},
-                                                            {name: "> 500 < 1000", from: "500.0", to: "1000.0"}]) {
-                data {
-                    name
-                    count
-                }
-            }
-      }
-}`));
+const expectedDefaultVariables = {
+    q: 'test',
+    siteKeys: ['academy'],
+    language: 'en',
+    workspace: 'LIVE',
+    functionScoreId: '',
+    filters: undefined,
+    size: 10,
+    page: 3,
+    sortBy: [{dir: 'ASC', field: 'title'}]
+};
 
-const adaptedFilteredRequest = print(parse(`{
-      search (q: "test", siteKeys: ["academy"], language: "en", workspace: LIVE, functionScoreId: ""
-            filters:{
-                nodeType: {type: "jnt:page"}
-                custom:{
-                    term:[{
-                        operation:AND
-                        terms:[{field:"jgql:tags",value:"Action"},{field:"jgql:tags",value:"Adventure"}]}, 
-                        {
-                        operation:OR
-                        terms:[{field:"jgql:categories_path",value:"reg:markets[^/]*/.*"}]
-                    }]
-                    dateRange:[{operation:AND, ranges:[{field:"jgql:lastModified",after:"now-1y",before:"now"}]}],
-                    numberRange:[{operation:AND, ranges:[{field:"popularity",gte:500.0,lt:1000.0}]}]
+const expectedNodeTypeVariables = {
+    ...expectedDefaultVariables,
+    filters: {nodeType: {type: 'jnt:page'}}
+};
+
+const expectedFilteredVariables = {
+    ...expectedDefaultVariables,
+    filters: {
+        nodeType: {type: 'jnt:page'},
+        custom: {
+            term: [
+                {
+                    operation: 'AND',
+                    terms: [{field: 'jgql:tags', value: 'Action'}, {field: 'jgql:tags', value: 'Adventure'}]
+                },
+                {
+                    operation: 'OR',
+                    terms: [{field: 'jgql:categories_path', value: 'reg:markets[^/]*/.*'}]
                 }
-            }
-      ) {
-            results (size: 10, page: 3, sortBy: {dir: ASC, field: "title"}) {
-                totalHits
-                took
-                hits {
-                  id
-                  link
-                  displayableName
-                  excerpt
-                  score
-                  jgql_created: property(name: "jgql:created")
-                  logo: property(name: "logo")
-                  industry: property(name: "industryCat")
-                }
-            }
-            jgql_tags: termFacet(field: "jgql:tags", disjunctive: false, max: 10, minDocCount: 1) {
-                data {
-                    value
-                    count
-                }
-            },
-            jgql_categories_path: treeFacet(field: "jgql:categories_path", rootPath:"", disjunctive: true, max: 50, minDocCount: 1) {
-                data {
-                    value
-                    count
-                    key
-                    hasChildren
-                    rootPath
-                    filter
-                }
-            }
-            jgql_lastModified: rangeFacet(field: "jgql:lastModified", ranges: [{name: "last year", from: "now-1y", to: "now"},
-                                                            {name: "last 5 years", from: "now-5y", to: "now-1y"}]) {
-                data {
-                    name
-                    count
-                }
-            },
-            popularity: rangeFacet(field: "popularity", ranges: [{name: "< 500", from: "0.0", to: "500.0"},
-                                                            {name: "> 500 < 1000", from: "500.0", to: "1000.0"}]) {
-                data {
-                    name
-                    count
-                }
-            }
-      }
-}`));
+            ],
+            dateRange: [{operation: 'AND', ranges: [{field: 'jgql:lastModified', after: 'now-1y', before: 'now'}]}],
+            numberRange: [{operation: 'AND', ranges: [{field: 'popularity', gte: 500, lt: 1000}]}]
+        }
+    }
+};
 
 describe('adaptRequest', () => {
     test('adapts default request', () => {
-        expect(adaptRequest(defaultRequestOptions, defaultRequest, queryConfig)).toEqual(
-            adaptedDefaultRequest
-        );
+        expect(adaptRequest(defaultRequestOptions, defaultRequest, queryConfig)).toEqual({
+            query: expectedDocument,
+            variables: expectedDefaultVariables
+        });
     });
     test('adapts nodetype request', () => {
-        expect(adaptRequest(nodeTypeRequestOptions, defaultRequest, queryConfig)).toEqual(
-            adaptedNodeTypeFilterRequest
-        );
+        expect(adaptRequest(nodeTypeRequestOptions, defaultRequest, queryConfig)).toEqual({
+            query: expectedDocument,
+            variables: expectedNodeTypeVariables
+        });
     });
     test('adapts filtered request', () => {
-        expect(adaptRequest(defaultRequestOptions, requestWithFilters, queryConfig)).toEqual(
-            adaptedFilteredRequest
-        );
+        expect(adaptRequest(defaultRequestOptions, requestWithFilters, queryConfig)).toEqual({
+            query: expectedDocument,
+            variables: expectedFilteredVariables
+        });
+    });
+    test('sends an empty search term when the state has none', () => {
+        const {variables} = adaptRequest(defaultRequestOptions, {}, queryConfig);
+        expect(variables.q).toEqual('');
+        expect(variables.size).toEqual(5);
+        expect(variables.page).toEqual(0);
+        expect(variables.sortBy).toBeUndefined();
+    });
+
+    // One document per configuration: the request values and the connector options reach the
+    // backend as variables, exactly as they were given.
+    const specialCharacters = 'a "quoted" value, {braces} (parentheses) [brackets] # and a \\ backslash';
+    const specialRequest = {
+        ...defaultRequest,
+        searchTerm: specialCharacters,
+        sortField: specialCharacters,
+        filters: [{field: specialCharacters, values: [specialCharacters], type: 'all'}]
+    };
+    const specialRequestOptions = {
+        ...defaultRequestOptions,
+        siteKey: specialCharacters,
+        language: specialCharacters,
+        functionScore: specialCharacters,
+        nodeType: specialCharacters
+    };
+
+    test('keeps the document identical across request values', () => {
+        const {query} = adaptRequest(specialRequestOptions, specialRequest, queryConfig);
+        expect(query).toEqual(expectedDocument);
+    });
+    test('carries the request values as variables verbatim', () => {
+        const {variables} = adaptRequest(specialRequestOptions, specialRequest, queryConfig);
+        expect(variables).toEqual({
+            q: specialCharacters,
+            siteKeys: [specialCharacters],
+            language: specialCharacters,
+            workspace: 'LIVE',
+            functionScoreId: specialCharacters,
+            filters: {
+                nodeType: {type: specialCharacters},
+                custom: {
+                    term: [{operation: 'AND', terms: [{field: specialCharacters, value: specialCharacters}]}]
+                }
+            },
+            size: 10,
+            page: 3,
+            sortBy: [{dir: 'ASC', field: specialCharacters}]
+        });
+    });
+
+    test('sends an empty search term for a null one', () => {
+        const {variables} = adaptRequest(defaultRequestOptions, {searchTerm: null}, queryConfig);
+        expect(variables.q).toEqual('');
+    });
+    test('names no sort when the direction is null', () => {
+        const {variables} = adaptRequest(defaultRequestOptions, {sortField: 'title', sortDirection: null}, queryConfig);
+        expect(variables.sortBy).toBeUndefined();
+    });
+    test('sends filter fields and values as text', () => {
+        const {variables} = adaptRequest(defaultRequestOptions, {
+            filters: [{field: 'jgql:tags', values: [5, true], type: 'all'}, {field: 'author', values: [7], type: 'any'}]
+        }, queryConfig);
+        expect(variables.filters.custom.term).toEqual([
+            {operation: 'AND', terms: [{field: 'jgql:tags', value: '5'}, {field: 'jgql:tags', value: 'true'}]},
+            {operation: 'OR', terms: [{field: 'author', value: '7'}]}
+        ]);
+    });
+    test('filters without a facets configuration', () => {
+        const {variables} = adaptRequest(defaultRequestOptions, {
+            filters: [{field: 'author', values: ['alice'], type: 'all'}]
+        }, {result_fields: queryConfig.result_fields});
+        expect(variables.filters).toEqual({custom: {term: [{operation: 'AND', terms: [{field: 'author', value: 'alice'}]}]}});
+    });
+    test('leaves out a filter with no values and a range the configuration does not name', () => {
+        const {variables} = adaptRequest(defaultRequestOptions, {
+            filters: [{field: 'author', values: [], type: 'all'}, {field: 'popularity', values: ['no such range'], type: 'all'}]
+        }, queryConfig);
+        expect(variables.filters).toBeUndefined();
+    });
+    test('leaves out a range bound the configuration does not set', () => {
+        const config = {
+            result_fields: queryConfig.result_fields,
+            facets: {
+                popularity: {type: 'range', ranges: [{name: 'open', from: null, to: '10'}]},
+                'jgql:lastModified': {type: 'date_range', ranges: [{name: 'recent', from: 1690000000000}]}
+            }
+        };
+        const {variables} = adaptRequest(defaultRequestOptions, {
+            filters: [{field: 'popularity', values: ['open'], type: 'all'}, {field: 'jgql:lastModified', values: ['recent'], type: 'all'}]
+        }, config);
+        expect(variables.filters.custom.numberRange).toEqual([{operation: 'AND', ranges: [{field: 'popularity', gte: undefined, lt: 10}]}]);
+        expect(JSON.parse(JSON.stringify(variables.filters.custom.numberRange[0].ranges[0]))).toEqual({field: 'popularity', lt: 10});
+        expect(variables.filters.custom.dateRange).toEqual([{operation: 'AND', ranges: [{field: 'jgql:lastModified', after: '1690000000000', before: undefined}]}]);
     });
 });
