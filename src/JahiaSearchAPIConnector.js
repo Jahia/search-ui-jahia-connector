@@ -47,8 +47,8 @@ class JahiaSearchAPIConnector {
             nodeType: this.nodeType,
             functionScore: this.functionScore
         };
-        const query = adaptRequest(requestOptions, state, queryConfig);
-        const responseJson = await request(this.apiToken, this.baseURL, 'POST', query);
+        const {query, variables} = adaptRequest(requestOptions, state, queryConfig);
+        const responseJson = await request(this.apiToken, this.baseURL, query, variables);
         return adaptResponse(responseJson, state.resultsPerPage, queryConfig);
     }
 
@@ -67,12 +67,12 @@ class JahiaSearchAPIConnector {
                 nodeType: this.nodeType,
                 functionScore: this.functionScore
             };
-            const query = adaptRequest(requestOptions,
+            const {query, variables} = adaptRequest(requestOptions,
                 {searchTerm},
                 queryConfig
             );
 
-            return request(this.apiToken, this.baseURL, 'POST', query).then(json => ({
+            return request(this.apiToken, this.baseURL, query, variables).then(json => ({
                 autocompletedResults: adaptResponse(json, queryConfig.results.resultsPerPage, queryConfig).results
             }));
         }

@@ -1,4 +1,13 @@
-export default async function request(apiToken, baseURL, method, query) {
+/**
+ * POST one GraphQL request to the Jahia backend.
+ *
+ * @param {string} apiToken
+ * @param {string} baseURL
+ * @param {string} query the GraphQL document
+ * @param {Object} [variables] the values the document binds as variables
+ * @returns {Promise<any>} the JSON body of a 2xx response
+ */
+export default async function request(apiToken, baseURL, query, variables = {}) {
     const headers = new Headers({
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiToken}`,
@@ -7,10 +16,11 @@ export default async function request(apiToken, baseURL, method, query) {
     const response = await fetch(
         `${baseURL}/modules/graphql`,
         {
-            method,
+            method: 'POST',
             headers,
             body: JSON.stringify({
-                query
+                query,
+                variables
             }),
             credentials: 'include'
         }
