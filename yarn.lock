@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 8
+  version: 10
   cacheKey: 10c0
 
 "@babel/cli@npm:^7.5.0":
@@ -1343,7 +1343,6 @@ __metadata:
     eslint-plugin-react-hooks: "npm:^4.1.2"
     graphql: "npm:^14.5.4"
     jest: "npm:^24.9.0"
-    jest-teamcity-reporter: "github:mhodgson/jest-teamcity-reporter"
     npm-run-all: "npm:^4.1.5"
     rimraf: "npm:^2.6.3"
   languageName: unknown
@@ -4641,13 +4640,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-teamcity-reporter@github:mhodgson/jest-teamcity-reporter":
-  version: 0.9.0
-  resolution: "jest-teamcity-reporter@https://github.com/mhodgson/jest-teamcity-reporter.git#commit=e55df53e6d33545110784c54240447aa35e91628"
-  checksum: 10c0/ef2c0fff1c7c6873fa080b35c9ef2998f3d3e5b5f4769720570965c10a00c6298432c78ecf6c31e510b7f5c63525fe9ff15559a23f1210bd442cf044112fb789
-  languageName: node
-  linkType: hard
-
 "jest-util@npm:^24.9.0":
   version: 24.9.0
   resolution: "jest-util@npm:24.9.0"
@@ -6243,10 +6235,10 @@ __metadata:
 
 "resolve@patch:resolve@npm%3A^1.10.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.12.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.17.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.3.2#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.8.1#optional!builtin<compat/resolve>":
   version: 1.17.0
-  resolution: "resolve@patch:resolve@npm%3A1.17.0#optional!builtin<compat/resolve>::version=1.17.0&hash=c3c19d"
+  resolution: "resolve@patch:resolve@npm%3A1.17.0#optional!builtin<compat/resolve>::version=1.17.0&hash=9bd1a5"
   dependencies:
     path-parse: "npm:^1.0.6"
-  checksum: 10c0/e072e52be3c3dbfd086761115db4a5136753e7aefc0e665e66e7307ddcd9d6b740274516055c74aee44921625e95993f03570450aa310b8d73b1c9daa056c4cd
+  checksum: 10c0/7ee56dea424a67d324beea1e203719e4bd14b1aa73ed510bdcda233d214d331e80fc87624b2ad7330cce5ddcdece42a68867d6ab7f6c137b3e7b7733c783c448
   languageName: node
   linkType: hard
 
