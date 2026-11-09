@@ -54,6 +54,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chachalog/types@npm:^0.5.2":
+  version: 0.5.2
+  resolution: "@chachalog/types@npm:0.5.2"
+  checksum: 10c0/a5c971249adcd17db5cbd41710399113c90d0b29ae0b93fa9db57642613faf966d494c7dd24d6f08b68198d4f0642416af90c42032baa30ed6a400edee9d35eb
+  languageName: node
+  linkType: hard
+
 "@elastic/search-ui@npm:^1.24.2":
   version: 1.24.2
   resolution: "@elastic/search-ui@npm:1.24.2"
@@ -116,10 +123,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@jahia/search-ui-jahia-connector@workspace:."
   dependencies:
+    "@chachalog/types": "npm:^0.5.2"
     "@elastic/search-ui": "npm:^1.24.2"
     "@vitest/coverage-v8": "npm:^4.1.10"
     graphql: "npm:^17.0.2"
     oxlint: "npm:^1.76.0"
+    pkg-pr-new: "npm:^0.0.86"
     typescript: "npm:^7.0.2"
     vitest: "npm:^4.1.10"
   peerDependencies:
@@ -1785,6 +1794,15 @@ __metadata:
   version: 4.0.5
   resolution: "picomatch@npm:4.0.5"
   checksum: 10c0/947bc6b6e1ff1e6c5aaf95b107a0839d12802f4f7b867663f67d47accba939ca1cb582cf99dfc30438efa1c4648ac5990967e783e8929c36b03e8440704ef1bd
+  languageName: node
+  linkType: hard
+
+"pkg-pr-new@npm:^0.0.86":
+  version: 0.0.86
+  resolution: "pkg-pr-new@npm:0.0.86"
+  bin:
+    pkg-pr-new: bin/cli.js
+  checksum: 10c0/83b5a885f23fd82a29dc4c4729b3c712feed7d206ee5cd640afb6bf38c37be6515e8fc0f0af19da4dda4a37f4eb65f0728e53846da75158e143bbd3b56e9f226
   languageName: node
   linkType: hard
 
