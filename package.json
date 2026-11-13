@@ -1,6 +1,6 @@
 {
   "name": "@jahia/search-ui-jahia-connector",
-  "version": "2.0.17",
+  "version": "2.1.0",
   "description": "A Search UI connector for Jahia GraphQL Search API",
   "bugs": {
     "url": "https://github.com/Jahia/search-ui-jahia-connector/issues"
